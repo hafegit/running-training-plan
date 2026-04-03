@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Race Ready — 12-Week Training Plan</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#E8735A;--primary-light:#f4a899;--primary-dark:#c9563e;--navy:#1B2A4A;--navy-light:#2d4470;--white:#ffffff;--gray-50:#f9fafb;--gray-100:#f3f4f6;--gray-200:#e5e7eb;--gray-300:#d1d5db;--gray-400:#9ca3af;--gray-500:#6b7280;--gray-600:#4b5563;--gray-700:#374151;--gray-800:#1f2937;--green:#22c55e;--green-light:#dcfce7;--yellow:#eab308;--yellow-light:#fef9c3;--red:#ef4444;--red-light:#fee2e2;--blue:#3b82f6;--blue-light:#dbeafe;--shadow:0 1px 3px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.06);--shadow-md:0 4px 6px rgba(0,0,0,.1),0 2px 4px rgba(0,0,0,.06);--shadow-lg:0 10px 15px rgba(0,0,0,.1),0 4px 6px rgba(0,0,0,.05);--radius:12px;--radius-sm:8px;--radius-xs:6px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,sans-serif;background:var(--gray-50);color:var(--gray-800);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+button{cursor:pointer;font-family:inherit}
+input{font-family:inherit}
+
+/* LOGIN */
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);padding:20px}
+.login-card{background:var(--white);border-radius:var(--radius);padding:40px 32px;max-width:380px;width:100%;box-shadow:var(--shadow-lg);text-align:center}
+.login-card h1{font-size:28px;color:var(--navy);margin-bottom:4px}
+.login-card .subtitle{color:var(--gray-500);font-size:14px;margin-bottom:28px}
+.login-card .emoji-hero{font-size:48px;margin-bottom:16px}
+.login-input{width:100%;padding:14px 16px;border:2px solid var(--gray-200);border-radius:var(--radius-sm);font-size:16px;outline:none;transition:border-color .2s}
+.login-input:focus{border-color:var(--primary)}
+.login-btn{width:100%;padding:14px;background:var(--primary);color:var(--white);border:none;border-radius:var(--radius-sm);font-size:16px;font-weight:600;margin-top:12px;transition:background .2s}
+.login-btn:hover{background:var(--primary-dark)}
+.login-error{color:var(--red);font-size:13px;margin-top:8px;min-height:20px}
+
+/* APP SHELL */
+#app{display:none}
+.app-header{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);color:var(--white);padding:16px 16px 0;position:sticky;top:0;z-index:100}
+.header-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.header-top h1{font-size:20px;font-weight:700;letter-spacing:-.3px}
+.logout-btn{background:rgba(255,255,255,.15);border:none;color:rgba(255,255,255,.8);font-size:12px;padding:6px 12px;border-radius:20px;transition:background .2s}
+.logout-btn:hover{background:rgba(255,255,255,.25)}
+
+/* COUNTDOWNS */
+.countdowns{display:flex;gap:10px;margin-bottom:14px;overflow-x:auto}
+.countdown-card{flex:1;min-width:0;background:rgba(255,255,255,.1);border-radius:var(--radius-sm);padding:10px 12px;backdrop-filter:blur(10px)}
+.countdown-card.past{opacity:.5}
+.countdown-label{font-size:11px;text-transform:uppercase;letter-spacing:.5px;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.countdown-value{font-size:22px;font-weight:700;color:var(--primary-light)}
+.countdown-sub{font-size:11px;opacity:.7}
+
+/* TABS */
+.tabs{display:flex;gap:0}
+.tab-btn{flex:1;padding:12px 8px;background:transparent;border:none;color:rgba(255,255,255,.6);font-size:14px;font-weight:600;border-bottom:3px solid transparent;transition:all .2s}
+.tab-btn.active{color:var(--white);border-bottom-color:var(--primary)}
+
+/* CONTENT */
+.tab-content{display:none;padding:16px;max-width:800px;margin:0 auto}
+.tab-content.active{display:block}
+
+/* THIS WEEK */
+.week-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.week-nav h2{font-size:18px;color:var(--navy)}
+.week-nav-sub{font-size:13px;color:var(--gray-500)}
+.nav-arrow{width:40px;height:40px;border-radius:50%;border:2px solid var(--gray-200);background:var(--white);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--gray-600);transition:all .2s}
+.nav-arrow:hover{border-color:var(--primary);color:var(--primary)}
+.nav-arrow:disabled{opacity:.3;cursor:not-allowed}
+
+.phase-badge{display:inline-block;background:var(--primary);color:var(--white);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
+.week-mileage{font-size:13px;color:var(--gray-500);margin-bottom:16px}
+
+/* DAY CARD */
+.day-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden;transition:all .2s;border-left:4px solid transparent}
+.day-card.priority-critical{border-left-color:var(--red)}
+.day-card.priority-important{border-left-color:var(--yellow)}
+.day-card.priority-flexible{border-left-color:var(--green)}
+.day-card.priority-lifting{border-left-color:var(--gray-400)}
+.day-card.today{box-shadow:0 0 0 2px var(--primary),var(--shadow-md)}
+.day-card.past-incomplete{opacity:.65}
+.day-card.completed .day-card-header{background:var(--green-light)}
+.day-card.missed .day-card-header{background:var(--red-light)}
+
+.day-card-header{padding:14px 16px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.day-info{flex:1;min-width:0}
+.day-date{font-size:12px;color:var(--gray-500);font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+.day-title{font-size:15px;font-weight:600;color:var(--navy);margin-top:2px}
+.day-desc{font-size:13px;color:var(--gray-600);margin-top:4px;line-height:1.5}
+.day-pace{font-size:12px;color:var(--primary);font-weight:600;margin-top:4px}
+.priority-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.priority-dot.critical{background:var(--red)}
+.priority-dot.important{background:var(--yellow)}
+.priority-dot.flexible{background:var(--green)}
+.priority-dot.lifting{background:var(--gray-400)}
+
+.day-card-actions{padding:10px 16px;border-top:1px solid var(--gray-100);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.action-btn{padding:6px 12px;border-radius:20px;border:1.5px solid var(--gray-200);background:var(--white);font-size:12px;font-weight:500;transition:all .2s;white-space:nowrap}
+.action-btn:hover{border-color:var(--gray-300)}
+.action-btn.complete-btn:hover,.action-btn.complete-btn.active{background:var(--green-light);border-color:var(--green);color:#166534}
+.action-btn.missed-btn:hover,.action-btn.missed-btn.active{background:var(--red-light);border-color:var(--red);color:#991b1b}
+.action-btn.tag-btn.active{background:var(--blue-light);border-color:var(--blue)}
+
+.prehab-row{padding:8px 16px;border-top:1px solid var(--gray-100);display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gray-600)}
+.prehab-row label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.prehab-row input[type=checkbox]{width:18px;height:18px;accent-color:var(--primary)}
+
+.notes-toggle{padding:8px 16px;border-top:1px solid var(--gray-100)}
+.notes-toggle-btn{background:none;border:none;color:var(--gray-500);font-size:12px;padding:4px 0}
+.notes-toggle-btn:hover{color:var(--primary)}
+.notes-area{display:none;padding:0 16px 12px}
+.notes-area.open{display:block}
+.notes-area textarea{width:100%;border:1.5px solid var(--gray-200);border-radius:var(--radius-xs);padding:10px;font-size:13px;resize:vertical;min-height:60px;outline:none;transition:border-color .2s}
+.notes-area textarea:focus{border-color:var(--primary)}
+
+.today-badge{display:inline-block;background:var(--primary);color:var(--white);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:6px;vertical-align:middle;text-transform:uppercase}
+.race-badge{display:inline-block;background:var(--navy);color:var(--white);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:6px;vertical-align:middle}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--white);border-radius:var(--radius);padding:24px;max-width:400px;width:100%;box-shadow:var(--shadow-lg)}
+.modal h3{font-size:18px;color:var(--navy);margin-bottom:8px}
+.modal p{font-size:14px;color:var(--gray-600);margin-bottom:16px;line-height:1.6}
+.modal-actions{display:flex;gap:10px}
+.modal-actions button{flex:1;padding:12px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;border:none;transition:background .2s}
+.modal-accept{background:var(--primary);color:var(--white)}
+.modal-accept:hover{background:var(--primary-dark)}
+.modal-skip{background:var(--gray-100);color:var(--gray-600)}
+.modal-skip:hover{background:var(--gray-200)}
+.modal-dismiss{background:var(--green-light);color:#166534;width:100%}
+
+/* FULL PLAN */
+.overall-progress{background:var(--white);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:16px}
+.overall-progress h3{font-size:14px;color:var(--gray-600);margin-bottom:8px}
+.progress-bar{height:12px;background:var(--gray-100);border-radius:6px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-light));border-radius:6px;transition:width .5s ease}
+.progress-text{font-size:12px;color:var(--gray-500);margin-top:4px}
+
+.week-accordion{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:10px;overflow:hidden}
+.week-accordion-header{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;transition:background .2s}
+.week-accordion-header:hover{background:var(--gray-50)}
+.week-acc-left{flex:1;min-width:0}
+.week-acc-title{font-size:15px;font-weight:600;color:var(--navy)}
+.week-acc-sub{font-size:12px;color:var(--gray-500);margin-top:2px}
+.week-acc-progress{width:100px;margin-left:12px}
+.week-acc-progress .progress-bar{height:6px}
+.week-acc-chevron{font-size:18px;color:var(--gray-400);transition:transform .2s;margin-left:8px}
+.week-accordion.open .week-acc-chevron{transform:rotate(180deg)}
+.week-accordion-body{display:none;padding:0 16px 12px}
+.week-accordion.open .week-accordion-body{display:block}
+.fp-day{padding:10px 0;border-bottom:1px solid var(--gray-100);display:flex;align-items:flex-start;gap:10px;font-size:13px}
+.fp-day:last-child{border-bottom:none}
+.fp-day-status{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:1px}
+.fp-day-status.done{background:var(--green-light);color:var(--green)}
+.fp-day-status.missed-s{background:var(--red-light);color:var(--red)}
+.fp-day-status.pending{background:var(--gray-100);color:var(--gray-400)}
+.fp-day-info{flex:1;min-width:0}
+.fp-day-date{font-weight:600;color:var(--gray-700)}
+.fp-day-title{color:var(--gray-600)}
+.fp-day-tags{display:flex;gap:4px;margin-top:3px;flex-wrap:wrap}
+.fp-day-tag{font-size:11px;background:var(--blue-light);color:var(--blue);padding:1px 6px;border-radius:8px}
+.fp-day-note{font-size:12px;color:var(--gray-400);font-style:italic;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* REFERENCE */
+.ref-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px}
+.ref-card h3{font-size:16px;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.ref-table{width:100%;border-collapse:collapse;font-size:13px}
+.ref-table th{text-align:left;padding:8px;background:var(--gray-50);color:var(--gray-600);font-weight:600;border-bottom:2px solid var(--gray-200);font-size:12px;text-transform:uppercase;letter-spacing:.3px}
+.ref-table td{padding:8px;border-bottom:1px solid var(--gray-100);color:var(--gray-700);vertical-align:top}
+.ref-table tr:last-child td{border-bottom:none}
+.ref-list{list-style:none;padding:0}
+.ref-list li{padding:8px 0;border-bottom:1px solid var(--gray-100);font-size:14px;color:var(--gray-700)}
+.ref-list li:last-child{border-bottom:none}
+.ref-list li strong{color:var(--navy)}
+
+.rpe-grid{display:grid;grid-template-columns:40px 1fr;gap:4px 12px;font-size:13px}
+.rpe-num{font-weight:700;color:var(--primary);text-align:center;padding:4px 0}
+.rpe-desc{padding:4px 0;color:var(--gray-600);border-bottom:1px solid var(--gray-100)}
+
+.strategy-block{background:var(--gray-50);border-radius:var(--radius-sm);padding:14px;margin-bottom:10px}
+.strategy-block h4{font-size:14px;color:var(--navy);margin-bottom:6px}
+.strategy-block p,.strategy-block li{font-size:13px;color:var(--gray-600);line-height:1.6}
+.strategy-block ul{padding-left:18px}
+
+/* EXPORT/IMPORT */
+.export-section{padding:16px;border-top:1px solid var(--gray-200);margin-top:16px}
+.export-section h3{font-size:14px;color:var(--gray-600);margin-bottom:12px}
+.export-btns{display:flex;flex-wrap:wrap;gap:8px}
+.export-btn{padding:10px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--gray-200);background:var(--white);font-size:13px;font-weight:500;color:var(--gray-700);transition:all .2s}
+.export-btn:hover{border-color:var(--primary);color:var(--primary)}
+.import-input{display:none}
+
+/* CONSECUTIVE MISS BANNER */
+.miss-banner{background:var(--yellow-light);border:1px solid var(--yellow);border-radius:var(--radius-sm);padding:14px;margin-bottom:16px;font-size:14px;color:var(--gray-700);line-height:1.5}
+.miss-banner strong{color:var(--gray-800)}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--gray-300);border-radius:3px}
+
+@media(max-width:480px){
+  .countdowns{flex-direction:column}
+  .countdown-value{font-size:18px}
+  .day-card-actions{gap:6px}
+  .action-btn{padding:5px 10px;font-size:11px}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="emoji-hero">🏃‍♀️</div>
+    <h1>Race Ready</h1>
+    <p class="subtitle">12-Week Training Plan</p>
+    <input type="password" id="password-input" class="login-input" placeholder="Enter password" autocomplete="off">
+    <button class="login-btn" id="login-btn">Let's Go!</button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="app-header">
+    <div class="header-top">
+      <h1>🏃‍♀️ Race Ready</h1>
+      <button class="logout-btn" id="logout-btn">Log Out</button>
+    </div>
+    <div class="countdowns" id="countdowns"></div>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="thisweek">This Week</button>
+      <button class="tab-btn" data-tab="fullplan">Full Plan</button>
+      <button class="tab-btn" data-tab="reference">Reference</button>
+    </div>
+  </div>
+
+  <!-- THIS WEEK TAB -->
+  <div class="tab-content active" id="tab-thisweek"></div>
+
+  <!-- FULL PLAN TAB -->
+  <div class="tab-content" id="tab-fullplan"></div>
+
+  <!-- REFERENCE TAB -->
+  <div class="tab-content" id="tab-reference"></div>
+
+  <!-- EXPORT -->
+  <div class="export-section">
+    <h3>📦 Data Management</h3>
+    <div class="export-btns">
+      <button class="export-btn" id="export-json-btn">💾 Export All Data</button>
+      <button class="export-btn" id="import-json-btn">📂 Import Data</button>
+      <input type="file" id="import-input" class="import-input" accept=".json">
+      <button class="export-btn" id="export-log-btn">📋 Export Training Log</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+// ==================== DATA ====================
+const PASSWORD = 'letsrun2025';
+const RACE1_DATE = new Date('2025-05-29T07:00:00');
+const RACE2_DATE = new Date('2025-06-27T07:00:00');
+
+const PHASES = {
+  1: 'Base Building', 2: 'Base Building', 3: 'Base Building', 4: 'Base Building (Recovery)',
+  5: 'Race 1 Specific', 6: 'Race 1 Specific', 7: 'Race 1 Specific (Peak)', 8: 'Taper + Race 1',
+  9: 'Post-Race Recovery', 10: 'Trail & Altitude', 11: 'Trail & Altitude (Peak)', 12: 'Taper + Race 2'
+};
+
+const WEEK_MILEAGE = {
+  1:'~10 mi', 2:'~12 mi', 3:'~14 mi', 4:'~11 mi (Recovery)',
+  5:'~18 mi', 6:'~20 mi', 7:'~21 mi (Peak)', 8:'Taper + Race',
+  9:'~10 mi (Recovery)', 10:'~16 mi', 11:'~18 mi (Peak)', 12:'Taper + Race'
+};
+
+function d(m,day,y=2025){return new Date(y,m-1,day)}
+
+const PLAN = [
+  // WEEK 1: Mar 30 - Apr 5
+  {week:1,date:d(3,30),day:'Sun',title:'Rest',desc:'Rest + hip prehab',priority:'flexible',emoji:'💤'},
+  {week:1,date:d(3,31),day:'Mon',title:'Lift (Upper Body)',desc:'Lift (upper body focus) + 10 min hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:1,date:d(4,1),day:'Tue',title:'Easy Run 2.5mi',desc:'Easy Run 2.5mi @ 10:30-11:00/mi. Keep it truly easy — this is about getting legs used to running again. Walk breaks are fine.',pace:'10:30-11:00/mi',priority:'flexible',emoji:'🏃‍♀️'},
+  {week:1,date:d(4,2),day:'Wed',title:'Lift (Lower Body)',desc:'Lift (lower body — squats, RDLs, lunges) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:1,date:d(4,3),day:'Thu',title:'Easy Run 3mi',desc:'Easy Run 3mi @ 10:15-10:45/mi. Slightly longer but same easy effort. Focus on relaxed shoulders and breathing.',pace:'10:15-10:45/mi',priority:'flexible',emoji:'🏃‍♀️'},
+  {week:1,date:d(4,4),day:'Fri',title:'Lift (Upper Body)',desc:'Lift (upper body) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:1,date:d(4,5),day:'Sat',title:'Long Run 4.5mi',desc:'Long Run 4.5mi @ 10:30-11:00/mi. First longer effort. No pace pressure — just time on feet.',pace:'10:30-11:00/mi',priority:'critical',emoji:'🏃‍♀️'},
+
+  // WEEK 2: Apr 6 - Apr 12
+  {week:2,date:d(4,6),day:'Sun',title:'Rest',desc:'Rest + hip prehab. ⚠️ May feel some soreness from yesterday\'s long run — this is normal. Gentle walking is fine.',priority:'flexible',emoji:'💤'},
+  {week:2,date:d(4,7),day:'Mon',title:'Lift (Upper Body)',desc:'Lift (upper body) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:2,date:d(4,8),day:'Tue',title:'Easy Run 3mi',desc:'Easy Run 3mi @ 10:15-10:45/mi',pace:'10:15-10:45/mi',priority:'flexible',emoji:'🏃‍♀️'},
+  {week:2,date:d(4,9),day:'Wed',title:'Lift (Lower Body)',desc:'Lift (lower body) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:2,date:d(4,10),day:'Thu',title:'Moderate Run 3mi',desc:'Moderate Run 3mi — Start at 10:15/mi, finish last mile at 9:45-10:00/mi. First taste of moderate effort. Should feel "comfortably hard" by the end.',pace:'10:15 → 9:45-10:00/mi',priority:'important',emoji:'🏃‍♀️'},
+  {week:2,date:d(4,11),day:'Fri',title:'Lift (Upper Body)',desc:'Lift (upper body) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:2,date:d(4,12),day:'Sat',title:'Long Run 6mi',desc:'Long Run 6mi @ 10:15-10:45/mi. Building endurance. Bring water.',pace:'10:15-10:45/mi',priority:'critical',emoji:'🏃‍♀️'},
+
+  // WEEK 3: Apr 13 - Apr 19
+  {week:3,date:d(4,13),day:'Sun',title:'Rest',desc:'Rest + hip prehab. ⚠️ Post-long-run recovery. Hips and quads may be sore. Foam roll extra today.',priority:'flexible',emoji:'💤'},
+  {week:3,date:d(4,14),day:'Mon',title:'Lift (Upper Body)',desc:'Lift (upper body) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:3,date:d(4,15),day:'Tue',title:'Easy Run 3mi',desc:'Easy Run 3mi @ 10:15-10:45/mi',pace:'10:15-10:45/mi',priority:'flexible',emoji:'🏃‍♀️'},
+  {week:3,date:d(4,16),day:'Wed',title:'Lift (Lower Body)',desc:'Lift (lower body — go moderate, not max effort) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:3,date:d(4,17),day:'Thu',title:'Hill Repeats ~3.5mi',desc:'Hill Repeats — 1mi warmup @ 10:30/mi, then 4×60sec uphill at RPE 8-9 (hard effort, focus on driving knees and pumping arms), jog down recovery, 1mi cooldown. Total ~3.5mi. First hill session to prep for both races!',pace:'Effort-based RPE 8-9',priority:'important',emoji:'⛰️'},
+  {week:3,date:d(4,18),day:'Fri',title:'Lift (Upper Body)',desc:'Lift (upper body) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:3,date:d(4,19),day:'Sat',title:'Long Run 7mi',desc:'Long Run 7mi @ 10:15-10:45/mi. Longest run yet — find a route with a few gentle hills if possible.',pace:'10:15-10:45/mi',priority:'critical',emoji:'🏃‍♀️'},
+
+  // WEEK 4: Apr 20 - Apr 26 (RECOVERY)
+  {week:4,date:d(4,20),day:'Sun',title:'Rest',desc:'Rest + hip prehab. ⚠️ Recovery week! Soreness from building mileage is expected. Prioritize sleep and hydration.',priority:'flexible',emoji:'💤'},
+  {week:4,date:d(4,21),day:'Mon',title:'Lift (Upper Body)',desc:'Lift (upper body) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:4,date:d(4,22),day:'Tue',title:'Easy Run 2.5mi',desc:'Easy Run 2.5mi @ 10:30-11:00/mi. Recovery week — keep it genuinely easy.',pace:'10:30-11:00/mi',priority:'flexible',emoji:'🏃‍♀️'},
+  {week:4,date:d(4,23),day:'Wed',title:'Lift (Lower Body)',desc:'Lift (lower body — lighter weights, focus on mobility) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:4,date:d(4,24),day:'Thu',title:'Easy Run 3mi + Strides',desc:'Easy Run 3mi @ 10:15-10:45/mi with 4×20sec strides at end (accelerate to ~8:30/mi for 20sec, walk back). Strides keep legs feeling snappy without adding fatigue.',pace:'10:15-10:45/mi + strides',priority:'flexible',emoji:'🏃‍♀️'},
+  {week:4,date:d(4,25),day:'Fri',title:'Lift (Upper Body)',desc:'Lift (upper body) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:4,date:d(4,26),day:'Sat',title:'Long Run 5.5mi',desc:'Long Run 5.5mi @ 10:15-10:45/mi. Shorter long run for recovery. Should feel refreshed.',pace:'10:15-10:45/mi',priority:'critical',emoji:'🏃‍♀️'},
+
+  // WEEK 5: Apr 27 - May 3
+  {week:5,date:d(4,27),day:'Sun',title:'Rest',desc:'Rest + hip prehab',priority:'flexible',emoji:'💤'},
+  {week:5,date:d(4,28),day:'Mon',title:'Lift (Upper Body)',desc:'Lift (upper body) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:5,date:d(4,29),day:'Tue',title:'Easy Run 3.5mi',desc:'Easy Run 3.5mi @ 10:15-10:45/mi',pace:'10:15-10:45/mi',priority:'flexible',emoji:'🏃‍♀️'},
+  {week:5,date:d(4,30),day:'Wed',title:'Lift (Lower Body)',desc:'Lift (lower body) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:5,date:d(5,1),day:'Thu',title:'Tempo Run 4mi',desc:'Tempo Run — 1mi warmup @ 10:30/mi, 2mi at 9:00-9:15/mi (tempo pace — "comfortably uncomfortable," few words only), 1mi cooldown @ 10:30/mi. Total 4mi. This is your first real tempo effort!',pace:'9:00-9:15/mi (tempo)',priority:'important',emoji:'🏃‍♀️'},
+  {week:5,date:d(5,2),day:'Fri',title:'Lift (Upper Body)',desc:'Lift (upper body) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:5,date:d(5,3),day:'Sat',title:'Long Run 8mi',desc:'Long Run 8mi @ 10:15-10:45/mi. Simulate race fueling — practice eating a gel or chews at mile 5.',pace:'10:15-10:45/mi',priority:'critical',emoji:'🏃‍♀️'},
+
+  // WEEK 6: May 4 - May 10
+  {week:6,date:d(5,4),day:'Sun',title:'Rest',desc:'Rest + hip prehab. ⚠️ Post-long-run day. Expect quad and hip soreness. Extra foam rolling.',priority:'flexible',emoji:'💤'},
+  {week:6,date:d(5,5),day:'Mon',title:'Lift (Upper Body)',desc:'Lift (upper body) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:6,date:d(5,6),day:'Tue',title:'Easy Run 3.5mi',desc:'Easy Run 3.5mi @ 10:15-10:45/mi',pace:'10:15-10:45/mi',priority:'flexible',emoji:'🏃‍♀️'},
+  {week:6,date:d(5,7),day:'Wed',title:'Lift (Lower Body)',desc:'Lift (lower body — moderate intensity) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:6,date:d(5,8),day:'Thu',title:'Speed Workout ~4mi',desc:'Speed Workout — 1mi warmup @ 10:30/mi, 4×400m at 8:00-8:15/mi with 90sec walk/jog recovery between each, 1mi cooldown. Total ~4mi. 🎯 GOAL: Hit all 4 reps at 8:15/mi or faster! These are short and fast — embrace the discomfort.',pace:'8:00-8:15/mi (intervals)',priority:'important',emoji:'🏃‍♀️'},
+  {week:6,date:d(5,9),day:'Fri',title:'Lift (Upper Body)',desc:'Lift (upper body) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:6,date:d(5,10),day:'Sat',title:'Long Run 9mi',desc:'Long Run 9mi @ 10:15-10:45/mi. Find a hilly route to simulate Race 1 terrain. Practice the 3-leg mental strategy: conservative start, build middle, strong finish.',pace:'10:15-10:45/mi',priority:'critical',emoji:'🏃‍♀️'},
+
+  // WEEK 7: May 11 - May 17 (PEAK)
+  {week:7,date:d(5,11),day:'Sun',title:'Rest',desc:'Rest + hip prehab. ⚠️ Big week ahead — sleep and nutrition are critical.',priority:'flexible',emoji:'💤'},
+  {week:7,date:d(5,12),day:'Mon',title:'Lift (Upper Body)',desc:'Lift (upper body) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:7,date:d(5,13),day:'Tue',title:'Moderate Run 4mi',desc:'Moderate Run 4mi — First 2mi at 10:00/mi, last 2mi at 9:30-9:45/mi. Practice negative splitting (running the second half faster).',pace:'10:00 → 9:30-9:45/mi',priority:'important',emoji:'🏃‍♀️'},
+  {week:7,date:d(5,14),day:'Wed',title:'Lift (Lower Body)',desc:'Lift (lower body — moderate) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:7,date:d(5,15),day:'Thu',title:'Hill Repeats ~5mi',desc:'Hill Repeats — 1mi warmup, 6×90sec uphill at RPE 8-9, jog down recovery, 1mi cooldown. Total ~5mi. Longer hill reps than Week 3 — building race-specific strength!',pace:'Effort-based RPE 8-9',priority:'important',emoji:'⛰️'},
+  {week:7,date:d(5,16),day:'Fri',title:'Easy Run 3mi',desc:'Easy Run 3mi @ 10:30-11:00/mi. Shake-out run — keep it very easy.',pace:'10:30-11:00/mi',priority:'flexible',emoji:'🏃‍♀️'},
+  {week:7,date:d(5,17),day:'Sat',title:'Long Run 10mi',desc:'Long Run 10mi @ 10:15-10:45/mi. Last long run before Race 1. Practice everything: fueling, pacing, mental strategy.',pace:'10:15-10:45/mi',priority:'critical',emoji:'🏃‍♀️'},
+
+  // WEEK 8: May 18 - May 29 (TAPER + RACE 1) — 12 days
+  {week:8,date:d(5,18),day:'Sun',title:'Rest (Taper Start)',desc:'Rest + hip prehab. ⚠️ Taper begins! You may feel restless or sluggish — this is called "taper tantrums" and is totally normal. Trust the training.',priority:'flexible',emoji:'💤'},
+  {week:8,date:d(5,19),day:'Mon',title:'Lift (Upper Body — Light)',desc:'Lift (upper body — lighter weights, higher reps) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:8,date:d(5,20),day:'Tue',title:'Easy Run 3mi + Strides',desc:'Easy Run 3mi @ 10:15-10:30/mi with 4×20sec strides. Keep legs feeling sharp.',pace:'10:15-10:30/mi + strides',priority:'important',emoji:'🏃‍♀️'},
+  {week:8,date:d(5,21),day:'Wed',title:'Lift (Lower Body — Light)',desc:'Lift (lower body — LIGHT, mobility focus) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:8,date:d(5,22),day:'Thu',title:'Moderate Run 3mi',desc:'Moderate Run 3mi — 1mi easy, 1mi at 9:15-9:30/mi (half marathon pace), 1mi easy. Race pace rehearsal.',pace:'9:15-9:30/mi (middle mile)',priority:'important',emoji:'🏃‍♀️'},
+  {week:8,date:d(5,23),day:'Fri',title:'Rest',desc:'Rest + hip prehab',priority:'flexible',emoji:'💤'},
+  {week:8,date:d(5,24),day:'Sat',title:'Easy Run 2mi',desc:'Easy Run 2mi @ 10:30/mi. Short and easy.',pace:'10:30/mi',priority:'flexible',emoji:'🏃‍♀️'},
+  {week:8,date:d(5,25),day:'Sun',title:'Rest',desc:'Rest + hip prehab',priority:'flexible',emoji:'💤'},
+  {week:8,date:d(5,26),day:'Mon',title:'Easy Shakeout 1.5mi',desc:'Easy shakeout 1.5mi @ 10:30/mi with 3×20sec strides',pace:'10:30/mi + strides',priority:'flexible',emoji:'🏃‍♀️'},
+  {week:8,date:d(5,27),day:'Tue',title:'Rest',desc:'Rest + hip prehab. Lay out race gear.',priority:'flexible',emoji:'💤'},
+  {week:8,date:d(5,28),day:'Wed',title:'Rest / Walk',desc:'Rest or 10-min walk + hip prehab. Hydrate well. Early bedtime.',priority:'flexible',emoji:'💤'},
+  {week:8,date:d(5,29),day:'Thu',title:'🏁 RACE DAY — Road Half',desc:'🏁 RACE DAY — 3-Leg Road Half Marathon! Strategy: Leg 1 conservative @ 9:30-9:45/mi (RPE 6-7), Leg 2 build @ 9:15-9:30/mi (RPE 7-8), Leg 3 empty the tank @ 9:00-9:15/mi (RPE 8-9). Use breaks between legs to hydrate and reset. Goal: Sub-2:02!',pace:'9:30 → 9:15 → 9:00/mi',priority:'critical',emoji:'🏁',isRace:true},
+
+  // WEEK 9: May 30 - Jun 7 (POST-RACE RECOVERY)
+  {week:9,date:d(5,30),day:'Fri',title:'Rest (Post-Race)',desc:'Rest + gentle hip prehab. ⚠️ Post-race recovery! Soreness is expected and normal. Walk gently if you want to move.',priority:'flexible',emoji:'💤'},
+  {week:9,date:d(5,31),day:'Sat',title:'Rest / Walk',desc:'Rest or easy 20-min walk + hip prehab. Foam roll everything.',priority:'flexible',emoji:'💤'},
+  {week:9,date:d(6,1),day:'Sun',title:'Rest',desc:'Rest + hip prehab',priority:'flexible',emoji:'💤'},
+  {week:9,date:d(6,2),day:'Mon',title:'Lift (Upper Body Only)',desc:'Lift (upper body only — no lower body yet) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:9,date:d(6,3),day:'Tue',title:'Easy Run 2.5mi',desc:'Easy Run 2.5mi @ 10:30-11:00/mi. First run back — walk breaks are fine. See how the legs feel.',pace:'10:30-11:00/mi',priority:'flexible',emoji:'🏃‍♀️'},
+  {week:9,date:d(6,4),day:'Wed',title:'Lift (Light Lower Body)',desc:'Lift (light lower body — bodyweight squats, light RDLs) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:9,date:d(6,5),day:'Thu',title:'Easy Run 3mi',desc:'Easy Run 3mi @ 10:15-10:45/mi. If legs feel heavy, that\'s OK.',pace:'10:15-10:45/mi',priority:'flexible',emoji:'🏃‍♀️'},
+  {week:9,date:d(6,6),day:'Fri',title:'Lift (Upper Body)',desc:'Lift (upper body) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:9,date:d(6,7),day:'Sat',title:'Easy Trail Run/Hike 4.5mi',desc:'Easy Run/Hike 4.5mi on trail if possible @ 11:00-12:00/mi (trail pace is slower — add 1-2 min/mi to road pace). Start transitioning to trail!',pace:'11:00-12:00/mi (trail)',priority:'important',emoji:'⛰️'},
+
+  // WEEK 10: Jun 8 - Jun 14
+  {week:10,date:d(6,8),day:'Sun',title:'Rest',desc:'Rest + hip prehab',priority:'flexible',emoji:'💤'},
+  {week:10,date:d(6,9),day:'Mon',title:'Lift (Upper Body)',desc:'Lift (upper body) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:10,date:d(6,10),day:'Tue',title:'Easy Trail Run 3.5mi',desc:'Easy Trail Run 3.5mi @ 11:00-12:00/mi on trails or soft surface. Practice foot placement on uneven ground.',pace:'11:00-12:00/mi (trail)',priority:'flexible',emoji:'⛰️'},
+  {week:10,date:d(6,11),day:'Wed',title:'Lift (Lower Body — Eccentric)',desc:'Lift (lower body — emphasize eccentric work: slow lowering on squats, step-downs, Nordic curls. This protects knees on steep downhills!) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:10,date:d(6,12),day:'Thu',title:'Speed Workout ~4.5mi',desc:'Speed Workout — 1mi warmup, 6×400m at 8:00-8:15/mi with 90sec recovery, 1mi cooldown. Total ~4.5mi. 🎯 GOAL: Hit all 6 reps at 8:00/mi! Building top-end speed to make trail pace feel easier.',pace:'8:00-8:15/mi (intervals)',priority:'important',emoji:'🏃‍♀️'},
+  {week:10,date:d(6,13),day:'Fri',title:'Lift (Upper Body)',desc:'Lift (upper body) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:10,date:d(6,14),day:'Sat',title:'Long Trail Run 8mi',desc:'Long Trail Run 8mi on trails with elevation @ 11:00-12:00/mi. Power hike ALL steep uphills — practice race strategy! Bring fuel and water. Practice eating while moving.',pace:'11:00-12:00/mi (trail)',priority:'critical',emoji:'⛰️'},
+
+  // WEEK 11: Jun 15 - Jun 21 (PEAK TRAIL)
+  {week:11,date:d(6,15),day:'Sun',title:'Rest',desc:'Rest + hip prehab. ⚠️ Post-trail-long-run. Expect different soreness pattern than road — ankles, calves, and quads from downhills. Extra foam rolling on calves.',priority:'flexible',emoji:'💤'},
+  {week:11,date:d(6,16),day:'Mon',title:'Lift (Upper Body)',desc:'Lift (upper body) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:11,date:d(6,17),day:'Tue',title:'Easy Run 3.5mi',desc:'Easy Run 3.5mi @ 10:15-10:45/mi on road. Easy effort to flush legs.',pace:'10:15-10:45/mi',priority:'flexible',emoji:'🏃‍♀️'},
+  {week:11,date:d(6,18),day:'Wed',title:'Lift (Lower Body — Eccentric)',desc:'Lift (lower body — eccentric focus again: slow squats, step-downs) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:11,date:d(6,19),day:'Thu',title:'Hill Power Hike + Run ~4.5mi',desc:'Hill Power Hike + Run — Find steepest hill available. 1mi warmup jog, then 30 min alternating: power hike up (RPE 7-8, use trekking pole arm motion), run down at controlled pace focusing on quick feet and soft landings. 1mi cooldown jog. Total ~4.5mi. This is the most race-specific workout!',pace:'Effort-based RPE 7-8',priority:'important',emoji:'⛰️'},
+  {week:11,date:d(6,20),day:'Fri',title:'Easy Run 2mi',desc:'Easy Run 2mi @ 10:30/mi + hip prehab. Gentle shakeout.',pace:'10:30/mi',priority:'flexible',emoji:'🏃‍♀️'},
+  {week:11,date:d(6,21),day:'Sat',title:'Long Trail Run 10mi',desc:'Long Trail Run 10mi with maximum elevation you can find @ 11:00-12:00/mi. Last big trail effort before race. Practice EVERYTHING: fueling every 30-45 min, power hiking climbs, running flats and downhills, hydration at altitude.',pace:'11:00-12:00/mi (trail)',priority:'critical',emoji:'⛰️'},
+
+  // WEEK 12: Jun 22 - Jun 27 (TAPER + RACE 2)
+  {week:12,date:d(6,22),day:'Sun',title:'Rest (Final Taper)',desc:'Rest + hip prehab. ⚠️ Final taper! Same as before — trust the training. Restlessness is normal.',priority:'flexible',emoji:'💤'},
+  {week:12,date:d(6,23),day:'Mon',title:'Lift (Upper Body — Light)',desc:'Lift (upper body — light) + hip prehab',priority:'lifting',emoji:'🏋️'},
+  {week:12,date:d(6,24),day:'Tue',title:'Easy Run 3mi + Strides',desc:'Easy Run 3mi @ 10:15-10:30/mi with 4×20sec strides on flat ground. Last quality movement before race.',pace:'10:15-10:30/mi + strides',priority:'important',emoji:'🏃‍♀️'},
+  {week:12,date:d(6,25),day:'Wed',title:'Rest / Walk',desc:'Rest or easy 20-min walk + hip prehab. Hydrate aggressively — altitude dehydrates you faster.',priority:'flexible',emoji:'💤'},
+  {week:12,date:d(6,26),day:'Thu',title:'Rest (Pre-Race)',desc:'Rest + hip prehab. Lay out ALL gear including layers (mountain weather changes fast). Charge watch. Prep fuel. Early bedtime.',priority:'flexible',emoji:'💤'},
+  {week:12,date:d(6,27),day:'Fri',title:'🏁 RACE DAY — Trail Half',desc:'🏁 RACE DAY — Trail Half Marathon! Strategy: Power hike ALL steep uphills from mile 1 (this is strategy, not weakness!). Run flats at 10:00-10:30/mi. Run downhills with quick cadence and soft landings. Eat every 30-45 min. Sip water constantly — altitude dehydrates fast. If you feel altitude effects (headache, nausea), slow down immediately. The race is won by NOT blowing up on the climbs. Goal: Finish strong and enjoy the mountains!',pace:'10:00-10:30/mi (flats)',priority:'critical',emoji:'🏁',isRace:true}
+];
+
+// ==================== STATE ====================
+let state = loadState();
+
+function defaultState(){
+  const s = {workouts:{},currentViewWeek:null};
+  PLAN.forEach((_,i) => {
+    s.workouts[i] = {completed:false,missed:false,tags:[],notes:'',prehab:false,rescheduledTo:null,rescheduledFrom:null};
+  });
+  return s;
+}
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem('rr_state');
+    if(!raw) return defaultState();
+    const s = JSON.parse(raw);
+    // ensure all workout entries exist
+    PLAN.forEach((_,i)=>{
+      if(!s.workouts[i]) s.workouts[i]={completed:false,missed:false,tags:[],notes:'',prehab:false,rescheduledTo:null,rescheduledFrom:null};
+    });
+    return s;
+  }catch(e){return defaultState();}
+}
+
+function saveState(){localStorage.setItem('rr_state',JSON.stringify(state));}
+
+// ==================== AUTH ====================
+function checkAuth(){
+  return localStorage.getItem('rr_auth') === 'true';
+}
+
+function doLogin(){
+  const pw = document.getElementById('password-input').value;
+  if(pw === PASSWORD){
+    localStorage.setItem('rr_auth','true');
+    showApp();
+  } else {
+    document.getElementById('login-error').textContent = 'Incorrect password. Try again!';
+    document.getElementById('password-input').value = '';
+    document.getElementById('password-input').focus();
+  }
+}
+
+function doLogout(){
+  localStorage.removeItem('rr_auth');
+  document.getElementById('app').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('password-input').value='';
+}
+
+function showApp(){
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('app').style.display='block';
+  initApp();
+}
+
+// ==================== HELPERS ====================
+function today(){
+  const n=new Date();
+  return new Date(n.getFullYear(),n.getMonth(),n.getDate());
+}
+
+function sameDay(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();}
+
+function fmtDate(d){
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${days[d.getDay()]} ${months[d.getMonth()]} ${d.getDate()}`;
+}
+
+function fmtDateShort(d){
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${months[d.getMonth()]} ${d.getDate()}`;
+}
+
+function getCurrentWeek(){
+  const t = today();
+  for(let w=1;w<=12;w++){
+    const days = PLAN.filter(p=>p.week===w);
+    if(days.length && t >= days[0].date && t <= days[days.length-1].date) return w;
+  }
+  // If before plan, return 1; if after, return 12
+  if(t < PLAN[0].date) return 1;
+  return 12;
+}
+
+function getWeekDays(w){
+  return PLAN.map((p,i)=>({...p,idx:i})).filter(p=>p.week===w);
+}
+
+function getWeekDateRange(w){
+  const days = getWeekDays(w);
+  if(!days.length) return '';
+  return `${fmtDateShort(days[0].date)} – ${fmtDateShort(days[days.length-1].date)}`;
+}
+
+function countdownStr(target){
+  const now = new Date();
+  const diff = target - now;
+  if(diff <= 0) return {text:'Race Complete!',sub:'',past:true};
+  const days = Math.floor(diff/(1000*60*60*24));
+  const hours = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+  return {text:`${days}d ${hours}h`,sub:days===0?'Today!':days===1?'Tomorrow!':'',past:false};
+}
+
+// ==================== INIT ====================
+function initApp(){
+  if(!state.currentViewWeek) state.currentViewWeek = getCurrentWeek();
+  renderCountdowns();
+  renderThisWeek();
+  renderFullPlan();
+  renderReference();
+  setInterval(renderCountdowns, 60000);
+}
+
+// ==================== COUNTDOWNS ====================
+function renderCountdowns(){
+  const c1 = countdownStr(RACE1_DATE);
+  const c2 = countdownStr(RACE2_DATE);
+  document.getElementById('countdowns').innerHTML = `
+    <div class="countdown-card ${c1.past?'past':''}">
+      <div class="countdown-label">🏁 Race 1 — Road Half (May 29)</div>
+      <div class="countdown-value">${c1.text}</div>
+      <div class="countdown-sub">3-Leg, Hilly, 6-8k ft${c1.sub?' · '+c1.sub:''}</div>
+    </div>
+    <div class="countdown-card ${c2.past?'past':''}">
+      <div class="countdown-label">⛰️ Race 2 — Trail Half (Jun 27)</div>
+      <div class="countdown-value">${c2.text}</div>
+      <div class="countdown-sub">5,000ft gain, 6-8k ft${c2.sub?' · '+c2.sub:''}</div>
+    </div>
+  `;
+}
+
+// ==================== TABS ====================
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ==================== THIS WEEK ====================
+function renderThisWeek(){
+  const w = state.currentViewWeek;
+  const days = getWeekDays(w);
+  const t = today();
+
+  // Check consecutive misses
+  let consecutiveMisses = 0;
+  for(let i=days.length-1;i>=0;i--){
+    const ws = state.workouts[days[i].idx];
+    if(days[i].date < t && !ws.completed && !ws.missed) break;
+    if(ws.missed) consecutiveMisses++;
+    else break;
+  }
+
+  let html = '';
+
+  // Miss banner
+  if(consecutiveMisses >= 3){
+    html += `<div class="miss-banner">💛 <strong>Looks like a tough week.</strong> Consider treating this as a recovery week and picking up fresh next week. Listen to your body — consistency over perfection!</div>`;
+  }
+
+  html += `<div class="phase-badge">${PHASES[w]}</div>`;
+  html += `<div class="week-nav">
+    <button class="nav-arrow" onclick="changeWeek(-1)" ${w<=1?'disabled':''}">‹</button>
+    <div style="text-align:center">
+      <h2>Week ${w}</h2>
+      <div class="week-nav-sub">${getWeekDateRange(w)} · ${WEEK_MILEAGE[w]}</div>
+    </div>
+    <button class="nav-arrow" onclick="changeWeek(1)" ${w>=12?'disabled':''}>›</button>
+  </div>`;
+
+  days.forEach(day => {
+    const ws = state.workouts[day.idx];
+    const isToday = sameDay(day.date, t);
+    const isPast = day.date < t && !isToday;
+    const pastIncomplete = isPast && !ws.completed && !ws.missed;
+
+    let cardClass = `day-card priority-${day.priority}`;
+    if(isToday) cardClass += ' today';
+    if(ws.completed) cardClass += ' completed';
+    if(ws.missed) cardClass += ' missed';
+    if(pastIncomplete) cardClass += ' past-incomplete';
+
+    html += `<div class="${cardClass}" id="card-${day.idx}">
+      <div class="day-card-header">
+        <div class="day-info">
+          <div class="day-date">${day.emoji} ${fmtDate(day.date)}${isToday?'<span class="today-badge">Today</span>':''}${day.isRace?'<span class="race-badge">Race Day</span>':''}</div>
+          <div class="day-title">${day.title}</div>
+          <div class="day-desc">${day.desc}</div>
+          ${day.pace?`<div class="day-pace">🎯 ${day.pace}</div>`:''}
+        </div>
+        <div class="priority-dot ${day.priority}" title="${day.priority}"></div>
+      </div>
+      <div class="day-card-actions">
+        <button class="action-btn complete-btn ${ws.completed?'active':''}" onclick="toggleComplete(${day.idx})">✅ Complete</button>
+        <button class="action-btn missed-btn ${ws.missed?'active':''}" onclick="markMissed(${day.idx})">❌ Missed</button>
+        <button class="action-btn tag-btn ${ws.tags.includes('tough')?'active':''}" onclick="toggleTag(${day.idx},'tough')">😤 Tough</button>
+        <button class="action-btn tag-btn ${ws.tags.includes('hip')?'active':''}" onclick="toggleTag(${day.idx},'hip')">🦵 Hip Pain</button>
+        <button class="action-btn tag-btn ${ws.tags.includes('great')?'active':''}" onclick="toggleTag(${day.idx},'great')">🎉 Felt Great</button>
+      </div>
+      <div class="prehab-row">
+        <label><input type="checkbox" ${ws.prehab?'checked':''} onchange="togglePrehab(${day.idx})"> 🧘 Hip prehab done</label>
+      </div>
+      <div class="notes-toggle">
+        <button class="notes-toggle-btn" onclick="toggleNotes(${day.idx})">📝 ${ws.notes?'View/Edit Notes':'Add Notes'}${ws.notes?' ✓':''}</button>
+      </div>
+      <div class="notes-area" id="notes-area-${day.idx}">
+        <textarea placeholder="How did it feel? Any issues?" onchange="saveNotes(${day.idx},this.value)">${ws.notes||''}</textarea>
+      </div>
+    </div>`;
+  });
+
+  document.getElementById('tab-thisweek').innerHTML = html;
+}
+
+function changeWeek(delta){
+  state.currentViewWeek = Math.max(1,Math.min(12,state.currentViewWeek+delta));
+  saveState();
+  renderThisWeek();
+}
+
+function toggleComplete(idx){
+  const ws = state.workouts[idx];
+  ws.completed = !ws.completed;
+  if(ws.completed) ws.missed = false;
+  saveState();
+  renderThisWeek();
+  renderFullPlan();
+}
+
+function markMissed(idx){
+  const ws = state.workouts[idx];
+  if(ws.missed){
+    ws.missed = false;
+    saveState();
+    renderThisWeek();
+    renderFullPlan();
+    return;
+  }
+  ws.missed = true;
+  ws.completed = false;
+  saveState();
+
+  const day = PLAN[idx];
+  showMissedModal(idx, day);
+}
+
+function showMissedModal(idx, day){
+  const modal = document.getElementById('modal');
+  const overlay = document.getElementById('modal-overlay');
+
+  if(day.priority === 'flexible'){
+    modal.innerHTML = `
+      <h3>💚 No Worries!</h3>
+      <p>This is a flexible workout — totally fine to skip. Rest up and move on!</p>
+      <div class="modal-actions"><button class="modal-dismiss" onclick="closeModal()">Got it! 👍</button></div>
+    `;
+  } else if(day.priority === 'lifting'){
+    modal.innerHTML = `
+      <h3>🏋️ Skip It</h3>
+      <p>Don't compress lifting days together. Just skip this one and pick up your normal schedule.</p>
+      <div class="modal-actions"><button class="modal-dismiss" onclick="closeModal()">Got it! 👍</button></div>
+    `;
+  } else if(day.priority === 'critical'){
+    const nextDay = findRescheduleDay(idx);
+    modal.innerHTML = `
+      <h3>🔴 Key Workout!</h3>
+      <p>This is a critical workout (${day.title}). You should try to reschedule it.</p>
+      ${nextDay !== null ? `<p><strong>Suggested:</strong> Move to ${fmtDate(PLAN[nextDay].date)} (${PLAN[nextDay].day})</p>` : '<p>No suitable reschedule day found this week.</p>'}
+      <div class="modal-actions">
+        ${nextDay !== null ? `<button class="modal-accept" onclick="reschedule(${idx},${nextDay});closeModal()">Reschedule ✓</button>` : ''}
+        <button class="modal-skip" onclick="closeModal()">Skip Anyway</button>
+      </div>
+    `;
+  } else if(day.priority === 'important'){
+    const nextDay = findRescheduleDay(idx);
+    modal.innerHTML = `
+      <h3>🟡 Important Workout</h3>
+      <p>Try to fit "${day.title}" in within the next 2 days if possible.</p>
+      ${nextDay !== null ? `<p><strong>Suggested:</strong> Move to ${fmtDate(PLAN[nextDay].date)} (${PLAN[nextDay].day})</p>` : '<p>No suitable reschedule day found within 2 days.</p>'}
+      <div class="modal-actions">
+        ${nextDay !== null ? `<button class="modal-accept" onclick="reschedule(${idx},${nextDay});closeModal()">Reschedule ✓</button>` : ''}
+        <button class="modal-skip" onclick="closeModal()">Skip It</button>
+      </div>
+    `;
+  }
+
+  overlay.classList.add('open');
+}
+
+function findRescheduleDay(missedIdx){
+  const missed = PLAN[missedIdx];
+  const weekDays = PLAN.map((p,i)=>({...p,idx:i})).filter(p=>p.week===missed.week);
+  const missedPos = weekDays.findIndex(d=>d.idx===missedIdx);
+
+  // Look for next available day in the week that's flexible/rest and not already completed
+  // Also check within 2 days for important, full week for critical
+  const maxLookahead = missed.priority === 'important' ? 2 : 7;
+
+  for(let i=missedPos+1; i<weekDays.length && (i-missedPos)<=maxLookahead; i++){
+    const candidate = weekDays[i];
+    const cws = state.workouts[candidate.idx];
+    // Can reschedule to flexible/rest days that aren't completed, missed, or race days
+    if((candidate.priority === 'flexible' || candidate.priority === 'lifting') && !cws.completed && !cws.missed && !candidate.isRace){
+      // Check no back-to-back hard efforts
+      // The previous day shouldn't be a hard (important/critical) completed workout
+      if(i > 0){
+        const prev = weekDays[i-1];
+        const prevWs = state.workouts[prev.idx];
+        if((prev.priority === 'important' || prev.priority === 'critical') && prevWs.completed) continue;
+      }
+      return candidate.idx;
+    }
+  }
+  return null;
+}
+
+function reschedule(fromIdx, toIdx){
+  // Swap the workouts conceptually: mark the target day as having the rescheduled workout
+  state.workouts[fromIdx].rescheduledTo = toIdx;
+  state.workouts[toIdx].rescheduledFrom = fromIdx;
+  saveState();
+  renderThisWeek();
+  renderFullPlan();
+}
+
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  renderThisWeek();
+  renderFullPlan();
+}
+
+function toggleTag(idx, tag){
+  const ws = state.workouts[idx];
+  const ti = ws.tags.indexOf(tag);
+  if(ti>=0) ws.tags.splice(ti,1);
+  else ws.tags.push(tag);
+  saveState();
+  renderThisWeek();
+  renderFullPlan();
+}
+
+function togglePrehab(idx){
+  state.workouts[idx].prehab = !state.workouts[idx].prehab;
+  saveState();
+}
+
+function toggleNotes(idx){
+  const area = document.getElementById('notes-area-'+idx);
+  area.classList.toggle('open');
+  if(area.classList.contains('open')){
+    area.querySelector('textarea').focus();
+  }
+}
+
+function saveNotes(idx, val){
+  state.workouts[idx].notes = val;
+  saveState();
+}
+
+// ==================== FULL PLAN ====================
+function renderFullPlan(){
+  let html = '';
+
+  // Overall progress
+  const totalWorkouts = PLAN.length;
+  const completedWorkouts = Object.values(state.workouts).filter(w=>w.completed).length;
+  const pct = Math.round((completedWorkouts/totalWorkouts)*100);
+
+  html += `<div class="overall-progress">
+    <h3>📊 Overall Progress</h3>
+    <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+    <div class="progress-text">${completedWorkouts} of ${totalWorkouts} workouts completed (${pct}%)</div>
+  </div>`;
+
+  for(let w=1;w<=12;w++){
+    const days = getWeekDays(w);
+    const weekCompleted = days.filter(d=>state.workouts[d.idx].completed).length;
+    const weekPct = Math.round((weekCompleted/days.length)*100);
+    const isCurrent = w === getCurrentWeek();
+
+    html += `<div class="week-accordion ${isCurrent?'open':''}" id="week-acc-${w}">
+      <div class="week-accordion-header" onclick="toggleWeekAcc(${w})">
+        <div class="week-acc-left">
+          <div class="week-acc-title">Week ${w} — ${PHASES[w]}</div>
+          <div class="week-acc-sub">${getWeekDateRange(w)} · ${WEEK_MILEAGE[w]}</div>
+        </div>
+        <div class="week-acc-progress">
+          <div class="progress-bar"><div class="progress-fill" style="width:${weekPct}%"></div></div>
+          <div class="progress-text" style="font-size:11px;text-align:right">${weekCompleted}/${days.length}</div>
+        </div>
+        <div class="week-acc-chevron">▼</div>
+      </div>
+      <div class="week-accordion-body">`;
+
+    days.forEach(day => {
+      const ws = state.workouts[day.idx];
+      let statusClass = 'pending';
+      let statusIcon = '○';
+      if(ws.completed){statusClass='done';statusIcon='✓';}
+      else if(ws.missed){statusClass='missed-s';statusIcon='✗';}
+
+      html += `<div class="fp-day">
+        <div class="fp-day-status ${statusClass}">${statusIcon}</div>
+        <div class="fp-day-info">
+          <div class="fp-day-date">${fmtDate(day.date)} — ${day.title}</div>
+          <div class="fp-day-title">${day.desc.substring(0,100)}${day.desc.length>100?'...':''}</div>
+          ${ws.tags.length?`<div class="fp-day-tags">${ws.tags.map(t=>`<span class="fp-day-tag">${t==='tough'?'😤 Tough':t==='hip'?'🦵 Hip Pain':'🎉 Great'}</span>`).join('')}</div>`:''}
+          ${ws.notes?`<div class="fp-day-note">"${ws.notes}"</div>`:''}
+        </div>
+      </div>`;
+    });
+
+    html += `</div></div>`;
+  }
+
+  document.getElementById('tab-fullplan').innerHTML = html;
+}
+
+function toggleWeekAcc(w){
+  document.getElementById('week-acc-'+w).classList.toggle('open');
+}
+
+// ==================== REFERENCE ====================
+function renderReference(){
+  document.getElementById('tab-reference').innerHTML = `
+    <div class="ref-card">
+      <h3>🎯 Pace Zones</h3>
+      <div style="overflow-x:auto">
+      <table class="ref-table">
+        <tr><th>Zone</th><th>Pace</th><th>Feel</th><th>When</th></tr>
+        <tr><td><strong>Easy</strong></td><td>10:15-11:00/mi</td><td>Full sentences, nose-breathable, relaxed</td><td>Most runs (~80%)</td></tr>
+        <tr><td><strong>Moderate</strong></td><td>9:30-10:00/mi</td><td>Short sentences, comfortably hard</td><td>Progression runs</td></tr>
+        <tr><td><strong>Tempo</strong></td><td>8:45-9:15/mi</td><td>Few words, comfortably uncomfortable</td><td>Tempo workouts</td></tr>
+        <tr><td><strong>Speed</strong></td><td>8:00-8:30/mi</td><td>Labored breathing, short bursts</td><td>400m intervals</td></tr>
+        <tr><td><strong>Hills</strong></td><td>RPE 8-9</td><td>Hard, focus on form</td><td>Hill repeats</td></tr>
+        <tr><td><strong>Trail</strong></td><td>+1:00-2:00/mi</td><td>Adjust for terrain</td><td>All trail runs</td></tr>
+      </table>
+      </div>
+    </div>
+
+    <div class="ref-card">
+      <h3>📊 RPE Scale (Rate of Perceived Exertion)</h3>
+      <div class="rpe-grid">
+        <div class="rpe-num">1</div><div class="rpe-desc">Barely moving — sitting on the couch</div>
+        <div class="rpe-num">2</div><div class="rpe-desc">Very light — casual walking</div>
+        <div class="rpe-num">3</div><div class="rpe-desc">Light — brisk walk, could do this all day</div>
+        <div class="rpe-num">4</div><div class="rpe-desc">Moderate — easy jog, full conversation</div>
+        <div class="rpe-num">5</div><div class="rpe-desc">Somewhat hard — steady run, can talk in sentences</div>
+        <div class="rpe-num">6</div><div class="rpe-desc">Hard — can speak short sentences only</div>
+        <div class="rpe-num">7</div><div class="rpe-desc">Very hard — few words at a time</div>
+        <div class="rpe-num">8</div><div class="rpe-desc">Very very hard — can barely talk, want to stop soon</div>
+        <div class="rpe-num">9</div><div class="rpe-desc">Near max — can only sustain for 1-2 minutes</div>
+        <div class="rpe-num">10</div><div class="rpe-desc">Maximum — all-out sprint, seconds only</div>
+      </div>
+    </div>
+
+    <div class="ref-card">
+      <h3>🧘 Hip Prehab Routine</h3>
+      <div class="strategy-block">
+        <h4>Daily Routine (10 min) — Do EVERY day</h4>
+        <ul class="ref-list" style="list-style:disc;padding-left:20px">
+          <li>Clamshells — 2×15</li>
+          <li>Banded lateral walks — 2×20 steps</li>
+          <li>Single-leg glute bridges — 2×12/side</li>
+          <li>90/90 hip switches — 10 reps</li>
+          <li>Pigeon pose — 60s/side</li>
+          <li>Couch stretch — 60s/side</li>
+          <li>Figure-4 stretch — 60s/side</li>
+        </ul>
+      </div>
+      <div class="strategy-block">
+        <h4>Post-Run Addition</h4>
+        <ul class="ref-list" style="list-style:disc;padding-left:20px">
+          <li>Foam roll IT band, quads, hip flexors — 2 min each</li>
+          <li>Hip circles — 10/direction</li>
+          <li>Deep squat hold — 60s</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ref-card">
+      <h3>🔴🟡🟢⚪ Workout Priority System</h3>
+      <ul class="ref-list">
+        <li>🔴 <strong>Critical</strong> — Long runs, race-week taper runs → MUST reschedule if missed</li>
+        <li>🟡 <strong>Important</strong> — Tempo, hills, speed intervals → Try to reschedule within 2 days, else skip</li>
+        <li>🟢 <strong>Flexible</strong> — Easy runs, cross-training → Skip and move on</li>
+        <li>⚪ <strong>Lifting</strong> — Weight training → Skip, don't compress</li>
+      </ul>
+    </div>
+
+    <div class="ref-card">
+      <h3>🏁 Race 1 Strategy — Road Half Marathon (May 29)</h3>
+      <p style="font-size:13px;color:var(--gray-500);margin-bottom:10px">3-Leg Road Half Marathon · ~13.1mi total · Hilly · 6,000-8,000ft elevation</p>
+      <div class="strategy-block">
+        <h4>Pacing Plan</h4>
+        <ul style="padding-left:18px">
+          <li><strong>Leg 1:</strong> Conservative @ 9:30-9:45/mi (RPE 6-7) — Bank energy, don't chase fast starters</li>
+          <li><strong>Leg 2:</strong> Build @ 9:15-9:30/mi (RPE 7-8) — Find your rhythm, start pushing</li>
+          <li><strong>Leg 3:</strong> Empty the tank @ 9:00-9:15/mi (RPE 8-9) — Leave it all out there</li>
+        </ul>
+      </div>
+      <div class="strategy-block">
+        <h4>Between Legs</h4>
+        <p>Hydrate, eat something small, reset mentally. Use the breaks as an advantage!</p>
+      </div>
+      <div class="strategy-block">
+        <h4>Goal: Sub-2:02</h4>
+        <p>Average pace needed: ~9:20/mi. Start conservative and build — negative split the race!</p>
+      </div>
+    </div>
+
+    <div class="ref-card">
+      <h3>⛰️ Race 2 Strategy — Trail Half Marathon (Jun 27)</h3>
+      <p style="font-size:13px;color:var(--gray-500);margin-bottom:10px">Trail Half Marathon · ~13.5mi · 5,000ft elevation gain · 6,000-8,000ft elevation</p>
+      <div class="strategy-block">
+        <h4>Key Strategies</h4>
+        <ul style="padding-left:18px">
+          <li><strong>Power hike ALL steep uphills</strong> from mile 1 — this is strategy, not weakness!</li>
+          <li><strong>Run flats</strong> at 10:00-10:30/mi</li>
+          <li><strong>Run downhills</strong> with quick cadence and soft landings</li>
+          <li><strong>Eat every 30-45 min</strong> — don't wait until you're hungry</li>
+          <li><strong>Sip water constantly</strong> — altitude dehydrates fast</li>
+          <li>If you feel altitude effects (headache, nausea), <strong>slow down immediately</strong></li>
+        </ul>
+      </div>
+      <div class="strategy-block">
+        <h4>The Race is Won By…</h4>
+        <p><strong>NOT blowing up on the climbs.</strong> Walk the ups, run the flats and downs. You'll pass people in the second half who went out too hard.</p>
+      </div>
+      <div class="strategy-block">
+        <h4>Goal: Finish strong and enjoy the mountains! 🏔️</h4>
+      </div>
+    </div>
+
+    <div class="ref-card">
+      <h3>🏔️ Altitude Tips</h3>
+      <ul class="ref-list">
+        <li>💧 <strong>Hydrate 50% more</strong> than you normally would — altitude is dehydrating</li>
+        <li>😮‍💨 <strong>Expect harder effort</strong> at the same pace — less oxygen available</li>
+        <li>🕐 <strong>Arrive at altitude as early as possible</strong> to start acclimatizing</li>
+        <li>⚠️ <strong>Watch for warning signs:</strong> headache, nausea, dizziness, unusual fatigue</li>
+        <li>🍌 <strong>Eat well</strong> — your body burns more calories at altitude</li>
+        <li>😴 <strong>Sleep may be disrupted</strong> the first night — this is normal</li>
+      </ul>
+    </div>
+  `;
+}
+
+// ==================== EXPORT/IMPORT ====================
+document.getElementById('export-json-btn').addEventListener('click',()=>{
+  const data = JSON.stringify(state, null, 2);
+  downloadFile('race-ready-data.json', data, 'application/json');
+});
+
+document.getElementById('import-json-btn').addEventListener('click',()=>{
+  document.getElementById('import-input').click();
+});
+
+document.getElementById('import-input').addEventListener('change',(e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    try{
+      const imported = JSON.parse(ev.target.result);
+      if(imported.workouts){
+        state = imported;
+        // Ensure all indices exist
+        PLAN.forEach((_,i)=>{
+          if(!state.workouts[i]) state.workouts[i]={completed:false,missed:false,tags:[],notes:'',prehab:false,rescheduledTo:null,rescheduledFrom:null};
+        });
+        saveState();
+        renderThisWeek();
+        renderFullPlan();
+        alert('Data imported successfully! ✅');
+      } else {
+        alert('Invalid file format.');
+      }
+    }catch(err){
+      alert('Error reading file: '+err.message);
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+});
+
+document.getElementById('export-log-btn').addEventListener('click',()=>{
+  const now = new Date();
+  let log = `TRAINING LOG EXPORT - ${now.toLocaleDateString()}\n`;
+  log += '================================\n\n';
+
+  for(let w=1;w<=12;w++){
+    const days = getWeekDays(w);
+    log += `WEEK ${w} (${getWeekDateRange(w)}) - ${PHASES[w]}\n`;
+
+    days.forEach(day => {
+      const ws = state.workouts[day.idx];
+      let status = '';
+      if(ws.completed) status = '[COMPLETED]';
+      else if(ws.missed) status = '[MISSED - SKIPPED]';
+      else status = '[PENDING]';
+
+      const tagStr = ws.tags.map(t => {
+        if(t==='tough') return '[Tough]';
+        if(t==='hip') return '[Hip Pain]';
+        if(t==='great') return '[Felt Great]';
+        return `[${t}]`;
+      }).join(' ');
+
+      const noteStr = ws.notes ? `Notes: "${ws.notes}"` : '';
+      const prehabStr = ws.prehab ? '[Prehab ✓]' : '';
+
+      log += `  ${fmtDate(day.date)} - ${day.title}: ${status} ${tagStr} ${prehabStr} ${noteStr}\n`;
+    });
+
+    log += '\n';
+  }
+
+  downloadFile('training-log.txt', log, 'text/plain');
+});
+
+function downloadFile(filename, content, type){
+  const blob = new Blob([content], {type});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ==================== INIT ====================
+document.getElementById('login-btn').addEventListener('click', doLogin);
+document.getElementById('password-input').addEventListener('keydown', (e)=>{
+  if(e.key==='Enter') doLogin();
+});
+document.getElementById('logout-btn').addEventListener('click', doLogout);
+
+// Click outside modal to close
+document.getElementById('modal-overlay').addEventListener('click',(e)=>{
+  if(e.target === e.currentTarget) closeModal();
+});
+
+if(checkAuth()){
+  showApp();
+} else {
+  document.getElementById('login-screen').style.display='flex';
+}
+</script>
+</body>
+</html>
