@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80">
+  <rect width="200" height="80" rx="8" fill="#000"/>
+  <path d="M20 55 L50 25 L80 40 L110 20 L140 35 L170 15" stroke="#4A7FB5" stroke-width="2" fill="none"/>
+  <polygon points="60,25 65,15 70,25" fill="#2D8B2D"/>
+  <text x="100" y="50" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="14" font-weight="900" fill="#fff">RENO-TAHOE</text>
+  <text x="100" y="68" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="18" font-weight="900" fill="#2563A8">Odyssey</text>
+</svg>

@@ -49,6 +49,7 @@ input,textarea{font-family:inherit}
 .race-card .race-countdown{font-size:18px;font-weight:800;color:var(--primary)}
 .race-card.r2 .race-countdown{color:var(--green)}
 .race-card .race-date{font-size:11px;color:var(--text-light)}
+.race-logo{height:40px;width:auto;margin-bottom:6px;border-radius:4px}
 
 /* TABS */
 .tabs{display:flex;background:var(--white);border-bottom:2px solid var(--border);position:sticky;top:52px;z-index:99}
@@ -87,7 +88,7 @@ input,textarea{font-family:inherit}
 
 /* DAY CARDS */
 .day-cards{padding:12px 16px}
-.day-card{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:12px;box-shadow:var(--shadow);border-left:4px solid var(--border);transition:all .3s ease;overflow:hidden}
+.day-card{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:12px;box-shadow:var(--shadow);border-left:4px solid var(--border);transition:all .3s ease;overflow:visible;position:relative}
 .day-card.priority-critical{border-left-color:var(--red)}
 .day-card.priority-important{border-left-color:var(--yellow)}
 .day-card.priority-flexible{border-left-color:var(--green)}
@@ -106,8 +107,9 @@ input,textarea{font-family:inherit}
 .soreness-banner .warn-icon{flex-shrink:0}
 
 /* TOOLTIPS */
-.has-tooltip{position:relative;cursor:help;border-bottom:1px dotted var(--primary);color:var(--primary);font-weight:600}
-.tooltip-popup{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--navy);color:var(--white);padding:12px 14px;border-radius:var(--radius-sm);font-size:12px;line-height:1.5;width:280px;z-index:50;box-shadow:var(--shadow-lg);font-weight:400;font-style:normal;pointer-events:none}
+.has-tooltip{position:relative;cursor:help;border-bottom:1px dotted var(--primary);color:var(--primary);font-weight:600;z-index:10}
+.has-tooltip:hover,.has-tooltip:focus{z-index:999}
+.tooltip-popup{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--navy);color:var(--white);padding:12px 14px;border-radius:var(--radius-sm);font-size:12px;line-height:1.5;width:280px;z-index:999;box-shadow:var(--shadow-lg);font-weight:400;font-style:normal;pointer-events:none}
 .tooltip-popup::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--navy)}
 .has-tooltip:hover .tooltip-popup,.has-tooltip:focus .tooltip-popup{display:block}
 @media(max-width:600px){.tooltip-popup{left:0;transform:none;width:240px}}
@@ -246,7 +248,7 @@ input,textarea{font-family:inherit}
 <div style="font-size:64px;margin-bottom:12px">🏃‍♀️🎗️</div>
 <h1>Dunder Mifflin<br>Fun Run</h1>
 <p style="font-size:12px;color:var(--text-light);margin-bottom:4px">Michael Scott's Dunder Mifflin Scranton Meredith Palmer Memorial Celebrity Rabies Awareness Pro-Am Fun Run Race</p>
-<p style="font-size:13px">12-Week Training Plan</p>
+<p style="font-size:13px">13-Week Training Plan</p>
 <input type="password" id="pwInput" class="login-input" placeholder="Enter password" autocomplete="off">
 <button id="loginBtn" class="login-btn">Log In</button>
 <div id="loginError" class="login-error"></div>
@@ -263,14 +265,16 @@ input,textarea{font-family:inherit}
 <!-- Race Countdowns -->
 <div class="race-countdowns">
 <div class="race-card r1">
+<img src="rto-logo.svg" alt="Reno-Tahoe Odyssey" class="race-logo" onerror="this.style.display='none'">
 <div class="race-label">Race 1</div>
-<div class="race-name">3-Leg Road Half</div>
+<div class="race-name">Reno-Tahoe Odyssey</div>
 <div class="race-countdown" id="countdown1"></div>
 <div class="race-date">May 29, 2026</div>
 </div>
 <div class="race-card r2">
+<img src="bas-logo.svg" alt="Broken Arrow Skyrace" class="race-logo" onerror="this.style.display='none'">
 <div class="race-label">Race 2</div>
-<div class="race-name">Trail Half</div>
+<div class="race-name">Broken Arrow Skyrace</div>
 <div class="race-countdown" id="countdown2"></div>
 <div class="race-date">Jun 27, 2026</div>
 </div>
@@ -698,11 +702,11 @@ const WEEKS = [
       subActivities:[{id:'run',label:'🏃 Long Run 10mi @ 10:15-10:45/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
   ]
 },
-// WEEK 8
+// WEEK 8: May 18 (Mon) – May 24 (Sun) — Taper
 {
-  num: 8, phase: 'Taper + Race 1', mileage: 'Taper',
-  startDate: md(2026,5,18), endDate: md(2026,5,29),
-  goal: "Taper time! Reduce volume but keep some sharpness with strides and a race-pace rehearsal. Trust your training — the hay is in the barn. Race Day May 29!",
+  num: 8, phase: 'Taper', mileage: 'Taper (~8 mi)',
+  startDate: md(2026,5,18), endDate: md(2026,5,24),
+  goal: "Taper time! Reduce volume but keep some sharpness with strides and a race-pace rehearsal. Trust your training — the hay is in the barn. You may feel restless or sluggish — 'taper tantrums' are totally normal.",
   days: [
     { date: md(2026,5,18), emoji:'💤', title:'Rest', desc:'Taper begins! ⚠️ May feel restless/sluggish — "taper tantrums" are normal. Trust the training.', priority:'flexible', soreness:true,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
@@ -717,30 +721,38 @@ const WEEKS = [
     { date: md(2026,5,23), emoji:'💤', title:'Rest', desc:'Rest day.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
     { date: md(2026,5,24), emoji:'🏃', title:'Easy Run 2mi', desc:'Easy Run 2mi @ 10:30/mi. Short and easy.', priority:'flexible', soreness:false,
-      subActivities:[{id:'run',label:'🏃 Easy Run 2mi @ 10:30/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,5,25), emoji:'💤', title:'Rest', desc:'Rest day.', priority:'flexible', soreness:false,
+      subActivities:[{id:'run',label:'🏃 Easy Run 2mi @ 10:30/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
+  ]
+},
+// WEEK 9: May 25 (Mon) – May 31 (Sun) — Race Week!
+{
+  num: 9, phase: 'Race 1 Week!', mileage: 'Race Week',
+  startDate: md(2026,5,25), endDate: md(2026,5,31),
+  goal: "Race week! Keep things minimal — short shakeout runs and rest. Race day is Friday May 29. After the race, rest and recover through the weekend.",
+  days: [
+    { date: md(2026,5,25), emoji:'💤', title:'Rest', desc:'Rest day. Stay off your feet. Hydrate well.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,26), emoji:'🏃', title:'Shakeout 1.5mi + Strides', desc:'Easy shakeout 1.5mi @ 10:30/mi + 3×20sec strides.', priority:'flexible', soreness:false,
+    { date: md(2026,5,26), emoji:'🏃', title:'Shakeout 1.5mi + Strides', desc:'Easy shakeout 1.5mi @ 10:30/mi + 3×20sec strides. Keep legs feeling alive.', priority:'flexible', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy shakeout 1.5mi @ 10:30/mi',type:'main'},{id:'strides',label:'⚡ 3×20sec strides',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,27), emoji:'💤', title:'Rest', desc:'Rest. Lay out race gear.', priority:'flexible', soreness:false,
+    { date: md(2026,5,27), emoji:'💤', title:'Rest', desc:'Rest. Lay out race gear. Visualize your race plan.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
     { date: md(2026,5,28), emoji:'💤', title:'Rest', desc:'Rest or 10-min walk. Hydrate well. Early bedtime.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,29), emoji:'🏁', title:'🏁 RACE DAY!', desc:'3-Leg Road Half! Leg 1: 9:30-9:45/mi (RPE 6-7), Leg 2: 9:15-9:30/mi (RPE 7-8), Leg 3: 9:00-9:15/mi (RPE 8-9). Goal: Sub-2:02!', priority:'critical', soreness:false, isRace:true,
-      subActivities:[{id:'prehab',label:'🧘 Pre-race hip prehab (abbreviated)',type:'prehab'},{id:'race',label:'🏁 RACE — 3-Leg Road Half Marathon',type:'main'}]}
+    { date: md(2026,5,29), emoji:'🏁', title:'🏁 RACE DAY — Reno-Tahoe Odyssey!', desc:'3-Leg Road Half! Leg 1: 9:30-9:45/mi (RPE 6-7), Leg 2: 9:15-9:30/mi (RPE 7-8), Leg 3: 9:00-9:15/mi (RPE 8-9). Goal: Sub-2:02!', priority:'critical', soreness:false, isRace:true,
+      subActivities:[{id:'prehab',label:'🧘 Pre-race hip prehab (abbreviated)',type:'prehab'},{id:'race',label:'🏁 RACE — Reno-Tahoe Odyssey',type:'main'}]},
+    { date: md(2026,5,30), emoji:'💤', title:'Rest', desc:'Post-race! ⚠️ Soreness expected and normal. Walk gently. Foam roll. Celebrate!', priority:'flexible', soreness:true,
+      subActivities:[{id:'prehab',label:'🧘 Gentle hip prehab (10 min)',type:'prehab'}]},
+    { date: md(2026,5,31), emoji:'💤', title:'Rest/Walk', desc:'Rest or easy 20-min walk. Foam roll everything. Let the body recover.', priority:'flexible', soreness:false,
+      subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]}
   ]
 },
-// WEEK 9
+// WEEK 10: Jun 1 (Mon) – Jun 7 (Sun) — Post-Race Recovery
 {
-  num: 9, phase: 'Post-Race Recovery', mileage: '~10 miles',
-  startDate: md(2026,5,30), endDate: md(2026,6,7),
-  goal: "Post-race recovery and transition to trail. Easy does it early in the week. By Saturday, start getting on trails. Your body needs to recover from Race 1 before building for Race 2.",
+  num: 10, phase: 'Post-Race Recovery', mileage: '~10 miles',
+  startDate: md(2026,6,1), endDate: md(2026,6,7),
+  goal: "Post-race recovery and transition to trail. Easy does it early in the week. By the weekend, start getting on trails. Your body needs to recover from Race 1 before building for Race 2.",
   days: [
-    { date: md(2026,5,30), emoji:'💤', title:'Rest', desc:'Post-race! ⚠️ Soreness expected and normal. Walk gently.', priority:'flexible', soreness:true,
-      subActivities:[{id:'prehab',label:'🧘 Gentle hip prehab (10 min)',type:'prehab'}]},
-    { date: md(2026,5,31), emoji:'💤', title:'Rest/Walk', desc:'Rest or easy 20-min walk. Foam roll everything.', priority:'flexible', soreness:false,
-      subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,1), emoji:'💤', title:'Rest', desc:'Rest day.', priority:'flexible', soreness:false,
+    { date: md(2026,6,1), emoji:'💤', title:'Rest', desc:'Rest day. Continue recovering from Race 1.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
     { date: md(2026,6,2), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body only — no lower body yet.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body only (no lower body)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
@@ -756,11 +768,11 @@ const WEEKS = [
       subActivities:[{id:'run',label:'⛰️ Trail Run/Hike 4.5mi @ 11:00-12:00/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
   ]
 },
-// WEEK 10
+// WEEK 11: Jun 8 (Mon) – Jun 14 (Sun) — Trail & Altitude
 {
-  num: 10, phase: 'Trail & Altitude', mileage: '~16 miles',
+  num: 11, phase: 'Trail & Altitude', mileage: '~16 miles',
   startDate: md(2026,6,8), endDate: md(2026,6,14),
-  goal: "Trail-specific training in full swing. Eccentric strength work protects your knees on downhills. Speed workout keeps your legs sharp. Long trail run with elevation — practice power hiking!",
+  goal: "Trail-specific training in full swing! Eccentric strength work protects your knees on downhills. Speed workout keeps your legs sharp. Long trail run with elevation — practice power hiking!",
   days: [
     { date: md(2026,6,8), emoji:'💤', title:'Rest', desc:'Rest day.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
@@ -778,9 +790,9 @@ const WEEKS = [
       subActivities:[{id:'run',label:'⛰️ Long Trail Run 8mi @ 11:00-12:00/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
   ]
 },
-// WEEK 11
+// WEEK 12: Jun 15 (Mon) – Jun 21 (Sun) — Peak Trail
 {
-  num: 11, phase: 'Peak Trail Week', mileage: '~18 miles',
+  num: 12, phase: 'Peak Trail Week', mileage: '~18 miles',
   startDate: md(2026,6,15), endDate: md(2026,6,21),
   goal: "Peak trail week. The hill power hike + run workout is the most race-specific session of the whole plan. Last big trail long run — practice everything: fueling, hiking, pacing.",
   days: [
@@ -800,24 +812,26 @@ const WEEKS = [
       subActivities:[{id:'run',label:'⛰️ Long Trail Run 10mi @ 11:00-12:00/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
   ]
 },
-// WEEK 12
+// WEEK 13: Jun 22 (Mon) – Jun 28 (Sun) — Taper + Race 2
 {
-  num: 12, phase: 'Taper + Race 2', mileage: 'Taper',
-  startDate: md(2026,6,22), endDate: md(2026,6,27),
-  goal: "Final taper! Keep legs fresh with light movement and strides. Hydrate aggressively for altitude. Trust the training. Race Day June 27 — enjoy the mountains!",
+  num: 13, phase: 'Taper + Race 2', mileage: 'Taper + Race',
+  startDate: md(2026,6,22), endDate: md(2026,6,28),
+  goal: "Final taper! Keep legs fresh with light movement and strides. Hydrate aggressively for altitude. Trust the training. Race Day Saturday June 27 — enjoy the mountains! 🏔️",
   days: [
     { date: md(2026,6,22), emoji:'💤', title:'Rest', desc:'Final taper! ⚠️ Trust the training. Restlessness normal.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
     { date: md(2026,6,23), emoji:'🏋️', title:'Lift (Upper Body Light)', desc:'Upper body — light.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body (light)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,24), emoji:'🏃', title:'Easy Run 3mi + Strides', desc:'Easy Run 3mi @ 10:15-10:30/mi + 4×20sec strides. Last quality movement.', priority:'important', soreness:false,
+    { date: md(2026,6,24), emoji:'🏃', title:'Easy Run 3mi + Strides', desc:'Easy Run 3mi @ 10:15-10:30/mi + 4×20sec strides. Last quality movement before the race.', priority:'important', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy Run 3mi @ 10:15-10:30/mi',type:'main'},{id:'strides',label:'⚡ 4×20sec strides on flat ground',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,6,25), emoji:'💤', title:'Rest/Walk', desc:'Rest or easy 20-min walk. Hydrate aggressively — altitude dehydrates.', priority:'flexible', soreness:false,
+    { date: md(2026,6,25), emoji:'💤', title:'Rest/Walk', desc:'Rest or easy 20-min walk. Hydrate aggressively — altitude dehydrates faster.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,26), emoji:'💤', title:'Rest', desc:'Rest. Lay out ALL gear (layers!). Charge watch. Prep fuel. Early bedtime.', priority:'flexible', soreness:false,
+    { date: md(2026,6,26), emoji:'💤', title:'Rest', desc:'Rest. Lay out ALL gear (layers — mountain weather changes fast!). Charge watch. Prep fuel. Early bedtime.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,27), emoji:'🏁', title:'🏁 RACE DAY!', desc:'Trail Half! Power hike ALL uphills from mile 1. Run flats @ 10:00-10:30/mi. Quick cadence downhills. Eat every 30-45 min. Sip water constantly. Slow down if altitude symptoms. Goal: Finish strong!', priority:'critical', soreness:false, isRace:true,
-      subActivities:[{id:'prehab',label:'🧘 Pre-race hip prehab (abbreviated)',type:'prehab'},{id:'race',label:'🏁 RACE — Trail Half Marathon',type:'main'}]}
+    { date: md(2026,6,27), emoji:'🏁', title:'🏁 RACE DAY — Broken Arrow Skyrace!', desc:'Trail Half! Power hike ALL uphills from mile 1. Run flats @ 10:00-10:30/mi. Quick cadence downhills. Eat every 30-45 min. Sip water constantly. Slow down if altitude symptoms. Goal: Finish strong!', priority:'critical', soreness:false, isRace:true,
+      subActivities:[{id:'prehab',label:'🧘 Pre-race hip prehab (abbreviated)',type:'prehab'},{id:'race',label:'🏁 RACE — Broken Arrow Skyrace',type:'main'}]},
+    { date: md(2026,6,28), emoji:'💤', title:'Rest & Celebrate!', desc:'You did it! 🎉 Rest, recover, and celebrate finishing both races. Foam roll, gentle walk, eat well.', priority:'flexible', soreness:true,
+      subActivities:[{id:'prehab',label:'🧘 Gentle hip prehab (10 min)',type:'prehab'}]}
   ]
 }
 ];
@@ -834,6 +848,7 @@ const OFFICE_QUOTES = [
   { quote: "I'm not superstitious, but I am a little stitious.", attr: "— Michael Scott" },
   { quote: "It's a beautiful morning at Dunder Mifflin... or as I like to call it, Great Scott's Tots.", attr: "— Michael Scott" },
   { quote: "I feel like all my kids grew up, and then they married each other. It's every parent's dream.", attr: "— Michael Scott" },
+  { quote: "Today, smoking is going to save lives.", attr: "— Dwight Schrute (on the Fun Run)" },
   { quote: "And I knew exactly what to do. But in a much more real sense, I had no idea what to do.", attr: "— Michael Scott" },
 ];
 
@@ -1059,21 +1074,12 @@ function addPrehabTooltip(label) {
 function expandCard(el) {
   el.classList.remove('collapsed');
   el.removeAttribute('onclick');
-  // Add a collapse button
-  const body = el.querySelector('.day-card-body');
-  if (body && !body.querySelector('.collapse-btn')) {
-    const btn = document.createElement('button');
-    btn.className = 'tag-btn';
-    btn.style.cssText = 'margin-top:8px;width:100%;text-align:center;font-size:11px;color:var(--text-light)';
-    btn.textContent = '▲ Collapse';
-    btn.onclick = function(e) {
-      e.stopPropagation();
-      el.classList.add('collapsed');
-      el.setAttribute('onclick', 'expandCard(this)');
-      btn.remove();
-    };
-    body.appendChild(btn);
-  }
+}
+
+function collapseCard(btn) {
+  const card = btn.closest('.day-card');
+  card.classList.add('collapsed');
+  card.setAttribute('onclick', 'expandCard(this)');
 }
 
 function renderDayCards(week) {
@@ -1158,6 +1164,9 @@ function renderDayCards(week) {
     html += '<div class="notes-area hidden" id="notes-' + dk + '">';
     html += '<textarea onclick="event.stopPropagation()" placeholder="How did it feel? Any observations..." onblur="saveNotes(\'' + dk + '\',this.value)">' + (ds.notes || '') + '</textarea>';
     html += '</div>';
+
+    // Collapse button (always available)
+    html += '<button class="tag-btn" style="margin-top:8px;width:100%;text-align:center;font-size:11px;color:var(--text-light)" onclick="event.stopPropagation();collapseCard(this)">▲ Collapse</button>';
 
     html += '</div>'; // close day-card-body
     html += '</div>'; // close day-card

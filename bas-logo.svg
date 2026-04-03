@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100">
+  <path d="M80 5 L155 75 Q155 95 140 95 L20 95 Q5 95 5 75 Z" fill="#2D5A3D"/>
+  <path d="M80 5 L155 75 Q155 95 140 95 L20 95 Q5 95 5 75 Z" fill="none" stroke="#4A7A5A" stroke-width="2"/>
+  <path d="M50 35 L65 20 L75 28 L80 15 L85 28 L95 20 L110 35" stroke="#fff" stroke-width="1.5" fill="none"/>
+  <text x="80" y="52" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="11" font-weight="900" fill="#fff">BROKEN ARROW</text>
+  <text x="80" y="68" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="13" font-weight="900" fill="#D4A843">SKYRACE</text>
+  <text x="80" y="82" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="#8BA88A">PALISADES TAHOE</text>
+</svg>
