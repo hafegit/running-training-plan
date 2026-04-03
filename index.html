@@ -73,12 +73,12 @@ input,textarea{font-family:inherit}
 
 /* CALENDAR STRIP */
 .cal-strip{display:flex;gap:4px;padding:12px 16px;background:var(--white);border-bottom:1px solid var(--border);overflow-x:auto}
-.cal-day{flex:1;min-width:64px;text-align:center;padding:8px 4px;border-radius:var(--radius-sm);cursor:pointer;transition:all .2s;position:relative}
+.cal-day{flex:1;min-width:72px;text-align:center;padding:8px 6px;border-radius:var(--radius-sm);cursor:pointer;transition:all .2s;position:relative;display:flex;flex-direction:column;align-items:center}
 .cal-day .day-abbr{font-size:11px;color:var(--text-light);font-weight:600}
 .cal-day .day-num{font-size:18px;font-weight:700;margin:2px 0}
 .cal-day .day-icon{font-size:14px}
-.cal-day .day-brief{font-size:9px;color:var(--text-light);line-height:1.2;margin-top:2px;max-width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cal-day.today .day-brief{color:rgba(255,255,255,.8)}
+.cal-day .day-brief{font-size:9px;color:var(--text-light);line-height:1.2;margin-top:3px;text-align:center;word-wrap:break-word;max-width:70px}
+.cal-day.today .day-brief{color:rgba(255,255,255,.85)}
 .cal-day.today{background:var(--primary);color:var(--white)}
 .cal-day.today .day-abbr{color:rgba(255,255,255,.8)}
 .cal-day.completed::after{content:'✓';position:absolute;top:2px;right:4px;font-size:10px;color:var(--green);font-weight:800}
@@ -87,18 +87,30 @@ input,textarea{font-family:inherit}
 
 /* DAY CARDS */
 .day-cards{padding:12px 16px}
-.day-card{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:12px;box-shadow:var(--shadow);border-left:4px solid var(--border);transition:all .2s}
+.day-card{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:12px;box-shadow:var(--shadow);border-left:4px solid var(--border);transition:all .3s ease;overflow:hidden}
 .day-card.priority-critical{border-left-color:var(--red)}
 .day-card.priority-important{border-left-color:var(--yellow)}
 .day-card.priority-flexible{border-left-color:var(--green)}
 .day-card.priority-lifting{border-left-color:#9b59b6}
 .day-card.past-incomplete{opacity:.7}
+.day-card.collapsed{padding:10px 16px;cursor:pointer}
+.day-card.collapsed .day-card-body{display:none}
+.day-card.collapsed .day-card-header{margin-bottom:0}
+.day-card.collapsed .collapse-indicator{display:inline}
+.collapse-indicator{display:none;font-size:11px;color:var(--text-light);margin-left:8px}
 .day-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .day-card-title{font-size:15px;font-weight:700}
 .day-card-date{font-size:12px;color:var(--text-light)}
 .day-card-desc{font-size:13px;color:var(--text-light);margin-bottom:10px;line-height:1.5}
 .soreness-banner{background:var(--yellow-light);border:1px solid #f0d78e;border-radius:var(--radius-sm);padding:8px 10px;font-size:12px;margin-bottom:10px;display:flex;align-items:flex-start;gap:6px}
 .soreness-banner .warn-icon{flex-shrink:0}
+
+/* TOOLTIPS */
+.has-tooltip{position:relative;cursor:help;border-bottom:1px dotted var(--primary);color:var(--primary);font-weight:600}
+.tooltip-popup{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--navy);color:var(--white);padding:12px 14px;border-radius:var(--radius-sm);font-size:12px;line-height:1.5;width:280px;z-index:50;box-shadow:var(--shadow-lg);font-weight:400;font-style:normal;pointer-events:none}
+.tooltip-popup::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--navy)}
+.has-tooltip:hover .tooltip-popup,.has-tooltip:focus .tooltip-popup{display:block}
+@media(max-width:600px){.tooltip-popup{left:0;transform:none;width:240px}}
 
 /* SUB-ACTIVITIES */
 .sub-activities{margin-bottom:10px}
@@ -138,10 +150,17 @@ input,textarea{font-family:inherit}
 .month-grid-container{padding:16px}
 .month-title{font-size:16px;font-weight:700;margin:16px 0 8px;padding-left:4px}
 .month-title:first-child{margin-top:0}
-.month-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:16px}
-.month-grid .mg-header{font-size:11px;font-weight:700;text-align:center;padding:4px;color:var(--text-light)}
-.month-grid .mg-cell{min-height:64px;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:4px 2px;font-size:11px;cursor:pointer;transition:all .2s;border:1px solid transparent;position:relative}
-.mg-cell.empty{cursor:default;min-height:0}
+
+.week-row{display:grid;grid-template-columns:repeat(7,1fr) 110px;gap:3px;align-items:stretch;margin-bottom:2px}
+.week-row .mg-cell{min-height:64px;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:4px 2px;font-size:11px;cursor:pointer;transition:all .2s;border:1px solid transparent}
+.week-row .mg-cell.empty{cursor:default;border:none}
+.week-row-summary{display:flex;flex-direction:column;justify-content:center;padding:4px 10px;font-size:10px;color:var(--text-light);border-left:2px solid var(--border);background:var(--bg);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+.week-row-summary .wrs-week{font-weight:700;color:var(--navy);font-size:11px}
+.week-row-summary .wrs-detail{font-size:9px;line-height:1.4;margin-top:2px}
+.week-row .mg-header{font-size:11px;font-weight:700;text-align:center;padding:4px;color:var(--text-light)}
+
+
+
 .mg-cell .mg-date{font-weight:600;font-size:12px}
 .mg-cell .mg-emoji{font-size:13px;margin:1px 0}
 .mg-cell .mg-brief{font-size:8px;color:var(--text-light);text-align:center;line-height:1.1;max-width:100%;overflow:hidden}
@@ -150,8 +169,10 @@ input,textarea{font-family:inherit}
 .mg-cell.missed-day{background:var(--red-light);border-color:#f5b7b1}
 .mg-cell.is-today{border:2px solid var(--primary)}
 .mg-cell.is-today .mg-date{color:var(--primary);font-weight:800}
-.week-summary-row{display:flex;justify-content:flex-end;gap:8px;padding:4px 0 12px;font-size:11px;color:var(--text-light)}
-.week-summary-row .ws-badge{background:var(--bg);padding:2px 8px;border-radius:10px;font-weight:600}
+.mg-week-summary{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:4px 8px;font-size:10px;color:var(--text-light);border-left:2px solid var(--border);min-height:64px;line-height:1.4}
+
+
+
 
 /* WEEK ACCORDIONS */
 .week-accordions{padding:0 16px 16px}
@@ -259,7 +280,7 @@ input,textarea{font-family:inherit}
 
 <!-- Tabs -->
 <div class="tabs">
-<button class="tab-btn active" data-tab="thisweek">This Week</button>
+<button class="tab-btn active" data-tab="thisweek">Weekly View</button>
 <button class="tab-btn" data-tab="fullplan">Full Plan</button>
 <button class="tab-btn" data-tab="reference">Reference</button>
 </div>
@@ -494,23 +515,29 @@ function sameDay(a, b) {
 function dayAbbr(d) { return ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()]; }
 function getCalBrief(day) {
   const t = day.title.toLowerCase();
-  if (day.isRace) return 'Race Day!';
-  if (t.includes('rest')) return 'Rest';
-  if (t.includes('lift') && t.includes('upper')) return 'Lift Upper';
-  if (t.includes('lift') && t.includes('lower')) return 'Lift Lower';
+  const title = day.title;
+  // Extract distance from title (e.g., "Long Run 4.5mi" → "4.5mi")
+  const distMatch = title.match(/(\d+\.?\d*)\s*mi/i);
+  const dist = distMatch ? distMatch[1] + 'mi' : '';
+  if (day.isRace && t.includes('road')) return '🏁 Race Day!';
+  if (day.isRace && t.includes('trail')) return '🏁 Race Day!';
+  if (day.isRace) return '🏁 Race Day!';
+  if (t.includes('rest') || t.includes('walk')) return 'Rest';
+  if (t.includes('lift') && t.includes('upper')) return 'Lift · Upper';
+  if (t.includes('lift') && t.includes('lower')) return 'Lift · Lower';
   if (t.includes('lift')) return 'Lift';
-  if (t.includes('long') && t.includes('trail')) return 'Long Trail';
-  if (t.includes('long run')) return 'Long Run';
-  if (t.includes('tempo')) return 'Tempo';
-  if (t.includes('speed') || t.includes('400m')) return 'Speed';
-  if (t.includes('hill') && t.includes('power')) return 'Hill Hike';
-  if (t.includes('hill')) return 'Hills';
-  if (t.includes('moderate')) return 'Mod Run';
-  if (t.includes('trail')) return 'Trail Run';
-  if (t.includes('easy') && t.includes('stride')) return 'Easy+Strides';
-  if (t.includes('shakeout')) return 'Shakeout';
-  if (t.includes('easy')) return 'Easy Run';
-  return day.title.substring(0, 10);
+  if (t.includes('long') && t.includes('trail')) return 'Long Trail · ' + dist;
+  if (t.includes('long run')) return 'Long Run · ' + dist;
+  if (t.includes('tempo')) return 'Tempo · ' + dist;
+  if (t.includes('speed') || t.includes('400m')) { const reps = title.match(/(\d+)×/); return 'Speed · ' + (reps ? reps[0] : '') + '400m'; }
+  if (t.includes('hill') && t.includes('power')) return 'Hill Hike · 30min';
+  if (t.includes('hill')) { const reps = title.match(/(\d+)×/); return 'Hills · ' + (reps ? reps[0] : ''); }
+  if (t.includes('moderate')) return 'Mod Run · ' + dist;
+  if (t.includes('trail')) return 'Trail · ' + dist;
+  if (t.includes('shakeout')) return 'Shakeout · ' + dist;
+  if (t.includes('easy') && t.includes('stride')) return 'Easy · ' + dist + '+Str';
+  if (t.includes('easy')) return 'Easy Run · ' + dist;
+  return title.substring(0, 14);
 }
 
 // ============================================================
@@ -972,6 +999,83 @@ function scrollToDay(idx) {
   if (cards[idx]) cards[idx].scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
+// ============================================================
+// TOOLTIPS
+// ============================================================
+const TOOLTIP_DEFS = {
+  easy: '<strong>Easy Run</strong><br>Pace: 10:15–11:00/mi<br>Feel: Full sentences, relaxed breathing, could breathe through nose<br>RPE: 3–4<br><em>~80% of your runs should be at this effort!</em>',
+  moderate: '<strong>Moderate Run</strong><br>Pace: 9:30–10:00/mi<br>Feel: Short sentences only, "comfortably hard"<br>RPE: 5–6<br><em>Controlled effort — not easy, not hard.</em>',
+  tempo: '<strong>Tempo Run</strong><br>Pace: 8:45–9:15/mi<br>Feel: Few words max, "comfortably uncomfortable"<br>RPE: 7–8<br><em>Sustained hard effort. Should feel like you could hold it for 20–30 min max.</em>',
+  speed: '<strong>Speed Intervals</strong><br>Pace: 8:00–8:30/mi<br>Feel: Labored breathing, legs burning<br>RPE: 8–9<br><em>Short bursts (200m–800m). Full recovery between reps. Embrace the discomfort!</em>',
+  hills: '<strong>Hill Repeats</strong><br>Pace: Effort-based, RPE 8–9<br>Feel: Hard effort, focus on cadence & arm drive<br><em>Don\'t watch pace — focus on strong form. Drive knees, pump arms, stay tall.</em>',
+  trail: '<strong>Trail Running</strong><br>Pace: Add 1:00–2:00/mi to road pace<br>Feel: Adjust for terrain, watch footing<br><em>Trail pace is always slower than road. Focus on effort, not speed. Power hike steep uphills.</em>',
+  rpe78: '<strong>RPE 7–8</strong><br>Hard to very hard effort. Can say a few words at most. Breathing is heavy. Want to slow down but can sustain for several minutes.',
+  rpe89: '<strong>RPE 8–9</strong><br>Very hard to near-max effort. Can barely talk. Unsustainable beyond 1–2 minutes. Used for intervals and hill repeats.',
+  rpe67: '<strong>RPE 6–7</strong><br>Hard effort. Short sentences only. Comfortably hard — you could keep going but it takes focus.',
+  prehab: '<strong>Hip Prehab Routine (10 min)</strong><br>• Clamshells 2×15/side<br>• Banded lateral walks 2×20 steps<br>• Single-leg glute bridges 2×12/side<br>• 90/90 hip switches 10 reps<br>• Pigeon pose 60s/side<br>• Couch stretch 60s/side<br>• Figure-4 stretch 60s/side',
+  postrun: '<strong>Post-Run Stretching</strong><br>• Foam roll IT band 2 min/side<br>• Foam roll quads 2 min/side<br>• Foam roll hip flexors 2 min/side<br>• Hip circles 10 each direction<br>• Deep squat hold 60s'
+};
+
+function makeTooltip(text, key) {
+  if (!TOOLTIP_DEFS[key]) return text;
+  return '<span class="has-tooltip" tabindex="0">' + text + '<span class="tooltip-popup">' + TOOLTIP_DEFS[key] + '</span></span>';
+}
+
+function addTooltips(title, day) {
+  let t = title;
+  const tl = t.toLowerCase();
+  if (tl.includes('easy') && !tl.includes('stride')) t = t.replace(/(Easy\s*Run)/i, makeTooltip('$1', 'easy'));
+  else if (tl.includes('moderate')) t = t.replace(/(Moderate\s*Run)/i, makeTooltip('$1', 'moderate'));
+  else if (tl.includes('tempo')) t = t.replace(/(Tempo\s*Run)/i, makeTooltip('$1', 'tempo'));
+  else if (tl.includes('speed') || tl.includes('400m')) t = t.replace(/(Speed[^<]*)/i, makeTooltip('$1', 'speed'));
+  else if (tl.includes('hill') && tl.includes('power')) t = t.replace(/(Hill\s*Power\s*Hike)/i, makeTooltip('$1', 'hills'));
+  else if (tl.includes('hill')) t = t.replace(/(Hill\s*Repeats)/i, makeTooltip('$1', 'hills'));
+  else if (tl.includes('trail')) t = t.replace(/(Trail\s*Run)/i, makeTooltip('$1', 'trail'));
+  return t;
+}
+
+function addTooltipsToDesc(desc) {
+  let d = desc;
+  // Add tooltips to RPE mentions
+  d = d.replace(/RPE\s*8[\s-–]*9/g, makeTooltip('RPE 8-9', 'rpe89'));
+  d = d.replace(/RPE\s*7[\s-–]*8/g, makeTooltip('RPE 7-8', 'rpe78'));
+  d = d.replace(/RPE\s*6[\s-–]*7/g, makeTooltip('RPE 6-7', 'rpe67'));
+  return d;
+}
+
+function addPrehabTooltip(label) {
+  if (label.toLowerCase().includes('prehab')) {
+    return label.replace(/(Hip prehab routine[^<]*)/i, makeTooltip('$1', 'prehab'));
+  }
+  if (label.toLowerCase().includes('post-run') || label.toLowerCase().includes('foam roll')) {
+    return label.replace(/(Post-run[^<]*|foam roll[^<]*)/i, makeTooltip('$1', 'postrun'));
+  }
+  return label;
+}
+
+// ============================================================
+// COLLAPSE / EXPAND
+// ============================================================
+function expandCard(el) {
+  el.classList.remove('collapsed');
+  el.removeAttribute('onclick');
+  // Add a collapse button
+  const body = el.querySelector('.day-card-body');
+  if (body && !body.querySelector('.collapse-btn')) {
+    const btn = document.createElement('button');
+    btn.className = 'tag-btn';
+    btn.style.cssText = 'margin-top:8px;width:100%;text-align:center;font-size:11px;color:var(--text-light)';
+    btn.textContent = '▲ Collapse';
+    btn.onclick = function(e) {
+      e.stopPropagation();
+      el.classList.add('collapsed');
+      el.setAttribute('onclick', 'expandCard(this)');
+      btn.remove();
+    };
+    body.appendChild(btn);
+  }
+}
+
 function renderDayCards(week) {
   const container = document.getElementById('dayCards');
   const now = new Date();
@@ -986,14 +1090,20 @@ function renderDayCards(week) {
     const isToday = sameDay(day.date, today);
     let cardCls = 'day-card priority-' + day.priority;
     if (isPast && !complete && !ds.missed) cardCls += ' past-incomplete';
+    // Auto-collapse completed days (unless it's today)
+    const shouldCollapse = complete && !isToday;
+    if (shouldCollapse) cardCls += ' collapsed';
 
-    html += '<div class="' + cardCls + '" id="daycard-' + idx + '">';
+    html += '<div class="' + cardCls + '" id="daycard-' + idx + '"' + (shouldCollapse ? ' onclick="expandCard(this)"' : '') + '>';
 
     // Header
     html += '<div class="day-card-header">';
-    html += '<div class="day-card-title">' + day.emoji + ' ' + day.title + (isToday ? ' <span style="color:var(--primary);font-size:12px">← TODAY</span>' : '') + '</div>';
+    html += '<div class="day-card-title">' + day.emoji + ' ' + addTooltips(day.title, day) + (isToday ? ' <span style="color:var(--primary);font-size:12px">← TODAY</span>' : '') + (complete ? ' <span style="color:var(--green);font-size:12px">✓ Done</span>' : '') + '<span class="collapse-indicator">tap to expand</span></div>';
     html += '<div class="day-card-date">' + fmtDate(day.date) + '</div>';
     html += '</div>';
+
+    // Collapsible body
+    html += '<div class="day-card-body">';
 
     // Soreness banner
     if (day.soreness) {
@@ -1013,16 +1123,17 @@ function renderDayCards(week) {
       html += '<div class="office-quote" style="margin:8px 0">"' + OFFICE_MILESTONE_MSGS.firstSpeed + '"</div>';
     }
 
-    // Description
-    html += '<div class="day-card-desc">' + day.desc + '</div>';
+    // Description with tooltips
+    html += '<div class="day-card-desc">' + addTooltipsToDesc(day.desc) + '</div>';
 
-    // Sub-activities
+    // Sub-activities with tooltips on prehab
     html += '<div class="sub-activities">';
     day.subActivities.forEach(sa => {
       const checked = ds.subs[sa.id] === true;
       html += '<div class="sub-act">';
-      html += '<input type="checkbox" id="sa-' + dk + '-' + sa.id + '" ' + (checked ? 'checked' : '') + ' onchange="toggleSub(\'' + dk + '\',\'' + sa.id + '\',this.checked)">';
-      html += '<label for="sa-' + dk + '-' + sa.id + '" class="' + (checked ? 'checked' : '') + '">' + sa.label + '</label>';
+      html += '<input type="checkbox" id="sa-' + dk + '-' + sa.id + '" ' + (checked ? 'checked' : '') + ' onchange="event.stopPropagation();toggleSub(\'' + dk + '\',\'' + sa.id + '\',this.checked)">';
+      const labelText = sa.type === 'prehab' ? addPrehabTooltip(sa.label) : sa.label;
+      html += '<label for="sa-' + dk + '-' + sa.id + '" class="' + (checked ? 'checked' : '') + '" onclick="event.stopPropagation()">' + labelText + '</label>';
       html += '</div>';
     });
     html += '</div>';
@@ -1037,18 +1148,19 @@ function renderDayCards(week) {
     html += '<div class="quick-tags">';
     tagOptions.forEach(t => {
       const active = ds.tags.includes(t.key);
-      html += '<button class="tag-btn ' + (active ? 'active' : '') + '" onclick="toggleTag(\'' + dk + '\',\'' + t.key + '\')">' + t.label + '</button>';
+      html += '<button class="tag-btn ' + (active ? 'active' : '') + '" onclick="event.stopPropagation();toggleTag(\'' + dk + '\',\'' + t.key + '\')">' + t.label + '</button>';
     });
-    html += '<button class="tag-btn missed-btn ' + (ds.missed ? 'active' : '') + '" onclick="handleMissed(\'' + dk + '\',' + currentWeekIdx + ',' + idx + ')">❌ Missed</button>';
+    html += '<button class="tag-btn missed-btn ' + (ds.missed ? 'active' : '') + '" onclick="event.stopPropagation();handleMissed(\'' + dk + '\',' + currentWeekIdx + ',' + idx + ')">❌ Missed</button>';
     html += '</div>';
 
     // Notes
-    html += '<div class="notes-toggle" onclick="toggleNotes(\'' + dk + '\')">📝 Notes ' + (ds.notes ? '(' + ds.notes.length + ' chars)' : '') + '</div>';
+    html += '<div class="notes-toggle" onclick="event.stopPropagation();toggleNotes(\'' + dk + '\')">📝 Notes ' + (ds.notes ? '(' + ds.notes.length + ' chars)' : '') + '</div>';
     html += '<div class="notes-area hidden" id="notes-' + dk + '">';
-    html += '<textarea placeholder="How did it feel? Any observations..." onblur="saveNotes(\'' + dk + '\',this.value)">' + (ds.notes || '') + '</textarea>';
+    html += '<textarea onclick="event.stopPropagation()" placeholder="How did it feel? Any observations..." onblur="saveNotes(\'' + dk + '\',this.value)">' + (ds.notes || '') + '</textarea>';
     html += '</div>';
 
-    html += '</div>';
+    html += '</div>'; // close day-card-body
+    html += '</div>'; // close day-card
   });
 
   container.innerHTML = html;
@@ -1246,11 +1358,14 @@ function renderMonthGrids() {
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-  // Build lookup of all training days
+  // Build lookup of all training days and their week info
   const dayLookup = {};
+  const dayWeekLookup = {};
   WEEKS.forEach(w => {
     w.days.forEach(d => {
-      dayLookup[dateKey(d.date)] = d;
+      const dk = dateKey(d.date);
+      dayLookup[dk] = d;
+      dayWeekLookup[dk] = w;
     });
   });
 
@@ -1264,42 +1379,70 @@ function renderMonthGrids() {
   let html = '';
   months.forEach(m => {
     html += '<div class="month-title">' + m.name + '</div>';
-    html += '<div class="month-grid">';
-    // Headers
+    // Header row
+    html += '<div class="week-row">';
     ['S','M','T','W','T','F','S'].forEach(d => {
       html += '<div class="mg-header">' + d + '</div>';
     });
-    // First day of month
+    html += '<div class="mg-header" style="font-size:9px">Week</div>';
+    html += '</div>';
+
     const firstDay = new Date(m.year, m.month, 1);
     const startDow = firstDay.getDay();
     const daysInMonth = new Date(m.year, m.month + 1, 0).getDate();
 
-    // Empty cells
-    for (let i = 0; i < startDow; i++) {
-      html += '<div class="mg-cell empty"></div>';
-    }
+    // Build calendar rows (Sun-Sat)
+    let dayNum = 1;
+    let currentDow = 0;
+    // First row may have empty cells
+    while (dayNum <= daysInMonth) {
+      html += '<div class="week-row">';
+      let rowWeek = null;
+      let rowCells = '';
 
-    for (let d = 1; d <= daysInMonth; d++) {
-      const dt = new Date(m.year, m.month, d);
-      const dk = dateKey(dt);
-      const dayData = dayLookup[dk];
-      const isToday = sameDay(dt, today);
-      let cls = 'mg-cell';
-      if (dayData) {
-        cls += ' has-workout';
-        if (isDayComplete(dayData, dk)) cls += ' done';
-        else if (isDayMissed(dk)) cls += ' missed-day';
+      for (let dow = 0; dow < 7; dow++) {
+        if ((dayNum === 1 && dow < startDow) || dayNum > daysInMonth) {
+          rowCells += '<div class="mg-cell empty"></div>';
+        } else {
+          const dt = new Date(m.year, m.month, dayNum);
+          const dk = dateKey(dt);
+          const dayData = dayLookup[dk];
+          const isToday = sameDay(dt, today);
+          if (dayData && !rowWeek) rowWeek = dayWeekLookup[dk];
+          let cls = 'mg-cell';
+          if (dayData) {
+            cls += ' has-workout';
+            if (isDayComplete(dayData, dk)) cls += ' done';
+            else if (isDayMissed(dk)) cls += ' missed-day';
+          }
+          if (isToday) cls += ' is-today';
+          rowCells += '<div class="' + cls + '" onclick="goToDay(\'' + dk + '\')">';
+          rowCells += '<div class="mg-date">' + dayNum + '</div>';
+          if (dayData) {
+            rowCells += '<div class="mg-emoji">' + dayData.emoji + '</div>';
+            rowCells += '<div class="mg-brief">' + getCalBrief(dayData) + '</div>';
+          }
+          rowCells += '</div>';
+          dayNum++;
+        }
       }
-      if (isToday) cls += ' is-today';
-      html += '<div class="' + cls + '" onclick="goToDay(\'' + dk + '\')">';
-      html += '<div class="mg-date">' + d + '</div>';
-      if (dayData) {
-        html += '<div class="mg-emoji">' + dayData.emoji + '</div>';
-        html += '<div class="mg-brief">' + getCalBrief(dayData) + '</div>';
+      html += rowCells;
+
+      // Week summary column
+      if (rowWeek) {
+        const liftDays = rowWeek.days.filter(d => d.priority === 'lifting').length;
+        html += '<div class="week-row-summary">';
+        html += '<div class="wrs-week">Wk ' + rowWeek.num + '</div>';
+        html += '<div class="wrs-detail">' + rowWeek.mileage + '</div>';
+        html += '<div class="wrs-detail">' + liftDays + ' lifts</div>';
+        html += '<div class="wrs-detail" style="font-size:8px;color:var(--primary)">' + rowWeek.phase + '</div>';
+        html += '</div>';
+      } else {
+        html += '<div class="week-row-summary"></div>';
       }
+
       html += '</div>';
     }
-    html += '</div>';
   });
   container.innerHTML = html;
 }
