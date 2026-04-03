@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Dunder Mifflin Fun Run — Training Plan</title>
+<title>Race Ready — Training Plan</title>
 <style>
 :root{--primary:#E8735A;--primary-light:#f4a393;--primary-dark:#c95a42;--navy:#1B2A4A;--navy-light:#2d4470;--white:#ffffff;--bg:#f5f3f0;--card:#ffffff;--text:#1B2A4A;--text-light:#6b7a94;--border:#e2e0dd;--green:#27ae60;--green-light:#e8f8ef;--red:#e74c3c;--red-light:#fdecea;--yellow:#f39c12;--yellow-light:#fef9e7;--shadow:0 2px 8px rgba(27,42,74,0.08);--shadow-lg:0 4px 16px rgba(27,42,74,0.12);--radius:12px;--radius-sm:8px}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -115,6 +115,10 @@ input,textarea{font-family:inherit}
 .day-card-title{font-size:15px;font-weight:700}
 .day-card-date{font-size:12px;color:var(--text-light)}
 .day-card-desc{font-size:13px;color:var(--text-light);margin-bottom:10px;line-height:1.5}
+/* DAILY TIP */
+.daily-tip{background:#f0f7ff;border:1px solid #c8ddf5;border-radius:var(--radius-sm);padding:10px 12px;font-size:12px;line-height:1.6;margin-bottom:10px;color:#2c5282}
+.daily-tip .tip-title{font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;color:#2b6cb0}
+
 .soreness-banner{background:var(--yellow-light);border:1px solid #f0d78e;border-radius:var(--radius-sm);padding:8px 10px;font-size:12px;margin-bottom:10px;display:flex;align-items:flex-start;gap:6px}
 .soreness-banner .warn-icon{flex-shrink:0}
 
@@ -257,8 +261,8 @@ input,textarea{font-family:inherit}
 <div id="loginScreen">
 <div class="login-box">
 <div style="font-size:64px;margin-bottom:12px">🏃‍♀️🎗️</div>
-<h1>Dunder Mifflin<br>Fun Run</h1>
-<p style="font-size:12px;color:var(--text-light);margin-bottom:4px">Michael Scott's Dunder Mifflin Scranton Meredith Palmer Memorial Celebrity Rabies Awareness Pro-Am Fun Run Race</p>
+<h1>🏃‍♀️ Race Ready</h1>
+<p style="font-size:12px;color:var(--text-light);margin-bottom:4px">Your 13-Week Training Plan</p>
 <p style="font-size:13px">13-Week Training Plan</p>
 <input type="password" id="pwInput" class="login-input" placeholder="Enter password" autocomplete="off">
 <button id="loginBtn" class="login-btn">Log In</button>
@@ -269,7 +273,7 @@ input,textarea{font-family:inherit}
 <!-- MAIN APP -->
 <div id="app">
 <header class="app-header">
-<h1>🏃‍♀️ Dunder Mifflin Fun Run</h1>
+<h1>🏃‍♀️ Race Ready</h1>
 <button class="logout-btn" onclick="logout()">Log Out</button>
 </header>
 
@@ -291,7 +295,7 @@ input,textarea{font-family:inherit}
 </div>
 </div>
 
-<div class="fun-banner" id="funBanner">🎗️ For the Cure · Dunder Mifflin Scranton Meredith Palmer Memorial Celebrity Rabies Awareness Pro-Am Fun Run Race 🎗️</div>
+
 
 <div class="overall-progress-bar" id="overallProgressSection">
 <div class="opb-row">
@@ -1156,6 +1160,107 @@ function collapseCard(btn) {
   card.setAttribute('onclick', 'expandCard(this)');
 }
 
+// ============================================================
+// DAILY TIPS
+// ============================================================
+function getDailyTip(day, weekNum) {
+  const t = day.title.toLowerCase();
+  const tips = [];
+
+  // REST DAYS
+  if (t.includes('rest') && !day.isRace) {
+    if (day.soreness) {
+      tips.push("💧 <strong>Recovery focus:</strong> Drink at least 80oz of water today. Soreness after hard efforts peaks 24-48 hours later — that's normal. Gentle movement like walking or yoga helps more than sitting still. Consider an Epsom salt bath tonight.");
+    } else if (weekNum <= 4) {
+      tips.push("🧠 <strong>Rest is training:</strong> Your body adapts and gets stronger during rest, not during the workout itself. Use today to meal prep — focus on lean protein (chicken, fish, eggs) and complex carbs (sweet potatoes, rice, oats) for tomorrow's effort.");
+    } else if (weekNum >= 8) {
+      tips.push("😌 <strong>Taper rest:</strong> You may feel antsy or sluggish — that's 'taper tantrums' and it's completely normal. Your body is storing energy. Stay off your feet, hydrate well, and trust that the fitness is already there.");
+    } else {
+      tips.push("🛏️ <strong>Sleep is your superpower:</strong> Aim for 7-9 hours tonight. Growth hormone peaks during deep sleep — that's when your muscles actually repair and strengthen. Avoid screens 30 min before bed if you can.");
+    }
+  }
+
+  // EASY RUNS
+  if (t.includes('easy') && !t.includes('stride')) {
+    tips.push("🐢 <strong>Truly easy means EASY:</strong> If you can't hold a full conversation, you're going too fast. Easy runs build your aerobic base without taxing your recovery. It should feel almost too slow — that's the point. Your heart and lungs are getting stronger even at this pace.");
+    if (weekNum <= 3) {
+      tips.push("🦵 <strong>New runner legs:</strong> Some tightness in your calves and shins is normal as you rebuild running volume. If anything feels sharp or doesn't warm up after 10 minutes, walk it out. Ice after if needed.");
+    }
+  }
+
+  // EASY + STRIDES
+  if (t.includes('easy') && t.includes('stride')) {
+    tips.push("⚡ <strong>Strides primer:</strong> Strides are 20-second accelerations to ~85% effort, NOT all-out sprints. Focus on quick turnover and relaxed form — loose shoulders, high knees, light feet. Walk back to full recovery between each. They teach your legs to move fast without the fatigue of a full speed workout.");
+  }
+
+  // LONG RUNS
+  if (t.includes('long run') || t.includes('long trail')) {
+    tips.push("🍽️ <strong>Fuel up:</strong> Eat a carb-rich meal tonight (pasta, rice bowl, etc.) and a light breakfast 2-3 hours before — toast with peanut butter, banana, or oatmeal. Bring water if going over 60 minutes. For runs over 75 min, practice eating something mid-run (gel, gummy, dates) — you'll need this skill on race day.");
+    if (t.includes('trail')) {
+      tips.push("⛰️ <strong>Trail strategy:</strong> Walk ALL steep uphills — this isn't weakness, it's race strategy. Focus on effort, not pace. Watch your footing on descents — quick, light steps. Your quads will be sore tomorrow from the downhills; that's eccentric muscle damage and it's normal.");
+    }
+  }
+
+  // TEMPO RUNS
+  if (t.includes('tempo')) {
+    tips.push("🔥 <strong>Tempo mindset:</strong> This should feel 'comfortably uncomfortable' — you can say a few words but not sentences. Don't start too fast! The first half mile should feel controlled. If you're gasping, back off 10-15 seconds per mile. The goal is sustained effort, not max effort.");
+    tips.push("🥤 <strong>Pre-run fuel:</strong> Have a small snack 60-90 min before — banana, toast, or a few dates. Avoid high-fiber or high-fat foods that might cause GI issues at tempo pace.");
+  }
+
+  // SPEED / INTERVALS
+  if (t.includes('speed') || t.includes('400m')) {
+    tips.push("🏎️ <strong>Interval tips:</strong> Warm up thoroughly — at least 1 mile easy + some leg swings. Each 400m should feel hard but controlled. If your form falls apart (hunching, shuffling), the rep is done — walk it off. Full recovery between reps matters more than rushing. Cool down with easy jogging, not stopping cold.");
+    tips.push("⚡ <strong>Form cues:</strong> Drive your arms forward (not across your body), keep your shoulders relaxed and dropped, lean slightly forward from the ankles. Think 'quick feet' not 'long strides.'");
+  }
+
+  // HILL REPEATS
+  if (t.includes('hill')) {
+    tips.push("⛰️ <strong>Hill technique:</strong> Shorten your stride, increase your cadence, and drive your arms. Look 10-15 feet ahead, not at your feet. On the way down, let gravity do the work — quick light steps, slight forward lean. Hills build the strength you'll need for Broken Arrow.");
+  }
+
+  // LIFT DAYS
+  if (t.includes('lift')) {
+    if (t.includes('upper')) {
+      tips.push("💪 <strong>Upper body for runners:</strong> Strong arms = better running economy. Focus on rows, presses, and core work. A strong upper body helps maintain form when your legs are tired in the late miles. Keep the session to 45-60 min.");
+    } else if (t.includes('lower')) {
+      tips.push("🦵 <strong>Lower body for runners:</strong> Prioritize single-leg work (lunges, Bulgarian split squats, single-leg RDLs) — running is a single-leg sport. Go moderate weight with control. If your legs feel heavy from yesterday's run, reduce weight by 10-15% and focus on form.");
+    } else if (t.includes('eccentric')) {
+      tips.push("📉 <strong>Eccentric training:</strong> Slow the lowering phase to 3-4 seconds on each rep. This builds the exact muscle fibers that protect your knees on steep downhills. You WILL be sore — that's the point. Expect 24-48 hours of quad/glute soreness.");
+    } else {
+      tips.push("🏋️ <strong>Lift smart:</strong> Keep the intensity moderate — you're training for races, not PRs in the gym. Focus on compound movements and core stability. Save your energy for the runs.");
+    }
+  }
+
+  // RACE DAYS
+  if (day.isRace && t.includes('reno')) {
+    tips.push("🏁 <strong>Race morning checklist:</strong> Wake up 3 hours before start. Light breakfast you've practiced (nothing new!). Sip water but don't chug. Arrive 45 min early. Warm up with 5-10 min easy jog + strides. Start Leg 1 conservatively — the adrenaline will make you want to go out fast. Trust the plan!");
+    tips.push("🧠 <strong>Mental strategy:</strong> Use the leg breaks to reset mentally. Splash water on your face, take 3 deep breaths, and set your intention for the next leg. Negative split this race — each leg faster than the last.");
+  }
+  if (day.isRace && t.includes('broken')) {
+    tips.push("🏔️ <strong>Mountain race checklist:</strong> Layers! It can be 30°F colder at the top. Sunscreen and sunglasses — UV is intense at altitude. Bring more fuel than you think (gels, chews, real food). Start your watch but don't look at pace — run by effort only.");
+    tips.push("🫁 <strong>Altitude strategy:</strong> You'll breathe harder than normal — that's expected at 6,000-8,000ft. Slow down 10-15% from what feels right. Power hike EVERY uphill from mile 1 — the runners who walk the ups and run the flats will pass the runners who tried to run everything. Eat every 30 min, drink every 15.");
+  }
+
+  // ALTITUDE & HYDRATION (general, for weeks 8+)
+  if (weekNum >= 8 && !day.isRace && (t.includes('run') || t.includes('trail'))) {
+    tips.push("💧 <strong>Altitude hydration:</strong> At elevation, you lose moisture faster through breathing. Aim for at least 80-100oz of water daily this week. Add electrolytes (Nuun, LMNT, or a pinch of salt + lemon) to at least one bottle per day.");
+  }
+
+  // DIET TIPS (rotate based on day of week)
+  const dow = day.date.getDay();
+  if (dow === 0 && !day.isRace) { // Sunday
+    tips.push("🥗 <strong>Meal prep Sunday:</strong> Set yourself up for the week. Prep proteins (grilled chicken, hard-boiled eggs), chop veggies, cook a batch of rice or quinoa. Having healthy food ready makes it 10x easier to fuel properly on busy days.");
+  }
+  if (dow === 3 && weekNum >= 5) { // Wednesday mid-plan
+    tips.push("🧊 <strong>Mid-week recovery:</strong> Consider 10 minutes of foam rolling tonight while watching TV. Focus on quads, IT bands, and hip flexors. It's not glamorous but it prevents the small tightnesses from becoming big problems.");
+  }
+
+  // Return 1-2 tips max to keep it concise
+  if (tips.length === 0) return '';
+  const selected = tips.slice(0, 2);
+  return '<div class="daily-tip"><div class="tip-title">💡 Today\'s Tip</div>' + selected.join('<br><br>') + '</div>';
+}
+
 function renderDayCards(week) {
   const container = document.getElementById('dayCards');
   const now = new Date();
@@ -1205,6 +1310,9 @@ function renderDayCards(week) {
 
     // Description with tooltips
     html += '<div class="day-card-desc">' + addTooltipsToDesc(day.desc) + '</div>';
+
+    // Daily tip
+    html += getDailyTip(day, week.num);
 
     // Sub-activities with tooltips on prehab
     html += '<div class="sub-activities">';
