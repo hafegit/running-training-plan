@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Dunder Mifflin Fun Run — Training Plan</title>
+<title>Running Training Plan</title>
 <style>
 :root{--primary:#E8735A;--primary-light:#f4a393;--primary-dark:#c95a42;--navy:#1B2A4A;--navy-light:#2d4470;--white:#ffffff;--bg:#f5f3f0;--card:#ffffff;--text:#1B2A4A;--text-light:#6b7a94;--border:#e2e0dd;--green:#27ae60;--green-light:#e8f8ef;--red:#e74c3c;--red-light:#fdecea;--yellow:#f39c12;--yellow-light:#fef9e7;--shadow:0 2px 8px rgba(27,42,74,0.08);--shadow-lg:0 4px 16px rgba(27,42,74,0.12);--radius:12px;--radius-sm:8px}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -11,14 +11,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 button{cursor:pointer;font-family:inherit;border:none;background:none}
 input,textarea{font-family:inherit}
 .hidden{display:none!important}
-
-/* OFFICE THEME EXTRAS */
-.office-quote{background:var(--bg);border-left:3px solid var(--primary);padding:10px 14px;margin:12px 16px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-style:italic;font-size:12px;color:var(--text-light);line-height:1.5}
-.office-quote .quote-attr{font-style:normal;font-weight:700;color:var(--navy);display:block;margin-top:4px;font-size:11px}
-.fun-banner{text-align:center;padding:8px;font-size:11px;color:var(--text-light);background:var(--bg);border-bottom:1px solid var(--border)}
-.fun-banner img{height:32px;border-radius:4px;vertical-align:middle;margin:0 4px}
-.office-img{width:100%;max-width:400px;border-radius:var(--radius);margin:12px auto;display:block;box-shadow:var(--shadow)}
-.login-office-img{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:12px;border:3px solid var(--primary);box-shadow:var(--shadow)}
 
 /* LOGIN */
 #loginScreen{position:fixed;inset:0;background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);display:flex;align-items:center;justify-content:center;z-index:9999}
@@ -73,12 +65,10 @@ input,textarea{font-family:inherit}
 
 /* CALENDAR STRIP */
 .cal-strip{display:flex;gap:4px;padding:12px 16px;background:var(--white);border-bottom:1px solid var(--border);overflow-x:auto}
-.cal-day{flex:1;min-width:64px;text-align:center;padding:8px 4px;border-radius:var(--radius-sm);cursor:pointer;transition:all .2s;position:relative}
+.cal-day{flex:1;min-width:46px;text-align:center;padding:8px 4px;border-radius:var(--radius-sm);cursor:pointer;transition:all .2s;position:relative}
 .cal-day .day-abbr{font-size:11px;color:var(--text-light);font-weight:600}
 .cal-day .day-num{font-size:18px;font-weight:700;margin:2px 0}
 .cal-day .day-icon{font-size:14px}
-.cal-day .day-brief{font-size:9px;color:var(--text-light);line-height:1.2;margin-top:2px;max-width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cal-day.today .day-brief{color:rgba(255,255,255,.8)}
 .cal-day.today{background:var(--primary);color:var(--white)}
 .cal-day.today .day-abbr{color:rgba(255,255,255,.8)}
 .cal-day.completed::after{content:'✓';position:absolute;top:2px;right:4px;font-size:10px;color:var(--green);font-weight:800}
@@ -138,20 +128,17 @@ input,textarea{font-family:inherit}
 .month-grid-container{padding:16px}
 .month-title{font-size:16px;font-weight:700;margin:16px 0 8px;padding-left:4px}
 .month-title:first-child{margin-top:0}
-.month-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:16px}
+.month-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:16px}
 .month-grid .mg-header{font-size:11px;font-weight:700;text-align:center;padding:4px;color:var(--text-light)}
-.month-grid .mg-cell{min-height:64px;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:4px 2px;font-size:11px;cursor:pointer;transition:all .2s;border:1px solid transparent;position:relative}
-.mg-cell.empty{cursor:default;min-height:0}
+.month-grid .mg-cell{aspect-ratio:1;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;cursor:pointer;transition:all .2s;border:1px solid transparent;position:relative}
+.mg-cell.empty{cursor:default}
 .mg-cell .mg-date{font-weight:600;font-size:12px}
-.mg-cell .mg-emoji{font-size:13px;margin:1px 0}
-.mg-cell .mg-brief{font-size:8px;color:var(--text-light);text-align:center;line-height:1.1;max-width:100%;overflow:hidden}
+.mg-cell .mg-emoji{font-size:14px}
 .mg-cell.has-workout{background:var(--bg)}
 .mg-cell.done{background:var(--green-light);border-color:#a3e4bc}
 .mg-cell.missed-day{background:var(--red-light);border-color:#f5b7b1}
 .mg-cell.is-today{border:2px solid var(--primary)}
 .mg-cell.is-today .mg-date{color:var(--primary);font-weight:800}
-.week-summary-row{display:flex;justify-content:flex-end;gap:8px;padding:4px 0 12px;font-size:11px;color:var(--text-light)}
-.week-summary-row .ws-badge{background:var(--bg);padding:2px 8px;border-radius:10px;font-weight:600}
 
 /* WEEK ACCORDIONS */
 .week-accordions{padding:0 16px 16px}
@@ -222,10 +209,9 @@ input,textarea{font-family:inherit}
 <!-- LOGIN SCREEN -->
 <div id="loginScreen">
 <div class="login-box">
-<div style="font-size:64px;margin-bottom:12px">🏃‍♀️🎗️</div>
-<h1>Dunder Mifflin<br>Fun Run</h1>
-<p style="font-size:12px;color:var(--text-light);margin-bottom:4px">Michael Scott's Dunder Mifflin Scranton Meredith Palmer Memorial Celebrity Rabies Awareness Pro-Am Fun Run Race</p>
-<p style="font-size:13px">12-Week Training Plan</p>
+<span class="emoji-big">🏃‍♀️</span>
+<h1>Training Plan</h1>
+<p>12-Week Half Marathon Program</p>
 <input type="password" id="pwInput" class="login-input" placeholder="Enter password" autocomplete="off">
 <button id="loginBtn" class="login-btn">Log In</button>
 <div id="loginError" class="login-error"></div>
@@ -235,7 +221,7 @@ input,textarea{font-family:inherit}
 <!-- MAIN APP -->
 <div id="app">
 <header class="app-header">
-<h1>🏃‍♀️ Dunder Mifflin Fun Run</h1>
+<h1>🏃‍♀️ Training Plan</h1>
 <button class="logout-btn" onclick="logout()">Log Out</button>
 </header>
 
@@ -245,17 +231,15 @@ input,textarea{font-family:inherit}
 <div class="race-label">Race 1</div>
 <div class="race-name">3-Leg Road Half</div>
 <div class="race-countdown" id="countdown1"></div>
-<div class="race-date">May 29, 2026</div>
+<div class="race-date">May 29, 2025</div>
 </div>
 <div class="race-card r2">
 <div class="race-label">Race 2</div>
 <div class="race-name">Trail Half</div>
 <div class="race-countdown" id="countdown2"></div>
-<div class="race-date">Jun 27, 2026</div>
+<div class="race-date">Jun 27, 2025</div>
 </div>
 </div>
-
-<div class="fun-banner" id="funBanner">🎗️ For the Cure · Dunder Mifflin Scranton Meredith Palmer Memorial Celebrity Rabies Awareness Pro-Am Fun Run Race 🎗️</div>
 
 <!-- Tabs -->
 <div class="tabs">
@@ -279,7 +263,6 @@ input,textarea{font-family:inherit}
 <div class="week-mileage"><span class="badge" id="weekMileage"></span></div>
 <div class="week-goal" id="weekGoal"></div>
 </div>
-<div class="office-quote" id="officeQuote"></div>
 <div class="cal-strip" id="calStrip"></div>
 <div id="recoveryBanner"></div>
 <div class="day-cards" id="dayCards"></div>
@@ -418,13 +401,6 @@ input,textarea{font-family:inherit}
 <button class="data-btn import" onclick="document.getElementById('importInput').click()">📥 Import Data (JSON)</button>
 <input type="file" id="importInput" accept=".json" onchange="importData(event)">
 <button class="data-btn log" onclick="exportLog()">📋 Export Training Log (Text)</button>
-<p style="font-size:11px;color:var(--text-light);margin-top:8px">Export your training log to share with your coach or bring into AI for plan adjustments.</p>
-</div>
-
-<div class="ref-section" style="text-align:center;padding:24px">
-<p style="font-size:13px;color:var(--text-light);font-style:italic">"I ate more fettuccine alfredo and drank less water than I have in my entire life."</p>
-<p style="font-size:11px;font-weight:700;color:var(--navy);margin-top:4px">— Michael Scott, Fun Run</p>
-<p style="font-size:11px;color:var(--text-light);margin-top:8px">Please don't do this before your race. 🍝</p>
 </div>
 </div>
 
@@ -492,26 +468,6 @@ function sameDay(a, b) {
   return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 }
 function dayAbbr(d) { return ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()]; }
-function getCalBrief(day) {
-  const t = day.title.toLowerCase();
-  if (day.isRace) return 'Race Day!';
-  if (t.includes('rest')) return 'Rest';
-  if (t.includes('lift') && t.includes('upper')) return 'Lift Upper';
-  if (t.includes('lift') && t.includes('lower')) return 'Lift Lower';
-  if (t.includes('lift')) return 'Lift';
-  if (t.includes('long') && t.includes('trail')) return 'Long Trail';
-  if (t.includes('long run')) return 'Long Run';
-  if (t.includes('tempo')) return 'Tempo';
-  if (t.includes('speed') || t.includes('400m')) return 'Speed';
-  if (t.includes('hill') && t.includes('power')) return 'Hill Hike';
-  if (t.includes('hill')) return 'Hills';
-  if (t.includes('moderate')) return 'Mod Run';
-  if (t.includes('trail')) return 'Trail Run';
-  if (t.includes('easy') && t.includes('stride')) return 'Easy+Strides';
-  if (t.includes('shakeout')) return 'Shakeout';
-  if (t.includes('easy')) return 'Easy Run';
-  return day.title.substring(0, 10);
-}
 
 // ============================================================
 // TRAINING DATA
@@ -520,304 +476,280 @@ const WEEKS = [
 // WEEK 1
 {
   num: 1, phase: 'Base Building', mileage: '~10 miles',
-  startDate: md(2026,3,30), endDate: md(2026,4,5),
+  startDate: md(2025,3,30), endDate: md(2025,4,5),
   goal: "Welcome back to running! This week is about re-establishing the habit. Every run should feel easy and comfortable. Walk breaks are encouraged. Focus on hip prehab to build a strong foundation.",
   days: [
-    { date: md(2026,3,30), emoji:'💤', title:'Rest', desc:'Rest day — focus on hip prehab.', priority:'flexible', soreness:false,
+    { date: md(2025,3,30), emoji:'💤', title:'Rest', desc:'Rest day — focus on hip prehab.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,3,31), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body focus — push-ups, rows, shoulder press.', priority:'lifting', soreness:false,
+    { date: md(2025,3,31), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body focus — push-ups, rows, shoulder press.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body focus',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,1), emoji:'🏃', title:'Easy Run 2.5mi', desc:'Easy Run 2.5mi @ 10:30-11:00/mi. Keep it truly easy — getting legs used to running again. Walk breaks fine.', priority:'flexible', soreness:false,
+    { date: md(2025,4,1), emoji:'🏃', title:'Easy Run 2.5mi', desc:'Easy Run 2.5mi @ 10:30-11:00/mi. Keep it truly easy — getting legs used to running again. Walk breaks fine.', priority:'flexible', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy Run 2.5mi @ 10:30-11:00/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run: foam roll IT band/quads/hip flexors, hip circles, squat hold',type:'stretch'}]},
-    { date: md(2026,4,2), emoji:'🏋️', title:'Lift (Lower Body)', desc:'Lower body — squats, RDLs, lunges.', priority:'lifting', soreness:false,
+    { date: md(2025,4,2), emoji:'🏋️', title:'Lift (Lower Body)', desc:'Lower body — squats, RDLs, lunges.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — lower body (squats, RDLs, lunges)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,3), emoji:'🏃', title:'Easy Run 3mi', desc:'Easy Run 3mi @ 10:15-10:45/mi. Slightly longer but same easy effort. Focus on relaxed shoulders and breathing.', priority:'flexible', soreness:false,
+    { date: md(2025,4,3), emoji:'🏃', title:'Easy Run 3mi', desc:'Easy Run 3mi @ 10:15-10:45/mi. Slightly longer but same easy effort. Focus on relaxed shoulders and breathing.', priority:'flexible', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy Run 3mi @ 10:15-10:45/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,4,4), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
+    { date: md(2025,4,4), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,5), emoji:'🏃', title:'Long Run 4.5mi', desc:'Long Run 4.5mi @ 10:30-11:00/mi. First longer effort. No pace pressure — just time on feet.', priority:'critical', soreness:false,
+    { date: md(2025,4,5), emoji:'🏃', title:'Long Run 4.5mi', desc:'Long Run 4.5mi @ 10:30-11:00/mi. First longer effort. No pace pressure — just time on feet.', priority:'critical', soreness:false,
       subActivities:[{id:'run',label:'🏃 Long Run 4.5mi @ 10:30-11:00/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
   ]
 },
 // WEEK 2
 {
   num: 2, phase: 'Base Building', mileage: '~12 miles',
-  startDate: md(2026,4,6), endDate: md(2026,4,12),
+  startDate: md(2025,4,6), endDate: md(2025,4,12),
   goal: "Building consistency. Adding a moderate effort at the end of the week to start teaching your body different gears. Keep easy runs truly easy.",
   days: [
-    { date: md(2026,4,6), emoji:'💤', title:'Rest', desc:'Rest day. ⚠️ May feel soreness from yesterday\'s long run — normal. Gentle walking fine.', priority:'flexible', soreness:true,
+    { date: md(2025,4,6), emoji:'💤', title:'Rest', desc:'Rest day. ⚠️ May feel soreness from yesterday\'s long run — normal. Gentle walking fine.', priority:'flexible', soreness:true,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,7), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
+    { date: md(2025,4,7), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,8), emoji:'🏃', title:'Easy Run 3mi', desc:'Easy Run 3mi @ 10:15-10:45/mi.', priority:'flexible', soreness:false,
+    { date: md(2025,4,8), emoji:'🏃', title:'Easy Run 3mi', desc:'Easy Run 3mi @ 10:15-10:45/mi.', priority:'flexible', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy Run 3mi @ 10:15-10:45/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,4,9), emoji:'🏋️', title:'Lift (Lower Body)', desc:'Lower body session.', priority:'lifting', soreness:false,
+    { date: md(2025,4,9), emoji:'🏋️', title:'Lift (Lower Body)', desc:'Lower body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — lower body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,10), emoji:'🏃', title:'Moderate Run 3mi', desc:'Moderate Run 3mi — Start at 10:15/mi, finish last mile at 9:45-10:00/mi. First taste of moderate effort. "Comfortably hard" by the end.', priority:'important', soreness:false,
+    { date: md(2025,4,10), emoji:'🏃', title:'Moderate Run 3mi', desc:'Moderate Run 3mi — Start at 10:15/mi, finish last mile at 9:45-10:00/mi. First taste of moderate effort. "Comfortably hard" by the end.', priority:'important', soreness:false,
       subActivities:[{id:'run',label:'🏃 Moderate Run 3mi (10:15/mi → 9:45-10:00/mi last mile)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,4,11), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
+    { date: md(2025,4,11), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,12), emoji:'🏃', title:'Long Run 6mi', desc:'Long Run 6mi @ 10:15-10:45/mi. Building endurance. Bring water.', priority:'critical', soreness:false,
+    { date: md(2025,4,12), emoji:'🏃', title:'Long Run 6mi', desc:'Long Run 6mi @ 10:15-10:45/mi. Building endurance. Bring water.', priority:'critical', soreness:false,
       subActivities:[{id:'run',label:'🏃 Long Run 6mi @ 10:15-10:45/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
   ]
 },
 // WEEK 3
 {
   num: 3, phase: 'Base Building', mileage: '~14 miles',
-  startDate: md(2026,4,13), endDate: md(2026,4,19),
+  startDate: md(2025,4,13), endDate: md(2025,4,19),
   goal: "First hill session! Hills build the strength you'll need for both races. Focus on form — driving knees and pumping arms. Long run is getting longer — bring water.",
   days: [
-    { date: md(2026,4,13), emoji:'💤', title:'Rest', desc:'Rest day. ⚠️ Post-long-run recovery. Hips and quads may be sore. Foam roll extra.', priority:'flexible', soreness:true,
+    { date: md(2025,4,13), emoji:'💤', title:'Rest', desc:'Rest day. ⚠️ Post-long-run recovery. Hips and quads may be sore. Foam roll extra.', priority:'flexible', soreness:true,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,14), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
+    { date: md(2025,4,14), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,15), emoji:'🏃', title:'Easy Run 3mi', desc:'Easy Run 3mi @ 10:15-10:45/mi.', priority:'flexible', soreness:false,
+    { date: md(2025,4,15), emoji:'🏃', title:'Easy Run 3mi', desc:'Easy Run 3mi @ 10:15-10:45/mi.', priority:'flexible', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy Run 3mi @ 10:15-10:45/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,4,16), emoji:'🏋️', title:'Lift (Lower Body)', desc:'Lower body — moderate, not max effort.', priority:'lifting', soreness:false,
+    { date: md(2025,4,16), emoji:'🏋️', title:'Lift (Lower Body)', desc:'Lower body — moderate, not max effort.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — lower body (moderate, not max)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,17), emoji:'⛰️', title:'Hill Repeats', desc:'1mi warmup @ 10:30/mi, 4×60sec uphill RPE 8-9, jog down recovery, 1mi cooldown. ~3.5mi total. First hill session!', priority:'important', soreness:false,
+    { date: md(2025,4,17), emoji:'⛰️', title:'Hill Repeats', desc:'1mi warmup @ 10:30/mi, 4×60sec uphill RPE 8-9, jog down recovery, 1mi cooldown. ~3.5mi total. First hill session!', priority:'important', soreness:false,
       subActivities:[{id:'warmup',label:'🔥 Warm-up: 1mi easy @ 10:30/mi',type:'warmup'},{id:'main',label:'⛰️ Main set: 4×60sec uphill at RPE 8-9, jog down recovery',type:'main'},{id:'cooldown',label:'🧘 Cool-down: 1mi easy',type:'cooldown'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,4,18), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
+    { date: md(2025,4,18), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,19), emoji:'🏃', title:'Long Run 7mi', desc:'Long Run 7mi @ 10:15-10:45/mi. Longest run yet — find a route with gentle hills.', priority:'critical', soreness:false,
+    { date: md(2025,4,19), emoji:'🏃', title:'Long Run 7mi', desc:'Long Run 7mi @ 10:15-10:45/mi. Longest run yet — find a route with gentle hills.', priority:'critical', soreness:false,
       subActivities:[{id:'run',label:'🏃 Long Run 7mi @ 10:15-10:45/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
   ]
 },
 // WEEK 4
 {
   num: 4, phase: 'Recovery Week', mileage: '~11 miles',
-  startDate: md(2026,4,20), endDate: md(2026,4,26),
+  startDate: md(2025,4,20), endDate: md(2025,4,26),
   goal: "Recovery week — pull back and let your body absorb the training. Lighter weights, shorter runs, but keep the routine. You should feel refreshed by Saturday.",
   days: [
-    { date: md(2026,4,20), emoji:'💤', title:'Rest', desc:'Recovery week! ⚠️ Soreness from building mileage expected. Prioritize sleep and hydration.', priority:'flexible', soreness:true,
+    { date: md(2025,4,20), emoji:'💤', title:'Rest', desc:'Recovery week! ⚠️ Soreness from building mileage expected. Prioritize sleep and hydration.', priority:'flexible', soreness:true,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,21), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
+    { date: md(2025,4,21), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,22), emoji:'🏃', title:'Easy Run 2.5mi', desc:'Easy Run 2.5mi @ 10:30-11:00/mi. Recovery week — genuinely easy.', priority:'flexible', soreness:false,
+    { date: md(2025,4,22), emoji:'🏃', title:'Easy Run 2.5mi', desc:'Easy Run 2.5mi @ 10:30-11:00/mi. Recovery week — genuinely easy.', priority:'flexible', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy Run 2.5mi @ 10:30-11:00/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,4,23), emoji:'🏋️', title:'Lift (Lower Body)', desc:'Lower body — lighter weights, mobility focus.', priority:'lifting', soreness:false,
+    { date: md(2025,4,23), emoji:'🏋️', title:'Lift (Lower Body)', desc:'Lower body — lighter weights, mobility focus.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — lower body (light, mobility focus)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,24), emoji:'🏃', title:'Easy Run 3mi + Strides', desc:'Easy Run 3mi @ 10:15-10:45/mi + 4×20sec strides @ ~8:30/mi. Strides keep legs snappy without fatigue.', priority:'flexible', soreness:false,
+    { date: md(2025,4,24), emoji:'🏃', title:'Easy Run 3mi + Strides', desc:'Easy Run 3mi @ 10:15-10:45/mi + 4×20sec strides @ ~8:30/mi. Strides keep legs snappy without fatigue.', priority:'flexible', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy Run 3mi @ 10:15-10:45/mi',type:'main'},{id:'strides',label:'⚡ 4×20sec strides @ ~8:30/mi (walk back recovery)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,4,25), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
+    { date: md(2025,4,25), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,26), emoji:'🏃', title:'Long Run 5.5mi', desc:'Long Run 5.5mi @ 10:15-10:45/mi. Shorter long run for recovery. Should feel refreshed.', priority:'critical', soreness:false,
+    { date: md(2025,4,26), emoji:'🏃', title:'Long Run 5.5mi', desc:'Long Run 5.5mi @ 10:15-10:45/mi. Shorter long run for recovery. Should feel refreshed.', priority:'critical', soreness:false,
       subActivities:[{id:'run',label:'🏃 Long Run 5.5mi @ 10:15-10:45/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
   ]
 },
 // WEEK 5
 {
   num: 5, phase: 'Race 1 Specific', mileage: '~18 miles',
-  startDate: md(2026,4,27), endDate: md(2026,5,3),
+  startDate: md(2025,4,27), endDate: md(2025,5,3),
   goal: "Race-specific training begins! First tempo run this week. The tempo pace should feel 'comfortably uncomfortable.' Also your longest run yet at 8 miles.",
   days: [
-    { date: md(2026,4,27), emoji:'💤', title:'Rest', desc:'Rest day.', priority:'flexible', soreness:false,
+    { date: md(2025,4,27), emoji:'💤', title:'Rest', desc:'Rest day.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,28), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
+    { date: md(2025,4,28), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,29), emoji:'🏃', title:'Easy Run 3.5mi', desc:'Easy Run 3.5mi @ 10:15-10:45/mi.', priority:'flexible', soreness:false,
+    { date: md(2025,4,29), emoji:'🏃', title:'Easy Run 3.5mi', desc:'Easy Run 3.5mi @ 10:15-10:45/mi.', priority:'flexible', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy Run 3.5mi @ 10:15-10:45/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,4,30), emoji:'🏋️', title:'Lift (Lower Body)', desc:'Lower body session.', priority:'lifting', soreness:false,
+    { date: md(2025,4,30), emoji:'🏋️', title:'Lift (Lower Body)', desc:'Lower body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — lower body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,1), emoji:'🏃', title:'Tempo Run 4mi', desc:'1mi warmup @ 10:30/mi, 2mi @ 9:00-9:15/mi (tempo — "comfortably uncomfortable"), 1mi cooldown. 4mi total. First real tempo!', priority:'important', soreness:false,
+    { date: md(2025,5,1), emoji:'🏃', title:'Tempo Run 4mi', desc:'1mi warmup @ 10:30/mi, 2mi @ 9:00-9:15/mi (tempo — "comfortably uncomfortable"), 1mi cooldown. 4mi total. First real tempo!', priority:'important', soreness:false,
       subActivities:[{id:'warmup',label:'🔥 Warm-up: 1mi easy @ 10:30/mi',type:'warmup'},{id:'main',label:'🏃 Tempo: 2mi @ 9:00-9:15/mi',type:'main'},{id:'cooldown',label:'🧘 Cool-down: 1mi easy @ 10:30/mi',type:'cooldown'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,5,2), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
+    { date: md(2025,5,2), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,3), emoji:'🏃', title:'Long Run 8mi', desc:'Long Run 8mi @ 10:15-10:45/mi. Practice fueling — eat a gel or chews at mile 5.', priority:'critical', soreness:false,
+    { date: md(2025,5,3), emoji:'🏃', title:'Long Run 8mi', desc:'Long Run 8mi @ 10:15-10:45/mi. Practice fueling — eat a gel or chews at mile 5.', priority:'critical', soreness:false,
       subActivities:[{id:'run',label:'🏃 Long Run 8mi @ 10:15-10:45/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
   ]
 },
 // WEEK 6
 {
   num: 6, phase: 'Race 1 Specific', mileage: '~20 miles',
-  startDate: md(2026,5,4), endDate: md(2026,5,10),
+  startDate: md(2025,5,4), endDate: md(2025,5,10),
   goal: "First speed workout! The 400m intervals are short and fast — embrace the discomfort. Long run on a hilly route to simulate Race 1. Practice your 3-leg strategy.",
   days: [
-    { date: md(2026,5,4), emoji:'💤', title:'Rest', desc:'Rest day. ⚠️ Post-long-run. Expect quad and hip soreness. Extra foam rolling.', priority:'flexible', soreness:true,
+    { date: md(2025,5,4), emoji:'💤', title:'Rest', desc:'Rest day. ⚠️ Post-long-run. Expect quad and hip soreness. Extra foam rolling.', priority:'flexible', soreness:true,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,5), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
+    { date: md(2025,5,5), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,6), emoji:'🏃', title:'Easy Run 3.5mi', desc:'Easy Run 3.5mi @ 10:15-10:45/mi.', priority:'flexible', soreness:false,
+    { date: md(2025,5,6), emoji:'🏃', title:'Easy Run 3.5mi', desc:'Easy Run 3.5mi @ 10:15-10:45/mi.', priority:'flexible', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy Run 3.5mi @ 10:15-10:45/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,5,7), emoji:'🏋️', title:'Lift (Lower Body)', desc:'Lower body — moderate intensity.', priority:'lifting', soreness:false,
+    { date: md(2025,5,7), emoji:'🏋️', title:'Lift (Lower Body)', desc:'Lower body — moderate intensity.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — lower body (moderate intensity)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,8), emoji:'🏃', title:'Speed: 4×400m', desc:'1mi warmup, 4×400m @ 8:00-8:15/mi with 90sec walk/jog recovery, 1mi cooldown. ~4mi. 🎯 Hit all 4 reps at 8:15/mi or faster!', priority:'important', soreness:false,
+    { date: md(2025,5,8), emoji:'🏃', title:'Speed: 4×400m', desc:'1mi warmup, 4×400m @ 8:00-8:15/mi with 90sec walk/jog recovery, 1mi cooldown. ~4mi. 🎯 Hit all 4 reps at 8:15/mi or faster!', priority:'important', soreness:false,
       subActivities:[{id:'warmup',label:'🔥 Warm-up: 1mi easy @ 10:30/mi',type:'warmup'},{id:'main',label:'⚡ 4×400m @ 8:00-8:15/mi (90sec recovery between)',type:'main'},{id:'cooldown',label:'🧘 Cool-down: 1mi easy',type:'cooldown'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,5,9), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
+    { date: md(2025,5,9), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,10), emoji:'🏃', title:'Long Run 9mi (Hilly)', desc:'Long Run 9mi @ 10:15-10:45/mi. Hilly route to simulate Race 1. Practice 3-leg strategy.', priority:'critical', soreness:false,
+    { date: md(2025,5,10), emoji:'🏃', title:'Long Run 9mi (Hilly)', desc:'Long Run 9mi @ 10:15-10:45/mi. Hilly route to simulate Race 1. Practice 3-leg strategy.', priority:'critical', soreness:false,
       subActivities:[{id:'run',label:'🏃 Long Run 9mi @ 10:15-10:45/mi (hilly route)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
   ]
 },
 // WEEK 7
 {
   num: 7, phase: 'Peak Week', mileage: '~21 miles',
-  startDate: md(2026,5,11), endDate: md(2026,5,17),
+  startDate: md(2025,5,11), endDate: md(2025,5,17),
   goal: "Peak week — biggest volume of the plan. Two quality sessions plus a 10-mile long run. Sleep and nutrition are critical. This is where the fitness is built!",
   days: [
-    { date: md(2026,5,11), emoji:'💤', title:'Rest', desc:'Rest day. ⚠️ Big week ahead — sleep and nutrition critical.', priority:'flexible', soreness:false,
+    { date: md(2025,5,11), emoji:'💤', title:'Rest', desc:'Rest day. ⚠️ Big week ahead — sleep and nutrition critical.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,12), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
+    { date: md(2025,5,12), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,13), emoji:'🏃', title:'Moderate Run 4mi', desc:'First 2mi @ 10:00/mi, last 2mi @ 9:30-9:45/mi. Practice negative splitting.', priority:'important', soreness:false,
+    { date: md(2025,5,13), emoji:'🏃', title:'Moderate Run 4mi', desc:'First 2mi @ 10:00/mi, last 2mi @ 9:30-9:45/mi. Practice negative splitting.', priority:'important', soreness:false,
       subActivities:[{id:'run',label:'🏃 Moderate Run 4mi (10:00/mi → 9:30-9:45/mi)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,5,14), emoji:'🏋️', title:'Lift (Lower Body)', desc:'Lower body — moderate.', priority:'lifting', soreness:false,
+    { date: md(2025,5,14), emoji:'🏋️', title:'Lift (Lower Body)', desc:'Lower body — moderate.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — lower body (moderate)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,15), emoji:'⛰️', title:'Hill Repeats 6×90s', desc:'1mi warmup, 6×90sec uphill RPE 8-9, jog down, 1mi cooldown. ~5mi. Longer reps than Week 3!', priority:'important', soreness:false,
+    { date: md(2025,5,15), emoji:'⛰️', title:'Hill Repeats 6×90s', desc:'1mi warmup, 6×90sec uphill RPE 8-9, jog down, 1mi cooldown. ~5mi. Longer reps than Week 3!', priority:'important', soreness:false,
       subActivities:[{id:'warmup',label:'🔥 Warm-up: 1mi easy',type:'warmup'},{id:'main',label:'⛰️ 6×90sec uphill at RPE 8-9, jog down recovery',type:'main'},{id:'cooldown',label:'🧘 Cool-down: 1mi easy',type:'cooldown'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,5,16), emoji:'🏃', title:'Easy Run 3mi', desc:'Easy Run 3mi @ 10:30-11:00/mi. Shake-out — very easy.', priority:'flexible', soreness:false,
+    { date: md(2025,5,16), emoji:'🏃', title:'Easy Run 3mi', desc:'Easy Run 3mi @ 10:30-11:00/mi. Shake-out — very easy.', priority:'flexible', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy Run 3mi @ 10:30-11:00/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,5,17), emoji:'🏃', title:'Long Run 10mi', desc:'Long Run 10mi @ 10:15-10:45/mi. Last long run before Race 1. Practice everything.', priority:'critical', soreness:false,
+    { date: md(2025,5,17), emoji:'🏃', title:'Long Run 10mi', desc:'Long Run 10mi @ 10:15-10:45/mi. Last long run before Race 1. Practice everything.', priority:'critical', soreness:false,
       subActivities:[{id:'run',label:'🏃 Long Run 10mi @ 10:15-10:45/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
   ]
 },
 // WEEK 8
 {
   num: 8, phase: 'Taper + Race 1', mileage: 'Taper',
-  startDate: md(2026,5,18), endDate: md(2026,5,29),
+  startDate: md(2025,5,18), endDate: md(2025,5,29),
   goal: "Taper time! Reduce volume but keep some sharpness with strides and a race-pace rehearsal. Trust your training — the hay is in the barn. Race Day May 29!",
   days: [
-    { date: md(2026,5,18), emoji:'💤', title:'Rest', desc:'Taper begins! ⚠️ May feel restless/sluggish — "taper tantrums" are normal. Trust the training.', priority:'flexible', soreness:true,
+    { date: md(2025,5,18), emoji:'💤', title:'Rest', desc:'Taper begins! ⚠️ May feel restless/sluggish — "taper tantrums" are normal. Trust the training.', priority:'flexible', soreness:true,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,19), emoji:'🏋️', title:'Lift (Upper Body Light)', desc:'Upper body — lighter weights, higher reps.', priority:'lifting', soreness:false,
+    { date: md(2025,5,19), emoji:'🏋️', title:'Lift (Upper Body Light)', desc:'Upper body — lighter weights, higher reps.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body (light, higher reps)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,20), emoji:'🏃', title:'Easy Run 3mi + Strides', desc:'Easy Run 3mi @ 10:15-10:30/mi + 4×20sec strides. Keep legs sharp.', priority:'important', soreness:false,
+    { date: md(2025,5,20), emoji:'🏃', title:'Easy Run 3mi + Strides', desc:'Easy Run 3mi @ 10:15-10:30/mi + 4×20sec strides. Keep legs sharp.', priority:'important', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy Run 3mi @ 10:15-10:30/mi',type:'main'},{id:'strides',label:'⚡ 4×20sec strides (walk back recovery)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,5,21), emoji:'🏋️', title:'Lift (Lower Body Light)', desc:'Lower body — LIGHT, mobility focus.', priority:'lifting', soreness:false,
+    { date: md(2025,5,21), emoji:'🏋️', title:'Lift (Lower Body Light)', desc:'Lower body — LIGHT, mobility focus.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — lower body (LIGHT, mobility)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,22), emoji:'🏃', title:'Race Pace Rehearsal 3mi', desc:'1mi easy, 1mi @ 9:15-9:30/mi (HM pace), 1mi easy. Race pace rehearsal.', priority:'important', soreness:false,
+    { date: md(2025,5,22), emoji:'🏃', title:'Race Pace Rehearsal 3mi', desc:'1mi easy, 1mi @ 9:15-9:30/mi (HM pace), 1mi easy. Race pace rehearsal.', priority:'important', soreness:false,
       subActivities:[{id:'run',label:'🏃 3mi: easy → 1mi @ 9:15-9:30/mi (race pace) → easy',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,5,23), emoji:'💤', title:'Rest', desc:'Rest day.', priority:'flexible', soreness:false,
+    { date: md(2025,5,23), emoji:'💤', title:'Rest', desc:'Rest day.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,24), emoji:'🏃', title:'Easy Run 2mi', desc:'Easy Run 2mi @ 10:30/mi. Short and easy.', priority:'flexible', soreness:false,
+    { date: md(2025,5,24), emoji:'🏃', title:'Easy Run 2mi', desc:'Easy Run 2mi @ 10:30/mi. Short and easy.', priority:'flexible', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy Run 2mi @ 10:30/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,5,25), emoji:'💤', title:'Rest', desc:'Rest day.', priority:'flexible', soreness:false,
+    { date: md(2025,5,25), emoji:'💤', title:'Rest', desc:'Rest day.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,26), emoji:'🏃', title:'Shakeout 1.5mi + Strides', desc:'Easy shakeout 1.5mi @ 10:30/mi + 3×20sec strides.', priority:'flexible', soreness:false,
+    { date: md(2025,5,26), emoji:'🏃', title:'Shakeout 1.5mi + Strides', desc:'Easy shakeout 1.5mi @ 10:30/mi + 3×20sec strides.', priority:'flexible', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy shakeout 1.5mi @ 10:30/mi',type:'main'},{id:'strides',label:'⚡ 3×20sec strides',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,27), emoji:'💤', title:'Rest', desc:'Rest. Lay out race gear.', priority:'flexible', soreness:false,
+    { date: md(2025,5,27), emoji:'💤', title:'Rest', desc:'Rest. Lay out race gear.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,28), emoji:'💤', title:'Rest', desc:'Rest or 10-min walk. Hydrate well. Early bedtime.', priority:'flexible', soreness:false,
+    { date: md(2025,5,28), emoji:'💤', title:'Rest', desc:'Rest or 10-min walk. Hydrate well. Early bedtime.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,5,29), emoji:'🏁', title:'🏁 RACE DAY!', desc:'3-Leg Road Half! Leg 1: 9:30-9:45/mi (RPE 6-7), Leg 2: 9:15-9:30/mi (RPE 7-8), Leg 3: 9:00-9:15/mi (RPE 8-9). Goal: Sub-2:02!', priority:'critical', soreness:false, isRace:true,
+    { date: md(2025,5,29), emoji:'🏁', title:'🏁 RACE DAY!', desc:'3-Leg Road Half! Leg 1: 9:30-9:45/mi (RPE 6-7), Leg 2: 9:15-9:30/mi (RPE 7-8), Leg 3: 9:00-9:15/mi (RPE 8-9). Goal: Sub-2:02!', priority:'critical', soreness:false, isRace:true,
       subActivities:[{id:'prehab',label:'🧘 Pre-race hip prehab (abbreviated)',type:'prehab'},{id:'race',label:'🏁 RACE — 3-Leg Road Half Marathon',type:'main'}]}
   ]
 },
 // WEEK 9
 {
   num: 9, phase: 'Post-Race Recovery', mileage: '~10 miles',
-  startDate: md(2026,5,30), endDate: md(2026,6,7),
+  startDate: md(2025,5,30), endDate: md(2025,6,7),
   goal: "Post-race recovery and transition to trail. Easy does it early in the week. By Saturday, start getting on trails. Your body needs to recover from Race 1 before building for Race 2.",
   days: [
-    { date: md(2026,5,30), emoji:'💤', title:'Rest', desc:'Post-race! ⚠️ Soreness expected and normal. Walk gently.', priority:'flexible', soreness:true,
+    { date: md(2025,5,30), emoji:'💤', title:'Rest', desc:'Post-race! ⚠️ Soreness expected and normal. Walk gently.', priority:'flexible', soreness:true,
       subActivities:[{id:'prehab',label:'🧘 Gentle hip prehab (10 min)',type:'prehab'}]},
-    { date: md(2026,5,31), emoji:'💤', title:'Rest/Walk', desc:'Rest or easy 20-min walk. Foam roll everything.', priority:'flexible', soreness:false,
+    { date: md(2025,5,31), emoji:'💤', title:'Rest/Walk', desc:'Rest or easy 20-min walk. Foam roll everything.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,1), emoji:'💤', title:'Rest', desc:'Rest day.', priority:'flexible', soreness:false,
+    { date: md(2025,6,1), emoji:'💤', title:'Rest', desc:'Rest day.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,2), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body only — no lower body yet.', priority:'lifting', soreness:false,
+    { date: md(2025,6,2), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body only — no lower body yet.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body only (no lower body)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,3), emoji:'🏃', title:'Easy Run 2.5mi', desc:'Easy Run 2.5mi @ 10:30-11:00/mi. First run back — walk breaks fine.', priority:'flexible', soreness:false,
+    { date: md(2025,6,3), emoji:'🏃', title:'Easy Run 2.5mi', desc:'Easy Run 2.5mi @ 10:30-11:00/mi. First run back — walk breaks fine.', priority:'flexible', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy Run 2.5mi @ 10:30-11:00/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,6,4), emoji:'🏋️', title:'Lift (Light Lower)', desc:'Light lower body — bodyweight squats, light RDLs.', priority:'lifting', soreness:false,
+    { date: md(2025,6,4), emoji:'🏋️', title:'Lift (Light Lower)', desc:'Light lower body — bodyweight squats, light RDLs.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — light lower body (bodyweight squats, light RDLs)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,5), emoji:'🏃', title:'Easy Run 3mi', desc:'Easy Run 3mi @ 10:15-10:45/mi. Heavy legs OK.', priority:'flexible', soreness:false,
+    { date: md(2025,6,5), emoji:'🏃', title:'Easy Run 3mi', desc:'Easy Run 3mi @ 10:15-10:45/mi. Heavy legs OK.', priority:'flexible', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy Run 3mi @ 10:15-10:45/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,6,6), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
+    { date: md(2025,6,6), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,7), emoji:'⛰️', title:'Trail Run/Hike 4.5mi', desc:'Easy Trail Run/Hike 4.5mi @ 11:00-12:00/mi. Trail pace is slower. Start transitioning!', priority:'important', soreness:false,
+    { date: md(2025,6,7), emoji:'⛰️', title:'Trail Run/Hike 4.5mi', desc:'Easy Trail Run/Hike 4.5mi @ 11:00-12:00/mi. Trail pace is slower. Start transitioning!', priority:'important', soreness:false,
       subActivities:[{id:'run',label:'⛰️ Trail Run/Hike 4.5mi @ 11:00-12:00/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
   ]
 },
 // WEEK 10
 {
   num: 10, phase: 'Trail & Altitude', mileage: '~16 miles',
-  startDate: md(2026,6,8), endDate: md(2026,6,14),
+  startDate: md(2025,6,8), endDate: md(2025,6,14),
   goal: "Trail-specific training in full swing. Eccentric strength work protects your knees on downhills. Speed workout keeps your legs sharp. Long trail run with elevation — practice power hiking!",
   days: [
-    { date: md(2026,6,8), emoji:'💤', title:'Rest', desc:'Rest day.', priority:'flexible', soreness:false,
+    { date: md(2025,6,8), emoji:'💤', title:'Rest', desc:'Rest day.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,9), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
+    { date: md(2025,6,9), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,10), emoji:'⛰️', title:'Trail Run 3.5mi', desc:'Easy Trail Run 3.5mi @ 11:00-12:00/mi. Practice foot placement on uneven ground.', priority:'flexible', soreness:false,
+    { date: md(2025,6,10), emoji:'⛰️', title:'Trail Run 3.5mi', desc:'Easy Trail Run 3.5mi @ 11:00-12:00/mi. Practice foot placement on uneven ground.', priority:'flexible', soreness:false,
       subActivities:[{id:'run',label:'⛰️ Trail Run 3.5mi @ 11:00-12:00/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,6,11), emoji:'🏋️', title:'Lift (Eccentric Lower)', desc:'Lower body eccentric — slow squats, step-downs, Nordic curls. Protects knees on downhills!', priority:'lifting', soreness:false,
+    { date: md(2025,6,11), emoji:'🏋️', title:'Lift (Eccentric Lower)', desc:'Lower body eccentric — slow squats, step-downs, Nordic curls. Protects knees on downhills!', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — lower body eccentric (slow squats, step-downs, Nordic curls)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,12), emoji:'🏃', title:'Speed: 6×400m', desc:'1mi warmup, 6×400m @ 8:00-8:15/mi with 90sec recovery, 1mi cooldown. ~4.5mi. 🎯 Hit all 6 reps at 8:00/mi!', priority:'important', soreness:false,
+    { date: md(2025,6,12), emoji:'🏃', title:'Speed: 6×400m', desc:'1mi warmup, 6×400m @ 8:00-8:15/mi with 90sec recovery, 1mi cooldown. ~4.5mi. 🎯 Hit all 6 reps at 8:00/mi!', priority:'important', soreness:false,
       subActivities:[{id:'warmup',label:'🔥 Warm-up: 1mi easy',type:'warmup'},{id:'main',label:'⚡ 6×400m @ 8:00-8:15/mi (90sec recovery)',type:'main'},{id:'cooldown',label:'🧘 Cool-down: 1mi easy',type:'cooldown'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,6,13), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
+    { date: md(2025,6,13), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,14), emoji:'⛰️', title:'Long Trail Run 8mi', desc:'Long Trail Run 8mi @ 11:00-12:00/mi with elevation. Power hike ALL steep uphills! Bring fuel and water.', priority:'critical', soreness:false,
+    { date: md(2025,6,14), emoji:'⛰️', title:'Long Trail Run 8mi', desc:'Long Trail Run 8mi @ 11:00-12:00/mi with elevation. Power hike ALL steep uphills! Bring fuel and water.', priority:'critical', soreness:false,
       subActivities:[{id:'run',label:'⛰️ Long Trail Run 8mi @ 11:00-12:00/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
   ]
 },
 // WEEK 11
 {
   num: 11, phase: 'Peak Trail Week', mileage: '~18 miles',
-  startDate: md(2026,6,15), endDate: md(2026,6,21),
+  startDate: md(2025,6,15), endDate: md(2025,6,21),
   goal: "Peak trail week. The hill power hike + run workout is the most race-specific session of the whole plan. Last big trail long run — practice everything: fueling, hiking, pacing.",
   days: [
-    { date: md(2026,6,15), emoji:'💤', title:'Rest', desc:'Rest day. ⚠️ Post-trail soreness — ankles, calves, quads from downhills. Extra foam rolling on calves.', priority:'flexible', soreness:true,
+    { date: md(2025,6,15), emoji:'💤', title:'Rest', desc:'Rest day. ⚠️ Post-trail soreness — ankles, calves, quads from downhills. Extra foam rolling on calves.', priority:'flexible', soreness:true,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,16), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
+    { date: md(2025,6,16), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,17), emoji:'🏃', title:'Easy Run 3.5mi', desc:'Easy Run 3.5mi @ 10:15-10:45/mi on road. Easy effort to flush legs.', priority:'flexible', soreness:false,
+    { date: md(2025,6,17), emoji:'🏃', title:'Easy Run 3.5mi', desc:'Easy Run 3.5mi @ 10:15-10:45/mi on road. Easy effort to flush legs.', priority:'flexible', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy Run 3.5mi @ 10:15-10:45/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,6,18), emoji:'🏋️', title:'Lift (Eccentric Lower)', desc:'Lower body eccentric — slow squats, step-downs.', priority:'lifting', soreness:false,
+    { date: md(2025,6,18), emoji:'🏋️', title:'Lift (Eccentric Lower)', desc:'Lower body eccentric — slow squats, step-downs.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — lower body eccentric (slow squats, step-downs)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,19), emoji:'⛰️', title:'Hill Power Hike + Run', desc:'1mi warmup, 30min alternating power hike up (RPE 7-8) and run down (quick feet, soft landings), 1mi cooldown. ~4.5mi. Most race-specific workout!', priority:'important', soreness:false,
+    { date: md(2025,6,19), emoji:'⛰️', title:'Hill Power Hike + Run', desc:'1mi warmup, 30min alternating power hike up (RPE 7-8) and run down (quick feet, soft landings), 1mi cooldown. ~4.5mi. Most race-specific workout!', priority:'important', soreness:false,
       subActivities:[{id:'warmup',label:'🔥 Warm-up: 1mi easy jog',type:'warmup'},{id:'main',label:'⛰️ 30min: power hike up (RPE 7-8) + run down (quick feet, soft landings)',type:'main'},{id:'cooldown',label:'🧘 Cool-down: 1mi easy jog',type:'cooldown'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,6,20), emoji:'🏃', title:'Easy Run 2mi', desc:'Easy Run 2mi @ 10:30/mi. Gentle shakeout.', priority:'flexible', soreness:false,
+    { date: md(2025,6,20), emoji:'🏃', title:'Easy Run 2mi', desc:'Easy Run 2mi @ 10:30/mi. Gentle shakeout.', priority:'flexible', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy Run 2mi @ 10:30/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,6,21), emoji:'⛰️', title:'Long Trail Run 10mi', desc:'Long Trail Run 10mi @ 11:00-12:00/mi. Max elevation. Last big trail effort. Practice EVERYTHING.', priority:'critical', soreness:false,
+    { date: md(2025,6,21), emoji:'⛰️', title:'Long Trail Run 10mi', desc:'Long Trail Run 10mi @ 11:00-12:00/mi. Max elevation. Last big trail effort. Practice EVERYTHING.', priority:'critical', soreness:false,
       subActivities:[{id:'run',label:'⛰️ Long Trail Run 10mi @ 11:00-12:00/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
   ]
 },
 // WEEK 12
 {
   num: 12, phase: 'Taper + Race 2', mileage: 'Taper',
-  startDate: md(2026,6,22), endDate: md(2026,6,27),
+  startDate: md(2025,6,22), endDate: md(2025,6,27),
   goal: "Final taper! Keep legs fresh with light movement and strides. Hydrate aggressively for altitude. Trust the training. Race Day June 27 — enjoy the mountains!",
   days: [
-    { date: md(2026,6,22), emoji:'💤', title:'Rest', desc:'Final taper! ⚠️ Trust the training. Restlessness normal.', priority:'flexible', soreness:false,
+    { date: md(2025,6,22), emoji:'💤', title:'Rest', desc:'Final taper! ⚠️ Trust the training. Restlessness normal.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,23), emoji:'🏋️', title:'Lift (Upper Body Light)', desc:'Upper body — light.', priority:'lifting', soreness:false,
+    { date: md(2025,6,23), emoji:'🏋️', title:'Lift (Upper Body Light)', desc:'Upper body — light.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body (light)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,24), emoji:'🏃', title:'Easy Run 3mi + Strides', desc:'Easy Run 3mi @ 10:15-10:30/mi + 4×20sec strides. Last quality movement.', priority:'important', soreness:false,
+    { date: md(2025,6,24), emoji:'🏃', title:'Easy Run 3mi + Strides', desc:'Easy Run 3mi @ 10:15-10:30/mi + 4×20sec strides. Last quality movement.', priority:'important', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy Run 3mi @ 10:15-10:30/mi',type:'main'},{id:'strides',label:'⚡ 4×20sec strides on flat ground',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,6,25), emoji:'💤', title:'Rest/Walk', desc:'Rest or easy 20-min walk. Hydrate aggressively — altitude dehydrates.', priority:'flexible', soreness:false,
+    { date: md(2025,6,25), emoji:'💤', title:'Rest/Walk', desc:'Rest or easy 20-min walk. Hydrate aggressively — altitude dehydrates.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,26), emoji:'💤', title:'Rest', desc:'Rest. Lay out ALL gear (layers!). Charge watch. Prep fuel. Early bedtime.', priority:'flexible', soreness:false,
+    { date: md(2025,6,26), emoji:'💤', title:'Rest', desc:'Rest. Lay out ALL gear (layers!). Charge watch. Prep fuel. Early bedtime.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,27), emoji:'🏁', title:'🏁 RACE DAY!', desc:'Trail Half! Power hike ALL uphills from mile 1. Run flats @ 10:00-10:30/mi. Quick cadence downhills. Eat every 30-45 min. Sip water constantly. Slow down if altitude symptoms. Goal: Finish strong!', priority:'critical', soreness:false, isRace:true,
+    { date: md(2025,6,27), emoji:'🏁', title:'🏁 RACE DAY!', desc:'Trail Half! Power hike ALL uphills from mile 1. Run flats @ 10:00-10:30/mi. Quick cadence downhills. Eat every 30-45 min. Sip water constantly. Slow down if altitude symptoms. Goal: Finish strong!', priority:'critical', soreness:false, isRace:true,
       subActivities:[{id:'prehab',label:'🧘 Pre-race hip prehab (abbreviated)',type:'prehab'},{id:'race',label:'🏁 RACE — Trail Half Marathon',type:'main'}]}
   ]
 }
 ];
-
-const OFFICE_QUOTES = [
-  { quote: "I am running on my own! I am not a baby. I can do this on my own.", attr: "— Michael Scott" },
-  { quote: "Would I rather be feared or loved? Easy. Both. I want people to be afraid of how much they love me.", attr: "— Michael Scott" },
-  { quote: "I'm fast. I'm very fast. I'm like Forrest Gump. Except I am not an idiot.", attr: "— Michael Scott" },
-  { quote: "The only time I set the bar low is for limbo.", attr: "— Michael Scott" },
-  { quote: "I knew exactly what to do. But in a much more real sense, I had no idea what to do.", attr: "— Michael Scott" },
-  { quote: "I am Beyoncé, always.", attr: "— Michael Scott" },
-  { quote: "Sometimes I'll start a sentence and I don't even know where it's going. I just hope I find it along the way.", attr: "— Michael Scott" },
-  { quote: "You miss 100% of the shots you don't take. — Wayne Gretzky", attr: "— Michael Scott" },
-  { quote: "I'm not superstitious, but I am a little stitious.", attr: "— Michael Scott" },
-  { quote: "It's a beautiful morning at Dunder Mifflin... or as I like to call it, Great Scott's Tots.", attr: "— Michael Scott" },
-  { quote: "I feel like all my kids grew up, and then they married each other. It's every parent's dream.", attr: "— Michael Scott" },
-  { quote: "And I knew exactly what to do. But in a much more real sense, I had no idea what to do.", attr: "— Michael Scott" },
-];
-
-const OFFICE_MILESTONE_MSGS = {
-  race1: "Carbo-loading time! Remember: Michael ate an entire plate of fettuccine alfredo before the Fun Run. Don't do that. 🍝",
-  race2: "You're about to crush a mountain trail. Michael could never. You are the real World's Best Boss. 🏆",
-  firstLongRun: "Your first long run! Remember — Michael sprinted the start and had to be carried to the finish. Pace yourself. 🏃‍♀️",
-  firstTempo: "First tempo run! Channel your inner Dwight — disciplined, focused, and slightly terrifying. 🥬",
-  firstSpeed: "Speed work day! Run like Dwight chasing Jim through the office. 💨",
-  recovery: "Recovery week! Even Michael knew when to take a break. Well, actually he didn't. But you should. 🛋️",
-};
 
 // ============================================================
 // STATE MANAGEMENT
@@ -876,8 +808,8 @@ let currentWeekIdx = 0;
 // ============================================================
 function updateCountdowns() {
   const now = new Date();
-  const race1 = new Date(2026, 4, 29, 7, 0, 0); // May 29, 2026 7am
-  const race2 = new Date(2026, 5, 27, 7, 0, 0); // Jun 27, 2026 7am
+  const race1 = new Date(2025, 4, 29, 7, 0, 0); // May 29, 2025 7am
+  const race2 = new Date(2025, 5, 27, 7, 0, 0); // Jun 27, 2025 7am
 
   updateOneCountdown(now, race1, 'countdown1');
   updateOneCountdown(now, race2, 'countdown2');
@@ -931,13 +863,6 @@ function renderThisWeek() {
   document.getElementById('prevWeek').disabled = currentWeekIdx === 0;
   document.getElementById('nextWeek').disabled = currentWeekIdx === WEEKS.length - 1;
 
-  // Office quote
-  const quoteDiv = document.getElementById('officeQuote');
-  if (quoteDiv) {
-    const q = OFFICE_QUOTES[currentWeekIdx % OFFICE_QUOTES.length];
-    quoteDiv.innerHTML = '"' + q.quote + '"<span class="quote-attr">' + q.attr + '</span>';
-  }
-
   renderCalStrip(week);
   renderDayCards(week);
   renderRecoveryBanner(week);
@@ -961,7 +886,6 @@ function renderCalStrip(week) {
     html += '<div class="day-abbr">' + dayAbbr(day.date) + '</div>';
     html += '<div class="day-num">' + day.date.getDate() + '</div>';
     html += '<div class="day-icon">' + day.emoji + '</div>';
-    html += '<div class="day-brief">' + getCalBrief(day) + '</div>';
     html += '</div>';
   });
   strip.innerHTML = html;
@@ -998,19 +922,6 @@ function renderDayCards(week) {
     // Soreness banner
     if (day.soreness) {
       html += '<div class="soreness-banner"><span class="warn-icon">⚠️</span><span>Expect soreness from recent hard efforts. Focus on prehab and gentle movement.</span></div>';
-    }
-
-    // Office milestone message
-    if (day.isRace && day.title.includes('Road')) {
-      html += '<div class="office-quote" style="margin:8px 0">"' + OFFICE_MILESTONE_MSGS.race1 + '"</div>';
-    } else if (day.isRace && day.title.includes('Trail')) {
-      html += '<div class="office-quote" style="margin:8px 0">"' + OFFICE_MILESTONE_MSGS.race2 + '"</div>';
-    } else if (day.title.includes('Long Run 4.5')) {
-      html += '<div class="office-quote" style="margin:8px 0">"' + OFFICE_MILESTONE_MSGS.firstLongRun + '"</div>';
-    } else if (day.title.includes('Tempo Run')) {
-      html += '<div class="office-quote" style="margin:8px 0">"' + OFFICE_MILESTONE_MSGS.firstTempo + '"</div>';
-    } else if (day.title.includes('Speed') || day.title.includes('400m')) {
-      html += '<div class="office-quote" style="margin:8px 0">"' + OFFICE_MILESTONE_MSGS.firstSpeed + '"</div>';
     }
 
     // Description
@@ -1255,10 +1166,10 @@ function renderMonthGrids() {
   });
 
   const months = [
-    { year: 2026, month: 2, name: 'March 2026' },
-    { year: 2026, month: 3, name: 'April 2026' },
-    { year: 2026, month: 4, name: 'May 2026' },
-    { year: 2026, month: 5, name: 'June 2026' }
+    { year: 2025, month: 2, name: 'March 2025' },
+    { year: 2025, month: 3, name: 'April 2025' },
+    { year: 2025, month: 4, name: 'May 2025' },
+    { year: 2025, month: 5, name: 'June 2025' }
   ];
 
   let html = '';
@@ -1293,10 +1204,7 @@ function renderMonthGrids() {
       if (isToday) cls += ' is-today';
       html += '<div class="' + cls + '" onclick="goToDay(\'' + dk + '\')">';
       html += '<div class="mg-date">' + d + '</div>';
-      if (dayData) {
-        html += '<div class="mg-emoji">' + dayData.emoji + '</div>';
-        html += '<div class="mg-brief">' + getCalBrief(dayData) + '</div>';
-      }
+      if (dayData) html += '<div class="mg-emoji">' + dayData.emoji + '</div>';
       html += '</div>';
     }
     html += '</div>';
@@ -1343,8 +1251,7 @@ function renderWeekAccordions() {
     html += '<div class="week-acc-header" onclick="toggleAccordion(' + wi + ')">';
     html += '<div class="week-acc-left">';
     html += '<h3>Week ' + week.num + ' — ' + week.phase + '</h3>';
-    const liftDays = week.days.filter(d => d.priority === 'lifting').length;
-    html += '<div class="acc-meta">' + fmtShort(week.startDate) + ' – ' + fmtShort(week.endDate) + ' · ' + week.mileage + ' · ' + liftDays + ' lifts</div>';
+    html += '<div class="acc-meta">' + fmtShort(week.startDate) + ' – ' + fmtShort(week.endDate) + ' · ' + week.mileage + '</div>';
     html += '</div>';
     html += '<div class="week-acc-right">';
     html += '<div class="progress-mini"><div class="progress-mini-fill" style="width:' + pct + '%"></div></div>';
