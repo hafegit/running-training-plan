@@ -16,6 +16,18 @@ input,textarea{font-family:inherit}
 .office-quote{background:var(--bg);border-left:3px solid var(--primary);padding:10px 14px;margin:12px 16px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-style:italic;font-size:12px;color:var(--text-light);line-height:1.5}
 .office-quote .quote-attr{font-style:normal;font-weight:700;color:var(--navy);display:block;margin-top:4px;font-size:11px}
 .fun-banner{text-align:center;padding:8px;font-size:11px;color:var(--text-light);background:var(--bg);border-bottom:1px solid var(--border)}
+
+/* OVERALL PROGRESS BAR */
+.overall-progress-bar{padding:10px 16px 8px;background:var(--white);border-bottom:1px solid var(--border)}
+.opb-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.opb-label{font-size:13px;font-weight:700;color:var(--navy)}
+.opb-stats{font-size:11px;color:var(--text-light)}
+.opb-track{position:relative;height:14px;background:var(--bg);border-radius:7px;overflow:visible;border:1px solid var(--border)}
+.opb-fill-green{position:absolute;top:0;left:0;height:100%;background:linear-gradient(90deg,#27ae60,#2ecc71);border-radius:7px 0 0 7px;transition:width .5s ease}
+.opb-fill-red{position:absolute;top:0;height:100%;background:linear-gradient(90deg,#e74c3c,#c0392b);transition:width .5s ease,left .5s ease}
+.opb-marker{position:absolute;top:-3px;width:3px;height:20px;background:var(--navy);border-radius:2px;transition:left .5s ease;z-index:2}
+.opb-legend{display:flex;gap:12px;font-size:10px;color:var(--text-light);margin-top:5px;align-items:center}
+.opb-pct{margin-left:auto;font-weight:700;font-size:12px;color:var(--navy)}
 .fun-banner img{height:32px;border-radius:4px;vertical-align:middle;margin:0 4px}
 .office-img{width:100%;max-width:400px;border-radius:var(--radius);margin:12px auto;display:block;box-shadow:var(--shadow)}
 .login-office-img{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:12px;border:3px solid var(--primary);box-shadow:var(--shadow)}
@@ -280,6 +292,24 @@ input,textarea{font-family:inherit}
 </div>
 
 <div class="fun-banner" id="funBanner">🎗️ For the Cure · Dunder Mifflin Scranton Meredith Palmer Memorial Celebrity Rabies Awareness Pro-Am Fun Run Race 🎗️</div>
+
+<div class="overall-progress-bar" id="overallProgressSection">
+<div class="opb-row">
+  <span class="opb-label">Plan Progress</span>
+  <span class="opb-stats" id="opbStats">0 / 0 days</span>
+</div>
+<div class="opb-track">
+  <div class="opb-fill-green" id="opbGreen" style="width:0%"></div>
+  <div class="opb-fill-red" id="opbRed" style="width:0%;left:0%"></div>
+  <div class="opb-marker" id="opbMarker" style="left:0%"></div>
+</div>
+<div class="opb-legend">
+  <span>🟢 Completed</span>
+  <span>🔴 Missed</span>
+  <span>⬜ Upcoming</span>
+  <span class="opb-pct" id="opbPct">0%</span>
+</div>
+</div>
 
 <!-- Tabs -->
 <div class="tabs">
@@ -885,7 +915,22 @@ function getDayState(dk) {
 
 function isDayComplete(dayData, dk) {
   const ds = getDayState(dk);
-  return dayData.subActivities.length > 0 && dayData.subActivities.every(sa => ds.subs[sa.id] === true);
+  // Day is "done" if the main activity (run, lift, race, or main workout) is checked
+  // Prehab and stretching are optional — don't block completion
+  const mainActivities = dayData.subActivities.filter(sa => sa.type === 'main' || sa.type === 'warmup' || sa.type === 'cooldown');
+  if (mainActivities.length === 0) {
+    // Rest days: complete if prehab is done
+    return dayData.subActivities.length > 0 && dayData.subActivities.some(sa => ds.subs[sa.id] === true);
+  }
+  return mainActivities.some(sa => ds.subs[sa.id] === true);
+}
+
+function getMainActivityIds(dayData) {
+  // Returns the IDs of the "main" sub-activities (run, lift, race — NOT prehab/stretching)
+  const mains = dayData.subActivities.filter(sa => sa.type === 'main' || sa.type === 'warmup' || sa.type === 'cooldown');
+  if (mains.length > 0) return mains.map(sa => sa.id);
+  // Rest days — return all (just prehab)
+  return dayData.subActivities.map(sa => sa.id);
 }
 
 function isDayMissed(dk) {
@@ -1173,19 +1218,22 @@ function renderDayCards(week) {
     });
     html += '</div>';
 
-    // Quick tags
-    const tagOptions = [
-      { key: 'completed', label: '✅ Completed' },
+    // Action buttons — Completed and Missed are primary diary entry methods
+    const mainDone = isDayComplete(day, dk);
+    html += '<div class="quick-tags">';
+    html += '<button class="tag-btn ' + (mainDone ? 'active' : '') + '" onclick="event.stopPropagation();markCompleted(\'' + dk + '\',' + currentWeekIdx + ',' + idx + ')" style="' + (mainDone ? 'border-color:var(--green);background:var(--green);color:white' : 'border-color:var(--green);color:var(--green)') + '">✅ Completed</button>';
+    html += '<button class="tag-btn missed-btn ' + (ds.missed ? 'active' : '') + '" onclick="event.stopPropagation();markMissedAndCollapse(\'' + dk + '\',' + currentWeekIdx + ',' + idx + ')">❌ Missed</button>';
+
+    // Feeling tags (optional diary additions)
+    const feelingTags = [
       { key: 'tough', label: '😤 Tough' },
       { key: 'hippain', label: '🦵 Hip Pain' },
       { key: 'great', label: '🎉 Felt Great' }
     ];
-    html += '<div class="quick-tags">';
-    tagOptions.forEach(t => {
+    feelingTags.forEach(t => {
       const active = ds.tags.includes(t.key);
       html += '<button class="tag-btn ' + (active ? 'active' : '') + '" onclick="event.stopPropagation();toggleTag(\'' + dk + '\',\'' + t.key + '\')">' + t.label + '</button>';
     });
-    html += '<button class="tag-btn missed-btn ' + (ds.missed ? 'active' : '') + '" onclick="event.stopPropagation();handleMissed(\'' + dk + '\',' + currentWeekIdx + ',' + idx + ')">❌ Missed</button>';
     html += '</div>';
 
     // Notes
@@ -1232,6 +1280,38 @@ function toggleSub(dk, saId, checked) {
   ds.subs[saId] = checked;
   saveState();
   renderThisWeek();
+  updateProgressBar();
+}
+
+function markCompleted(dk, weekIdx, dayIdx) {
+  const week = WEEKS[weekIdx];
+  const day = week.days[dayIdx];
+  const ds = getDayState(dk);
+  // Check off all main activities (run, lift, race, warmup, cooldown)
+  const mainIds = getMainActivityIds(day);
+  mainIds.forEach(id => { ds.subs[id] = true; });
+  // Add completed tag if not already there
+  if (!ds.tags.includes('completed')) ds.tags.push('completed');
+  // Clear missed if it was set
+  ds.missed = false;
+  saveState();
+  renderThisWeek();
+  updateProgressBar();
+}
+
+function markMissedAndCollapse(dk, weekIdx, dayIdx) {
+  const ds = getDayState(dk);
+  if (ds.missed) {
+    // Toggle off — un-miss
+    ds.missed = false;
+    saveState();
+    renderThisWeek();
+    updateProgressBar();
+    return;
+  }
+  // Use existing handleMissed for rescheduling logic on important/critical workouts
+  handleMissed(dk, weekIdx, dayIdx);
+  updateProgressBar();
 }
 
 function toggleTag(dk, tag) {
@@ -1340,6 +1420,7 @@ function markMissedOnly(dk) {
   saveState();
   closeModal();
   renderThisWeek();
+  updateProgressBar();
 }
 
 function reschedule(missedDk, weekIdx, targetDayIdx) {
@@ -1351,6 +1432,7 @@ function reschedule(missedDk, weekIdx, targetDayIdx) {
   saveState();
   closeModal();
   renderThisWeek();
+  updateProgressBar();
   showModal('<h3>Rescheduled! ✅</h3><p>Workout moved to ' + fmtDate(targetDay.date) + '. The original workout for that day is still there — do both if you can, or prioritize the rescheduled one.</p><div class="modal-actions"><button class="modal-btn primary" onclick="closeModal()">Got it</button></div>');
 }
 
@@ -1652,12 +1734,70 @@ function exportLog() {
 // ============================================================
 // INIT
 // ============================================================
+// ============================================================
+// OVERALL PROGRESS BAR
+// ============================================================
+function updateProgressBar() {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  let totalDays = 0;
+  let completedDays = 0;
+  let missedDays = 0;
+  let pastDays = 0;
+
+  WEEKS.forEach(w => {
+    w.days.forEach(d => {
+      totalDays++;
+      const dk = dateKey(d.date);
+      const isPast = d.date < today;
+      const isToday = sameDay(d.date, today);
+      if (isPast || isToday) pastDays++;
+
+      if (isDayComplete(d, dk)) {
+        completedDays++;
+      } else if (isDayMissed(dk) && isPast) {
+        missedDays++;
+      }
+    });
+  });
+
+  // Calculate percentages
+  const completedPct = totalDays > 0 ? (completedDays / totalDays) * 100 : 0;
+  const missedPct = totalDays > 0 ? (missedDays / totalDays) * 100 : 0;
+  const progressPct = totalDays > 0 ? (pastDays / totalDays) * 100 : 0;
+
+  // Adherence rate: completed / (completed + missed past days)
+  const decidedDays = completedDays + missedDays;
+  const adherencePct = decidedDays > 0 ? Math.round((completedDays / decidedDays) * 100) : 100;
+
+  // Update DOM
+  const greenBar = document.getElementById('opbGreen');
+  const redBar = document.getElementById('opbRed');
+  const marker = document.getElementById('opbMarker');
+  const stats = document.getElementById('opbStats');
+  const pct = document.getElementById('opbPct');
+
+  if (greenBar) greenBar.style.width = completedPct + '%';
+  if (redBar) {
+    redBar.style.left = completedPct + '%';
+    redBar.style.width = missedPct + '%';
+  }
+  if (marker) marker.style.left = Math.min(progressPct, 100) + '%';
+  if (stats) stats.textContent = completedDays + ' done · ' + missedDays + ' missed · ' + (totalDays - pastDays) + ' upcoming';
+  if (pct) {
+    pct.textContent = adherencePct + '% adherence';
+    pct.style.color = adherencePct >= 80 ? 'var(--green)' : adherencePct >= 60 ? 'var(--yellow)' : 'var(--red)';
+  }
+}
+
 function init() {
   loadState();
   currentWeekIdx = getCurrentWeek();
   updateCountdowns();
   setInterval(updateCountdowns, 60000);
   renderThisWeek();
+  updateProgressBar();
 }
 
 // Auto-check auth on load
