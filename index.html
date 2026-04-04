@@ -563,7 +563,10 @@ function getCalBrief(day) {
   if (t.includes('long run')) return 'Long Run · ' + dist;
   if (t.includes('tempo')) return 'Tempo · ' + dist;
   if (t.includes('speed') || t.includes('400m')) { const reps = title.match(/(\d+)×/); return 'Speed · ' + (reps ? reps[0] : '') + '400m'; }
-  if (t.includes('hill') && t.includes('power')) return 'Hill Hike · 30min';
+  if ((t.includes('hill') && t.includes('power')) || (t.includes('power') && t.includes('hike'))) {
+    const mins = title.match(/(\d+)\s*min/i);
+    return 'Hill Hike · ' + (mins ? mins[1] + 'min' : '');
+  }
   if (t.includes('hill')) { const reps = title.match(/(\d+)×/); return 'Hills · ' + (reps ? reps[0] : ''); }
   if (t.includes('moderate')) return 'Mod Run · ' + dist;
   if (t.includes('trail')) return 'Trail · ' + dist;
@@ -581,7 +584,7 @@ const WEEKS = [
 {
   num: 1, phase: 'Base Building', mileage: '~10 miles',
   startDate: md(2026,3,30), endDate: md(2026,4,5),
-  goal: "Building the running base back up. You're already fit from lifting — now we're adding running-specific volume. The Friday hill session starts building the strength you'll need for both mountain races.",
+  goal: "Week 1 = consistency and durability. You already have fitness from lifting; this week is about safely re-building running frequency.\n\nKey priorities: (1) keep easy runs truly easy, (2) do the hill session with great form (strength without a ton of pounding), (3) long run = time on feet, not pace.\n\nHip/SI rules: if pain rises above ~3/10 and keeps worsening, shorten the run or switch to walking. If you ran after a long car ride / lots of sitting, do 5–8 min activation first (glute bridges, lunges, hip CARs) and start with 10 min extra-easy.",
   days: [
     { date: md(2026,3,30), emoji:'💤', title:'Rest', desc:'Rest day — focus on hip prehab.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
@@ -589,13 +592,13 @@ const WEEKS = [
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body focus',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
     { date: md(2026,4,1), emoji:'🏃', title:'Easy Run 2.5mi', desc:'Easy Run 2.5mi @ 10:00-10:30/mi. Settle into the running rhythm. Walk breaks fine if needed.', priority:'flexible', soreness:false,
       subActivities:[{id:'run',label:'🏃 Easy Run 2.5mi @ 10:00-10:30/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run: foam roll IT band/quads/hip flexors, hip circles, squat hold',type:'stretch'}]},
-    { date: md(2026,4,2), emoji:'🏋️', title:'Lift (Lower Body)', desc:'Lower body — squats, RDLs, lunges.', priority:'lifting', soreness:false,
-      subActivities:[{id:'lift',label:'🏋️ Lift — lower body (squats, RDLs, lunges)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
+    { date: md(2026,4,2), emoji:'🏋️', title:'Lift (Lower Body — Maintenance)', desc:'Lower body maintenance. Keep intensity but low volume: 2–4 work sets on ONE main lift (squat OR deadlift), stop 2–3 reps shy of failure. Add light single-leg + calves if you feel good. Goal is to feel strong tomorrow, not sore.', priority:'lifting', soreness:false,
+      subActivities:[{id:'lift',label:'🏋️ Lift — lower body (maintenance, low volume)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
     { date: md(2026,4,3), emoji:'⛰️', title:'Hill Repeats 3mi', desc:'1mi warmup @ 10:00/mi, 4×45sec uphill RPE 8-9, jog down recovery, 1mi cooldown. ~3mi total. First hill session — drive your knees and pump your arms!', priority:'important', soreness:false,
       subActivities:[{id:'warmup',label:'🔥 Warm-up: 1mi easy @ 10:00/mi',type:'warmup'},{id:'main',label:'⛰️ Main set: 4×45sec uphill at RPE 8-9, jog down recovery',type:'main'},{id:'cooldown',label:'🧘 Cool-down: 1mi easy',type:'cooldown'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
     { date: md(2026,4,4), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,5), emoji:'🏃', title:'Long Run 4.5mi', desc:'Long Run 4.5mi @ 10:00-10:30/mi. Build endurance. No pace pressure — just time on feet.', priority:'critical', soreness:false,
+    { date: md(2026,4,5), emoji:'🏃', title:'Long Run 4.5mi', desc:'Long Run 4.5mi @ 10:00-10:30/mi. Build endurance. No pace pressure — just time on feet.\n\nHip/SI guidance: if discomfort shows up late, take a few 30–60 sec walk breaks and then resume easy running.\n\nScheduling: long run can be Saturday if Sunday is busy — just keep Friday lifting light.', priority:'critical', soreness:false,
       subActivities:[{id:'run',label:'🏃 Long Run 4.5mi @ 10:00-10:30/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
   ]
 },
@@ -603,66 +606,66 @@ const WEEKS = [
 {
   num: 2, phase: 'Base Building', mileage: '~13 miles',
   startDate: md(2026,4,6), endDate: md(2026,4,12),
-  goal: "Adding intensity this week — a moderate progression run and your second hill session. Two quality efforts plus the long run. Your fitness from lifting carries over here.",
+  goal: "Base week with ONE key workout (hills) + a long run. Keep the other run easy with a few strides. Lifting stays in the mix, but treat lower body as maintenance (avoid DOMS).\n\nHip/SI note: if you ran after a long car ride or lots of sitting, do 5–8 min of hip activation (glute bridges, lunges, hip CARs) before starting. If pain rises above ~3/10 and keeps worsening, switch to walking and call it early — staying healthy is the win.", 
   days: [
     { date: md(2026,4,6), emoji:'💤', title:'Rest', desc:'Rest day. ⚠️ May feel soreness from yesterday\'s long run — normal. Gentle walking fine.', priority:'flexible', soreness:true,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
     { date: md(2026,4,7), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,8), emoji:'🏃', title:'Moderate Run 3mi', desc:'Moderate Run 3mi — Start at 10:00/mi, finish last mile at 9:15-9:30/mi. First taste of moderate effort. "Comfortably hard" by the end.', priority:'important', soreness:false,
-      subActivities:[{id:'run',label:'🏃 Moderate Run 3mi (10:00/mi → 9:15-9:30/mi last mile)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,4,9), emoji:'🏋️', title:'Lift (Lower Body)', desc:'Lower body session.', priority:'lifting', soreness:false,
-      subActivities:[{id:'lift',label:'🏋️ Lift — lower body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,10), emoji:'⛰️', title:'Hill Repeats 3.5mi', desc:'1mi warmup @ 10:00/mi, 5×60sec uphill RPE 8-9, jog down recovery, 1mi cooldown. ~3.5mi total. Building hill strength for both races.', priority:'important', soreness:false,
+    { date: md(2026,4,8), emoji:'🏃', title:'Easy Run 3mi + Strides', desc:'Easy Run 3mi @ 10:00-10:30/mi + 4×20sec strides (smooth, not all-out). This is NOT a workout — it’s a leg-primer while you build consistency.\n\nIf you’ve been sitting (car/desk) before this run: do 5–8 min activation first (glute bridges, lunges, hip CARs). If hip/SI pain climbs above ~3/10 and keeps worsening, switch to walking and call it early.', priority:'flexible', soreness:false,
+      subActivities:[{id:'run',label:'🏃 Easy Run 3mi @ 10:00-10:30/mi',type:'main'},{id:'strides',label:'⚡ 4×20sec strides (walk back recovery)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
+    { date: md(2026,4,9), emoji:'🏋️', title:'Lift (Lower Body — Maintenance)', desc:'Lower body maintenance day. Keep it strong but low fatigue: 2–4 work sets on 1 main lift (squat OR deadlift), stop 2–3 reps shy of failure. Avoid big DOMS this early in the run build. Add light single-leg work + calves if you feel good.', priority:'lifting', soreness:false,
+      subActivities:[{id:'lift',label:'🏋️ Lift — lower body (maintenance, low volume)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
+    { date: md(2026,4,10), emoji:'⛰️', title:'Hill Repeats 3.5mi', desc:'1mi warmup @ 10:00/mi, 5×60sec uphill RPE 8-9, jog down recovery, 1mi cooldown. ~3.5mi total.\n\nForm focus: shorten stride, quick cadence, drive arms. This is your ONE key workout this week — keep everything else easy.\n\nLong-run note: if life requires moving the long run to Saturday, keep Friday lifting very light or skip it.', priority:'important', soreness:false,
       subActivities:[{id:'warmup',label:'🔥 Warm-up: 1mi easy @ 10:00/mi',type:'warmup'},{id:'main',label:'⛰️ Main set: 5×60sec uphill at RPE 8-9, jog down recovery',type:'main'},{id:'cooldown',label:'🧘 Cool-down: 1mi easy',type:'cooldown'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
     { date: md(2026,4,11), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,12), emoji:'🏃', title:'Long Run 6mi', desc:'Long Run 6mi @ 10:00-10:15/mi. Building endurance. Bring water.', priority:'critical', soreness:false,
-      subActivities:[{id:'run',label:'🏃 Long Run 6mi @ 10:00-10:15/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
+    { date: md(2026,4,12), emoji:'🏃', title:'Long Run 6mi', desc:'Long Run 6mi @ 10:00-10:30/mi. Building endurance. Bring water.\n\nKeep this easy — you should finish feeling like you could do more. If hip/SI discomfort rises above ~3/10 and keeps worsening, shorten the run and/or insert 30–60 sec walk breaks as needed.\n\nScheduling: long run can be Saturday instead of Sunday; if you swap, keep Friday lifting very light.', priority:'critical', soreness:false,
+      subActivities:[{id:'run',label:'🏃 Long Run 6mi @ 10:00-10:30/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
   ]
 },
 // WEEK 3
 {
   num: 3, phase: 'Base Building', mileage: '~15 miles',
   startDate: md(2026,4,13), endDate: md(2026,4,19),
-  goal: "Big week! First speed session plus another hill workout. You can handle this — your body is already conditioned from lifting. Two quality efforts + long run. Long run is getting longer — bring water.",
+  goal: "Week 3 adds a taste of faster running, but we’re still prioritizing durability (hip/SI-friendly training).\n\nKey priorities: (1) one key hill session, (2) one light ‘speed’ session that is effort-based (fartlek) — NOT a track test, (3) long run stays easy; if discomfort shows up late, use short walk breaks (30–60 sec) to keep mechanics clean.\n\nLifting note: keep lower body as maintenance this week. Avoid heavy lower within ~48 hours of hills or the long run.", 
   days: [
     { date: md(2026,4,13), emoji:'💤', title:'Rest', desc:'Rest day. ⚠️ Post-long-run recovery. Hips and quads may be sore. Foam roll extra.', priority:'flexible', soreness:true,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
     { date: md(2026,4,14), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,15), emoji:'🏃', title:'Speed: 3×400m + Easy', desc:'1mi warmup, 3×400m @ 7:45-8:00/mi with 90sec walk recovery, 1mi easy cooldown. ~3.5mi total. First speed session — focus on form, not max effort.', priority:'important', soreness:false,
-      subActivities:[{id:'warmup',label:'🔥 Warm-up: 1mi easy @ 10:00/mi',type:'warmup'},{id:'main',label:'⚡ 3×400m @ 7:45-8:00/mi (90sec walk recovery)',type:'main'},{id:'cooldown',label:'🧘 Cool-down: 1mi easy',type:'cooldown'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,4,16), emoji:'🏋️', title:'Lift (Lower Body)', desc:'Lower body — moderate, not max effort. Legs may be tired from speed work.', priority:'lifting', soreness:false,
-      subActivities:[{id:'lift',label:'🏋️ Lift — lower body (moderate, not max)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
+    { date: md(2026,4,15), emoji:'🏃', title:'Fartlek: 8×1min Fast/1min Easy', desc:'Warm up 1mi easy, then 8×(1min fast / 1min easy). Fast = ~10K effort (around 7:45–8:15/mi feel), easy = full recovery jog. Cool down 1mi easy. ~4mi total.\n\nGoal is smooth, not maximal. If hip/SI feels sketchy, reduce to 6 reps or keep it all easy + strides.', priority:'important', soreness:false,
+      subActivities:[{id:'warmup',label:'🔥 Warm-up: 1mi easy @ 10:00/mi',type:'warmup'},{id:'main',label:'⚡ 8×(1min fast @ ~10K effort / 1min easy jog)',type:'main'},{id:'cooldown',label:'🧘 Cool-down: 1mi easy',type:'cooldown'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
+    { date: md(2026,4,16), emoji:'🏋️', title:'Lift (Lower Body — Maintenance)', desc:'Lower body maintenance. Keep it low fatigue: 2–4 work sets on ONE main lift (squat OR deadlift), stop 2–3 reps shy of failure. If legs feel beat up, swap heavy work for single-leg stability + calves + core.', priority:'lifting', soreness:false,
+      subActivities:[{id:'lift',label:'🏋️ Lift — lower body (maintenance, low volume)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
     { date: md(2026,4,17), emoji:'⛰️', title:'Hill Repeats 4mi', desc:'1mi warmup @ 10:00/mi, 5×75sec uphill RPE 8-9, jog down recovery, 1mi cooldown. ~4mi total. Building hill power — drive those knees!', priority:'important', soreness:false,
       subActivities:[{id:'warmup',label:'🔥 Warm-up: 1mi easy @ 10:00/mi',type:'warmup'},{id:'main',label:'⛰️ Main set: 5×75sec uphill at RPE 8-9, jog down recovery',type:'main'},{id:'cooldown',label:'🧘 Cool-down: 1mi easy',type:'cooldown'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
     { date: md(2026,4,18), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,19), emoji:'🏃', title:'Long Run 7.5mi', desc:'Long Run 7.5mi @ 10:00-10:15/mi. Longest run yet — find a route with some hills to practice.', priority:'critical', soreness:false,
-      subActivities:[{id:'run',label:'🏃 Long Run 7.5mi @ 10:00-10:15/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
+    { date: md(2026,4,19), emoji:'🏃', title:'Long Run 7mi', desc:'Long Run 7mi @ 10:00-10:30/mi. Keep it easy. If hip/SI discomfort appears in later miles, take 30–60 sec walk breaks as needed to keep mechanics clean.\n\nScheduling: if you need to move the long run to Saturday, that’s fine — just keep Friday/Saturday lifting very light.', priority:'critical', soreness:false,
+      subActivities:[{id:'run',label:'🏃 Long Run 7mi @ 10:00-10:30/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
   ]
 },
 // WEEK 4
 {
   num: 4, phase: 'Base Building', mileage: '~14 miles',
   startDate: md(2026,4,20), endDate: md(2026,4,26),
-  goal: "Final base week before race-specific training begins. Another hill session to keep building mountain strength, plus a moderate progression run. Maintain the mileage — you're ready for this.",
+  goal: "Week 4 is a consolidation week (not a full recovery week). We keep the mileage, keep one key hill workout, and keep the rest easy so your hips stay happy.\n\nKey priorities: (1) hill session, (2) long run easy, (3) keep lower-body lifting maintenance-only (avoid DOMS).\n\nLong-run flexibility: if Sunday doesn’t work, swap long run to Saturday — just keep Friday lifting very light.", 
   days: [
     { date: md(2026,4,20), emoji:'💤', title:'Rest', desc:'Rest day. ⚠️ Soreness from a solid Week 3 is expected. Prioritize sleep and hydration.', priority:'flexible', soreness:true,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
     { date: md(2026,4,21), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,22), emoji:'🏃', title:'Moderate Run 3.5mi', desc:'Moderate Run 3.5mi — Start at 10:00/mi, build to 9:15-9:30/mi for the last 1.5mi. Controlled effort.', priority:'important', soreness:false,
-      subActivities:[{id:'run',label:'🏃 Moderate Run 3.5mi (10:00/mi → 9:15-9:30/mi last 1.5mi)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
-    { date: md(2026,4,23), emoji:'🏋️', title:'Lift (Lower Body)', desc:'Lower body — moderate weights, focus on single-leg work.', priority:'lifting', soreness:false,
-      subActivities:[{id:'lift',label:'🏋️ Lift — lower body (single-leg focus: lunges, split squats, SL RDLs)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,24), emoji:'⛰️', title:'Hill Repeats 4mi', desc:'1mi warmup @ 10:00/mi, 6×60sec uphill RPE 8-9, jog down recovery, 1mi cooldown. ~4mi total. Longest hill session yet — you\'re building serious mountain legs.', priority:'important', soreness:false,
+    { date: md(2026,4,22), emoji:'🏃', title:'Easy Run 3.5mi + Strides', desc:'Easy Run 3.5mi @ 10:00-10:30/mi + 4×20sec strides (smooth, relaxed). This keeps leg turnover without adding much fatigue.\n\nIf you’re coming from a long car ride / lots of sitting: do 5–8 min hip activation first (glute bridges, lunges, hip CARs).', priority:'flexible', soreness:false,
+      subActivities:[{id:'run',label:'🏃 Easy Run 3.5mi @ 10:00-10:30/mi',type:'main'},{id:'strides',label:'⚡ 4×20sec strides (walk back recovery)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
+    { date: md(2026,4,23), emoji:'🏋️', title:'Lift (Lower Body — Maintenance)', desc:'Lower body maintenance. Keep it low fatigue and prioritize stability: single-leg work + calves + core. If you go heavy, keep it to 2–4 work sets on ONE main lift (stop 2–3 reps shy of failure). Goal is to feel good for hills/long run, not crushed.', priority:'lifting', soreness:false,
+      subActivities:[{id:'lift',label:'🏋️ Lift — lower body (maintenance + stability focus)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
+    { date: md(2026,4,24), emoji:'⛰️', title:'Hill Repeats 4mi', desc:'1mi warmup @ 10:00/mi, 6×60sec uphill RPE 8-9, jog down recovery, 1mi cooldown. ~4mi total.\n\nThis is the key session of the week. Keep the effort hard but form-perfect (quick cadence, tall posture). If you move the long run to Saturday, keep this session Friday and do the long run Saturday; otherwise keep long run Sunday.', priority:'important', soreness:false,
       subActivities:[{id:'warmup',label:'🔥 Warm-up: 1mi easy @ 10:00/mi',type:'warmup'},{id:'main',label:'⛰️ Main set: 6×60sec uphill at RPE 8-9, jog down recovery',type:'main'},{id:'cooldown',label:'🧘 Cool-down: 1mi easy',type:'cooldown'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
     { date: md(2026,4,25), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,4,26), emoji:'🏃', title:'Long Run 7mi', desc:'Long Run 7mi @ 10:00-10:15/mi. Hilly route if possible. Practice fueling if going over 60 min.', priority:'critical', soreness:false,
-      subActivities:[{id:'run',label:'🏃 Long Run 7mi @ 10:00-10:15/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
+    { date: md(2026,4,26), emoji:'🏃', title:'Long Run 7mi', desc:'Long Run 7mi @ 10:00-10:30/mi. Hilly route if possible. If hip/SI discomfort appears in later miles, take 30–60 sec walk breaks as needed — that’s smart training, not failure.\n\nFuel/hydration: bring water. Optional: practice a gel/chews around minute 45–60 if you’ll be out long enough.', priority:'critical', soreness:false,
+      subActivities:[{id:'run',label:'🏃 Long Run 7mi @ 10:00-10:30/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]}
   ]
 },
 // WEEK 5
@@ -801,7 +804,7 @@ const WEEKS = [
 {
   num: 11, phase: 'Trail & Altitude', mileage: '~16 miles',
   startDate: md(2026,6,8), endDate: md(2026,6,14),
-  goal: "Trail-specific training in full swing! Eccentric strength work protects your knees on downhills. Speed workout keeps your legs sharp. Long trail run with elevation — practice power hiking!",
+  goal: "Trail-specific training in full swing. This week emphasizes (1) trail footing, (2) eccentric strength for downhills, and (3) a dedicated power-hike block (super important for a 5,000ft-gain race).\n\nKey priority: long trail run with elevation — practice power hiking early and often.\n\nTip: if you’ll run after a car ride, do 5–8 min activation first and start extra-easy.",
   days: [
     { date: md(2026,6,8), emoji:'💤', title:'Rest', desc:'Rest day.', priority:'flexible', soreness:false,
       subActivities:[{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
@@ -811,8 +814,8 @@ const WEEKS = [
       subActivities:[{id:'run',label:'⛰️ Trail Run 3.5mi @ 11:00-12:00/mi',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
     { date: md(2026,6,11), emoji:'🏋️', title:'Lift (Eccentric Lower)', desc:'Lower body eccentric — slow squats, step-downs, Nordic curls. Protects knees on downhills!', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — lower body eccentric (slow squats, step-downs, Nordic curls)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
-    { date: md(2026,6,12), emoji:'🏃', title:'Speed: 6×400m', desc:'1mi warmup, 6×400m @ 7:45-8:00/mi with 90sec recovery, 1mi cooldown. ~4.5mi. 🎯 Hit all 6 reps at 7:50/mi!', priority:'important', soreness:false,
-      subActivities:[{id:'warmup',label:'🔥 Warm-up: 1mi easy',type:'warmup'},{id:'main',label:'⚡ 6×400m @ 7:45-8:00/mi (90sec recovery)',type:'main'},{id:'cooldown',label:'🧘 Cool-down: 1mi easy',type:'cooldown'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'},{id:'postrun',label:'🧘 Post-run stretching',type:'stretch'}]},
+    { date: md(2026,6,12), emoji:'⛰️', title:'Power Hike Block (40 min)', desc:'40 min continuous power hike on steep terrain or treadmill incline (8–12%). Effort = RPE 6–7 (steady, strong, sustainable). Focus on tall posture, strong arm drive, and quick steps.\n\nThis is highly race-specific for Broken Arrow. If you want extra, add 10–15 min easy jog after (optional).', priority:'important', soreness:false,
+      subActivities:[{id:'main',label:'⛰️ Power hike 40 min @ RPE 6–7 (steep trail or treadmill 8–12%)',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
     { date: md(2026,6,13), emoji:'🏋️', title:'Lift (Upper Body)', desc:'Upper body session.', priority:'lifting', soreness:false,
       subActivities:[{id:'lift',label:'🏋️ Lift — upper body',type:'main'},{id:'prehab',label:'🧘 Hip prehab routine (10 min)',type:'prehab'}]},
     { date: md(2026,6,14), emoji:'⛰️', title:'Long Trail Run 8mi', desc:'Long Trail Run 8mi @ 11:00-12:00/mi with elevation. Power hike ALL steep uphills! Bring fuel and water.', priority:'critical', soreness:false,
@@ -1249,6 +1252,11 @@ function getDailyTip(day, weekNum) {
   }
   if (dow === 3 && weekNum >= 5) { // Wednesday mid-plan
     tips.push("🧊 <strong>Mid-week recovery:</strong> Consider 10 minutes of foam rolling tonight while watching TV. Focus on quads, IT bands, and hip flexors. It's not glamorous but it prevents the small tightnesses from becoming big problems.");
+  }
+
+  // Sitting/car-ride trigger (common SI/hip flare)
+  if (!day.isRace && weekNum <= 6 && (t.includes('run') || t.includes('hill') || t.includes('tempo') || t.includes('speed') || t.includes('fartlek'))) {
+    tips.push("🚗 <strong>After sitting:</strong> If you’ve been in the car/desk for 30+ minutes, do a quick 5–8 minute activation before running: 10 glute bridges, 10 lunges/side, 6–8 hip CARs, 20–30 sec side plank/side. Start the first 10 minutes extra-easy.");
   }
 
   // Return 1-2 tips max to keep it concise
